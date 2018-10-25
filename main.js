@@ -37,7 +37,9 @@ const intToDay = (i) => {
       header.innerHTML = intToDay(i + 1);
       header.className = 'list-group-item list-group-item-action';
       const badge = document.createElement('span');
-      badge.className = '';
+      badge.innerHTML = res.data[i].length;
+      badge.className = 'badge badge-info badge-dark float-right';
+      header.append(badge);
       group.appendChild(header);
 
       for (let j = 0; j < res.data[i].length; j += 1) {
