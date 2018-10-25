@@ -47,7 +47,7 @@ const intToDay = (i) => {
         a.innerHTML = `${currClass.startTime}<br>${currClass.name}<br>${currClass.room}`;
         a.href = '#';
         a.style.backgroundColor = '#282C34';
-        a.className = 'list-group-item list-group-item-action text-light';
+        a.className = 'list-group-item list-group-item-action text-light item';
         group.appendChild(a);
       }
     }

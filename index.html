@@ -10,7 +10,13 @@
     <title>Timetable</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container my-2">
+        <nav class="navbar navbar-dark bg-dark my-1">
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Course code" aria-label="Search">
+              <button class="btn my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </nav>
         <div class="list-group" id="group"></div>
     </div>
     <script src="main.js"></script>
