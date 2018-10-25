@@ -30,7 +30,6 @@ const intToDay = (i) => {
     const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
     const res = await response.json();
     const group = document.getElementById('group');
-    console.log(res.data[0][0]);
 
     for (let i = 0; i < res.data.length; i += 1) {
       const header = document.createElement('a');
@@ -45,7 +44,7 @@ const intToDay = (i) => {
       for (let j = 0; j < res.data[i].length; j += 1) {
         const a = document.createElement('a');
         const currClass = res.data[i][j];
-        a.innerHTML = `${currClass.name}<br>${currClass.startTime}<br>${currClass.room}`;
+        a.innerHTML = `${currClass.startTime}<br>${currClass.name}<br>${currClass.room}`;
         a.href = '#';
         a.style.backgroundColor = '#282C34';
         a.className = 'list-group-item list-group-item-action text-light';
