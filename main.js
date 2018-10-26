@@ -6,7 +6,7 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
     const res = await response.json();
     const group = document.getElementById('group');
 
-    for (let i = 0; i < res.data.length; i += 1) {
+    for (let i = 0; i < res.data.length; i += 1) { // Create headers and badges
       const header = document.createElement('a');
       const isToday = new Date().getDay() - 1 === i;
       header.innerHTML = intToDay(i);
@@ -20,7 +20,7 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
       header.append(badge);
       group.appendChild(header);
 
-      for (let j = 0; j < res.data[i].length; j += 1) {
+      for (let j = 0; j < res.data[i].length; j += 1) { // Create classes
         const a = document.createElement('a');
         const currClass = res.data[i][j];
         const splitClassName = currClass.name.split('/');
@@ -30,6 +30,8 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
         a.className = 'list-group-item list-group-item-action text-light item';
         group.appendChild(a);
       }
+
+      document.getElementById('loader').style.display = 'none';
     }
   } catch (e) {
     console.log(e);
