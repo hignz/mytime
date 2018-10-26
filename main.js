@@ -10,13 +10,13 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
       const header = document.createElement('a');
       const isToday = new Date().getDay() - 1 === i;
       header.innerHTML = intToDay(i);
-      header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold';
+      header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
       if (isToday) header.classList += ' text-danger';
       const badge = document.createElement('span');
       badge.innerHTML = res.data[i].length;
       badge.className = isToday
-        ? 'badge badge-info float-right badge-danger'
-        : 'badge badge-info float-right badge-dark';
+        ? 'badge badge-info float-right animated fadeIn badge-danger'
+        : 'badge badge-info float-right animated fadeIn badge-dark';
       header.append(badge);
       group.appendChild(header);
 
@@ -27,7 +27,7 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
         if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
         const splitRoom = currClass.room.split('(');
         a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
-        a.className = 'list-group-item list-group-item-action text-light item';
+        a.className = 'list-group-item list-group-item-action text-light item animated fadeIn';
         group.appendChild(a);
       }
 
