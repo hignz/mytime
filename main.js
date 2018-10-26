@@ -1,29 +1,4 @@
-const intToDay = (i) => {
-  let day = '';
-
-  switch (i) {
-    case 1:
-      day = 'Monday';
-      break;
-    case 2:
-      day = 'Tuesday';
-      break;
-    case 3:
-      day = 'Wednesday';
-      break;
-    case 4:
-      day = 'Thursday';
-      break;
-    case 5:
-      day = 'Friday';
-      break;
-    default:
-      day = 'invalid';
-      break;
-  }
-
-  return day;
-};
+const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i];
 
 (async () => {
   try {
@@ -33,11 +8,16 @@ const intToDay = (i) => {
 
     for (let i = 0; i < res.data.length; i += 1) {
       const header = document.createElement('a');
-      header.innerHTML = intToDay(i + 1);
-      header.className = new Date().getDay() - 1 === i ? 'list-group-item list-group-item-action text-danger mt-1' : 'list-group-item list-group-item-action mt-1';
+      const isToday = new Date().getDay() - 1 === i;
+      header.innerHTML = intToDay(i);
+      header.className = isToday
+        ? 'list-group-item list-group-item-action mt-1 font-weight-bold text-danger'
+        : 'list-group-item list-group-item-action mt-1 font-weight-bold';
       const badge = document.createElement('span');
       badge.innerHTML = res.data[i].length;
-      badge.className = 'badge badge-info float-right';
+      badge.className = isToday
+        ? 'badge badge-info float-right badge-danger'
+        : 'badge badge-info float-right badge-dark';
       header.append(badge);
       group.appendChild(header);
 
@@ -48,7 +28,6 @@ const intToDay = (i) => {
         if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
         const splitRoom = currClass.room.split('(');
         a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
-        a.href = '#';
         a.className = 'list-group-item list-group-item-action text-light item';
         group.appendChild(a);
       }
