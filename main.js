@@ -44,7 +44,11 @@ const intToDay = (i) => {
       for (let j = 0; j < res.data[i].length; j += 1) {
         const a = document.createElement('a');
         const currClass = res.data[i][j];
-        a.innerHTML = `${currClass.startTime}<br>${currClass.name}<br>${currClass.room}`;
+        const splitClassName = currClass.name.split('/');
+        if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
+        const splitRoom = currClass.room.split('(');
+        console.log(splitClassName);
+        a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
         a.href = '#';
         a.style.backgroundColor = '#282C34';
         a.className = 'list-group-item list-group-item-action text-light';
