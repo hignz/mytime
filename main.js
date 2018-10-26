@@ -34,10 +34,10 @@ const intToDay = (i) => {
     for (let i = 0; i < res.data.length; i += 1) {
       const header = document.createElement('a');
       header.innerHTML = intToDay(i + 1);
-      header.className = 'list-group-item list-group-item-action';
+      header.className = new Date().getDay() - 1 === i ? 'list-group-item list-group-item-action text-danger mt-1' : 'list-group-item list-group-item-action mt-1';
       const badge = document.createElement('span');
       badge.innerHTML = res.data[i].length;
-      badge.className = 'badge badge-info badge-dark float-right';
+      badge.className = 'badge badge-info float-right';
       header.append(badge);
       group.appendChild(header);
 
@@ -47,11 +47,9 @@ const intToDay = (i) => {
         const splitClassName = currClass.name.split('/');
         if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
         const splitRoom = currClass.room.split('(');
-        console.log(splitClassName);
         a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
         a.href = '#';
-        a.style.backgroundColor = '#282C34';
-        a.className = 'list-group-item list-group-item-action text-light';
+        a.className = 'list-group-item list-group-item-action text-light item';
         group.appendChild(a);
       }
     }
