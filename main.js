@@ -10,9 +10,8 @@ const intToDay = i => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'][i
       const header = document.createElement('a');
       const isToday = new Date().getDay() - 1 === i;
       header.innerHTML = intToDay(i);
-      header.className = isToday
-        ? 'list-group-item list-group-item-action mt-1 font-weight-bold text-danger'
-        : 'list-group-item list-group-item-action mt-1 font-weight-bold';
+      header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold';
+      if (isToday) header.classList += ' text-danger';
       const badge = document.createElement('span');
       badge.innerHTML = res.data[i].length;
       badge.className = isToday

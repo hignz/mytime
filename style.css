@@ -17,3 +17,9 @@ body {
 .item:hover, .item:focus{
   background-color: transparent;
 }
+
+@media (min-width: 992px) {
+  .container{
+    width: 800px;
+  }
+}
