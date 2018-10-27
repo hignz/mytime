@@ -1,7 +1,7 @@
 .lds-circle {
   width: 51px;
   height: 51px;
-  margin: 6px auto;
+  margin: 0px auto;
   border-radius: 50%;
   background: #fff;
   animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
