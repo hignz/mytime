@@ -8,6 +8,11 @@ body {
 
 .loader {
   margin-top: 40%;
+  animation-delay: 0.3s;
+}
+
+#footer {
+  animation-delay: 0.2s;
 }
 
 .container {
