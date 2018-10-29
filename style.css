@@ -8,11 +8,11 @@ body {
 
 .loader {
   margin-top: 40%;
-  animation-delay: 0.4s;
+  animation-delay: 0.5s;
 }
 
 #footer {
-  animation-delay: 0.4s;
+  animation-delay: 1s;
 }
 
 .fab {
