@@ -1,56 +1,38 @@
-const intToDay = (i) => {
-  let day = '';
-
-  switch (i) {
-    case 1:
-      day = 'Monday';
-      break;
-    case 2:
-      day = 'Tuesday';
-      break;
-    case 3:
-      day = 'Wednesday';
-      break;
-    case 4:
-      day = 'Thursday';
-      break;
-    case 5:
-      day = 'Friday';
-      break;
-    default:
-      day = 'invalid';
-      break;
-  }
-
-  return day;
-};
+const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 (async () => {
   try {
     const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
-    const res = await response.json();
+    const json = await response.json();
     const group = document.getElementById('group');
-    console.log(res.data[0][0]);
 
-    for (let i = 0; i < res.data.length; i += 1) {
+    for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
       const header = document.createElement('a');
-      header.innerHTML = intToDay(i + 1);
-      header.className = 'list-group-item list-group-item-action';
+      const isToday = new Date().getDay() - 1 === i;
+      header.innerHTML = intToDay[i];
+      header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
+      if (isToday) header.classList.add('text-danger');
       const badge = document.createElement('span');
-      badge.className = '';
+      badge.innerHTML = json.data[i].length;
+      badge.className = 'badge badge-info float-right animated fadeIn';
+      badge.className += isToday ? ' badge-danger' : ' badge-dark';
+      header.append(badge);
       group.appendChild(header);
 
-      for (let j = 0; j < res.data[i].length; j += 1) {
+      for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
         const a = document.createElement('a');
-        const currClass = res.data[i][j];
-        a.innerHTML = `${currClass.name}<br>${currClass.startTime}<br>${currClass.room}`;
-        a.href = '#';
-        a.style.backgroundColor = '#282C34';
-        a.className = 'list-group-item list-group-item-action text-light';
+        const currClass = json.data[i][j];
+        const splitClassName = currClass.name.split('/');
+        if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
+        const splitRoom = currClass.room.split('(');
+        a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
+        a.className = 'list-group-item list-group-item-action text-light item animated fadeIn';
         group.appendChild(a);
       }
+
+      document.getElementById('loader').style.display = 'none';
     }
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error(err);
   }
 })();

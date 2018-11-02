@@ -1,7 +1,39 @@
 html,
 body {
-  margin-top: 4px;
+  margin: 0;
   padding: 0;
-  background-color: #21252B;
+  background-color: #21252b;
   -webkit-font-smoothing: antialiased;
+}
+
+footer {
+  animation-delay: 1s;
+}
+
+.loader {
+  margin-top: 40%;
+  animation-delay: 0.5s;
+}
+
+.fab {
+  font-size: 24px;
+}
+
+.container {
+  margin-bottom: 4px;
+}
+
+.item {
+  background-color: #282c34;
+}
+
+.item:hover,
+.item:focus {
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
 }
