@@ -6,13 +6,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+footer {
+  animation-delay: 1s;
+}
+
 .loader {
   margin-top: 40%;
   animation-delay: 0.5s;
-}
-
-#footer {
-  animation-delay: 1s;
 }
 
 .fab {
