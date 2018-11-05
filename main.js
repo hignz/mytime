@@ -25,7 +25,7 @@ const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         const splitClassName = currClass.name.split('/');
         if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
         const splitRoom = currClass.room.split('(');
-        a.innerHTML = `${currClass.startTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
+        a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
         a.className = 'list-group-item list-group-item-action text-light item animated fadeIn';
         group.appendChild(a);
       }
