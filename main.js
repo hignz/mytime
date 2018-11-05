@@ -17,11 +17,11 @@ function isClassNow (currTime, classStart, classEnd) {
       const isToday = new Date().getDay() - 1 === i;
       header.innerHTML = intToDay[i];
       header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
-      if (isToday) header.classList.add('text-danger');
+      header.classList.add(isToday ? 'text-danger' : 'text-dark');
       const badge = document.createElement('span');
       badge.innerHTML = json.data[i].length;
       badge.className = 'badge badge-info float-right animated fadeIn';
-      badge.className += isToday ? ' badge-danger' : ' badge-dark';
+      badge.classList.add(isToday ? 'badge-danger' : 'badge-dark');
       header.append(badge);
       group.appendChild(header);
 
@@ -33,7 +33,9 @@ function isClassNow (currTime, classStart, classEnd) {
         const splitRoom = currClass.room.split('(');
         a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
         a.className = 'list-group-item list-group-item-action item animated fadeIn';
-        a.className += isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday ? ' text-danger' : ' text-light';
+        a.classList.add(isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday
+          ? 'text-danger'
+          : 'text-light');
         group.appendChild(a);
       }
 
