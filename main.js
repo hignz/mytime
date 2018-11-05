@@ -1,10 +1,16 @@
 const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
+function isClassNow (currTime, classStart, classEnd) {
+  return currTime >= classStart && currTime <= classEnd;
+}
+
 (async () => {
   try {
     const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
     const json = await response.json();
     const group = document.getElementById('group');
+
+    const currTime = new Date().toLocaleTimeString('en-GB');
 
     for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
       const header = document.createElement('a');
@@ -26,7 +32,8 @@ const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
         const splitRoom = currClass.room.split('(');
         a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
-        a.className = 'list-group-item list-group-item-action text-light item animated fadeIn';
+        a.className = 'list-group-item list-group-item-action item animated fadeIn';
+        a.className += isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday ? ' text-danger' : ' text-light';
         group.appendChild(a);
       }
 
