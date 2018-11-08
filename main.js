@@ -1,6 +1,6 @@
 function isClassNow (currTime, classStart, classEnd) {
-  return parseFloat(currTime) >= parseFloat(classStart)
-      && parseFloat(currTime) <= parseFloat(classEnd);
+  return Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
+      && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
 }
 
 (async () => {
