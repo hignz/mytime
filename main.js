@@ -1,13 +1,13 @@
-const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
 function isClassNow (currTime, classStart, classEnd) {
-  return currTime >= classStart && currTime <= classEnd;
+  return parseFloat(currTime) >= parseFloat(classStart)
+      && parseFloat(currTime) <= parseFloat(classEnd);
 }
 
 (async () => {
   try {
     const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
     const json = await response.json();
+    const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     const group = document.getElementById('group');
 
     const currTime = new Date().toLocaleTimeString('en-GB');
@@ -18,10 +18,12 @@ function isClassNow (currTime, classStart, classEnd) {
       header.innerHTML = intToDay[i];
       header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
       header.classList.add(isToday ? 'text-danger' : 'text-dark');
+
       const badge = document.createElement('span');
       badge.innerHTML = json.data[i].length;
       badge.className = 'badge badge-info float-right animated fadeIn';
       badge.classList.add(isToday ? 'badge-danger' : 'badge-dark');
+
       header.append(badge);
       group.appendChild(header);
 
