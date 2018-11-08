@@ -7,15 +7,15 @@ function isClassNow (currTime, classStart, classEnd) {
   try {
     const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
     const json = await response.json();
-    const intToDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const group = document.getElementById('group');
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const timetable = document.getElementById('timetable');
 
     const currTime = new Date().toLocaleTimeString('en-GB');
 
     for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
       const header = document.createElement('a');
       const isToday = new Date().getDay() - 1 === i;
-      header.innerHTML = intToDay[i];
+      header.innerHTML = weekDays[i];
       header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
       header.classList.add(isToday ? 'text-danger' : 'text-dark');
 
@@ -25,7 +25,7 @@ function isClassNow (currTime, classStart, classEnd) {
       badge.classList.add(isToday ? 'badge-danger' : 'badge-dark');
 
       header.append(badge);
-      group.appendChild(header);
+      timetable.appendChild(header);
 
       for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
         const a = document.createElement('a');
@@ -39,7 +39,7 @@ function isClassNow (currTime, classStart, classEnd) {
         a.classList.add(isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday
           ? 'text-danger'
           : 'text-light');
-        group.appendChild(a);
+        timetable.appendChild(a);
       }
 
       document.getElementById('loader').style.display = 'none';
