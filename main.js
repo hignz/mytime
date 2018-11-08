@@ -30,10 +30,11 @@ function isClassNow (currTime, classStart, classEnd) {
       for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
         const a = document.createElement('a');
         const currClass = json.data[i][j];
-        const splitClassName = currClass.name.split('/');
-        if (splitClassName[0].includes(' GD & SD')) splitClassName[0] = splitClassName[0].replace(/ GD & SD/, '');
-        const splitRoom = currClass.room.split('(');
-        a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${splitClassName[0]}<br>${splitRoom[0]}`;
+        const className = currClass.name
+          .split('/')[0]
+          .replace(/ GD & SD/, '');
+        const room = currClass.room.split(' (')[0];
+        a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}`;
         a.className = 'list-group-item list-group-item-action item animated fadeIn';
         a.classList.add(isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday
           ? 'text-danger'
