@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
   <title>Timetable</title>
 </head>
 
@@ -23,7 +24,17 @@
       <p class="text-center mb-0 mt-4 font-weight-bold text-light">Server spinning up</p>
       <p class="text-center mb-20 font-weight-bold text-light">Please wait...</p>
     </div>
-    <div class="list-group" id="timetable"></div> <!--Timetable entry container-->
+    <div class="course-select">
+      <form method="get">
+        <select name="course_codes" id="course_codes">
+          <option value="Sg_KSDEV_B07-F-Y2-1-(A)">Sg_KSDEV_B07-F-Y2-1-(A)</option>
+          <option value="Sg_Dcrds_H08-F-Y4-1-(A)">Sg_Dcrds_H08-F-Y4-1-(A)</option>
+        </select>
+        <input type="submit" value="Submit" id="submit-btn">
+      </form>
+    </div>
+    <div class="list-group" id="timetable"></div>
+    <!--Timetable entry container-->
     <footer class="my-2 animated fadeIn delay 2s text-center">
       <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4">
         <i class="fas fa-desktop"></i>
