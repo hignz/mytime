@@ -3,8 +3,13 @@
     "short_name": "Timetable",
     "icons": [
         {
-            "src": "/android-chrome-96x96.png",
-            "sizes": "96x96",
+            "src": "/android-chrome-192x192.png?v=dLJ4we9RgB",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png?v=dLJ4we9RgB",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ],
