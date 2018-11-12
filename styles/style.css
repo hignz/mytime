@@ -10,6 +10,14 @@ footer {
   animation-delay: 1s;
 }
 
+.form-inline {
+  background-color: #21252b !important;
+}
+
+#selectWindow {
+  margin-top: 200px;
+}
+
 .loader {
   margin-top: 40%;
   animation-delay: 0.5s;

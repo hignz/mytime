@@ -25,14 +25,21 @@
 
 <body>
   <div class="container">
-    <div class="loader animated rotateIn" id="loader">
+    <!-- <div class="loader animated rotateIn" id="loader">
       <div class="lds-circle"></div>
       <p class="text-center mb-0 mt-4 font-weight-bold text-light">Server spinning up</p>
       <p class="text-center mb-20 font-weight-bold text-light">Please wait...</p>
+    </div> -->
+    <div id="selectWindow" class="mb-10">
+      <h1 class="text-center text-white my-20">Better Timetable</h1>
+      <form action="" class="form-inline bg-dark row" method="GET">
+        <select name="course" id="courseDropDown" class="form-control col-sm-8 bg-dark text-white"></select>
+        <input type="button" value="Search" class="mx-4 btn col-sm-2 bg-dark text-white" id="searchBtn">
+      </form>
     </div>
     <div class="list-group" id="timetable"></div>
     <!--Timetable entry container-->
-    <footer class="my-2 animated fadeIn delay 2s text-center">
+    <footer class="my-2 animated fadeIn delay 2s">
       <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4">
         <i class="fas fa-desktop"></i>
       </a>

@@ -3,9 +3,33 @@ function isClassNow (currTime, classStart, classEnd) {
       && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
 }
 
-(async () => {
+document.getElementById('searchBtn').addEventListener('click', async () => {
+  document.getElementById('selectWindow').style.display = 'none';
+  const select = document.getElementById('courseDropDown');
+  const courseCode = select.options[select.selectedIndex].text;
+  console.log(courseCode);
+  await makeTimetable(courseCode);
+});
+
+async function fillDropDown () {
+  fetch('https://itsligo-utils.herokuapp.com/api/allCodes')
+    .then(response => response.json())
+    .then((json) => {
+      for (let i = 0; i < json.length; i += 1) {
+        console.log(json[i].course);
+        const opt = document.createElement('option');
+        opt.text = json[i].course.replace(/\//g, '-');
+        const select = document.getElementById('courseDropDown');
+        select.append(opt);
+      }
+    });
+}
+
+fillDropDown();
+
+async function makeTimetable (courseCode) {
   try {
-    const response = await fetch('https://itsligo-utils.herokuapp.com/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
+    const response = await fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`);
     const json = await response.json();
     const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     const timetable = document.getElementById('timetable');
@@ -42,9 +66,9 @@ function isClassNow (currTime, classStart, classEnd) {
         timetable.appendChild(a);
       }
 
-      document.getElementById('loader').style.display = 'none';
+      // document.getElementById('loader').style.display = 'none';
     }
   } catch (err) {
     console.error(err);
   }
-})();
+}
