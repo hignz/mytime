@@ -5,7 +5,7 @@ function isClassNow (currTime, classStart, classEnd) {
 
 (async () => {
   try {
-    const response = await fetch('https://itsligo-utils.herokuapp.com/api/timetable/mbs');
+    const response = await fetch('https://itsligo-utils.herokuapp.com/api/timetable/Sg_KSDEV_B07-F-Y2-1-(A)');
     const json = await response.json();
     const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const timetable = document.getElementById('timetable');
