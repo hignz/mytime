@@ -12,7 +12,7 @@ function isClassNow (currTime, classStart, classEnd) {
     const currTime = new Date().toLocaleTimeString('en-GB');
 
     for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
-      // if (json.data[i].length === 0) continue;
+      if (json.data[i].length === 0) continue;
       const header = document.createElement('a');
       const isToday = new Date().getDay() - 1 === i;
       header.innerHTML = weekDays[i];
