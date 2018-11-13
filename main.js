@@ -9,10 +9,7 @@ function isClassNow (currTime, classStart, classEnd) {
     const json = await response.json();
     const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const timetable = document.getElementById('timetable');
-
     const currTime = new Date().toLocaleTimeString('en-GB');
-
-    console.log(json.data[0]);
 
     for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
       // if (json.data[i].length === 0) continue;
