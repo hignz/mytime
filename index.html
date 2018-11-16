@@ -20,7 +20,7 @@
   <link rel="shortcut icon" href="icons/favicon.ico?v=dLJ4we9RgB">
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="theme-color" content="#21252b">
-  <title>Better Timetable</title>
+  <title>MyTime</title>
 </head>
 
 <body class="animated fadeIn">
@@ -31,7 +31,7 @@
       <p class="text-center mb-20 font-weight-bold text-light">Please wait...</p>
     </div>
     <div id="selectWindow" class="mb-10 animated fadeIn" style="display: none">
-      <h1 class="text-center text-white" id="header">Better Timetable</h1>
+      <h1 class="text-center text-white" id="header">MyTime</h1>
       <div class="input-group">
         <select class="custom-select bg-dark text-white mr-2" id="courseDropDown">
         </select>
@@ -40,10 +40,11 @@
         </div>
       </div>
     </div>
+    <!--Timetable entry container-->
     <div id="timetable-window" class="animated fadeIn" style="display: none">
       <div class="row mt-2">
         <div class="col">
-          <a href="" id="backBtn">
+          <a id="backBtn">
             <i class="fas fa-arrow-left"></i>
           </a>
         </div>
@@ -53,7 +54,6 @@
       </div>
         <div class="list-group" id="timetable"></div>
       </div>
-      <!--Timetable entry container-->
       <footer class="my-2 animated fadeIn delay 2s text-center fixed-bottom" id="footer">
         <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4">
           <i class="fas fa-desktop"></i>
