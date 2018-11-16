@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('backBtn').addEventListener('click', async () => {
     document.getElementById('selectWindow').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
+    document.getElementById('footer').classList.add('fixed-bottom');
     document.getElementById('timetable').remove();
   }, false);
 }, false);
