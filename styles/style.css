@@ -6,21 +6,37 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-footer {
-  animation-delay: 1s;
-}
-
 .form-inline {
   background-color: #21252b !important;
+}
+
+#header {
+  margin-bottom: 40px;
 }
 
 #selectWindow {
   margin-top: 200px;
 }
 
+.fas {
+  color: white;
+}
+
+#course-title {
+  color: white;
+}
+
 .loader {
   margin-top: 40%;
-  animation-delay: 0.5s;
+  animation-delay: 1s;
+}
+
+#selectWindow {
+  animation-delay: 0.2s;
+}
+
+#timetable-window {
+  animation-delay: 0.2s;
 }
 
 .fab {
