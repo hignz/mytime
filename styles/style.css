@@ -43,6 +43,10 @@ body {
   animation-delay: 0.2s;
 }
 
+#backBtn {
+  cursor: pointer;
+}
+
 .fab {
   font-size: 24px;
 }
