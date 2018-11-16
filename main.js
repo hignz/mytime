@@ -14,7 +14,7 @@ function fillDropDown () {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('selectWindow').style.display = 'block';
+      document.getElementById('select-window').style.display = 'block';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
         opt.text = json[i].course.replace(/\//g, '-');
@@ -32,9 +32,8 @@ function makeTimetable (courseCode) {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('selectWindow').style.display = 'none';
+      document.getElementById('select-window').style.display = 'none';
       document.getElementById('timetable-window').style.display = 'block';
-      console.log(json.empty);
       if (json.empty) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
@@ -50,7 +49,6 @@ function makeTimetable (courseCode) {
         if (!json.data[i].length) continue;
         const header = document.createElement('a');
         const isToday = new Date().getDay() - 1 === i;
-        console.log(json.data[i]);
         header.innerHTML = json.data[i][0].day;
         header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
         header.classList.add(isToday ? 'text-danger' : 'text-dark');
@@ -93,22 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
   fillDropDown();
 
   if (window.location.hash) {
-    document.getElementById('selectWindow').style.display = 'none';
+    document.getElementById('select-window').style.display = 'none';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
-    document.getElementById('selectWindow').style.display = 'none';
+    document.getElementById('select-window').style.display = 'none';
     const select = document.getElementById('courseDropDown');
     const courseCode = select.options[select.selectedIndex].text;
-    console.log(window.location.hash);
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
     document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(courseCode));
   }, false);
 
   document.getElementById('backBtn').addEventListener('click', async () => {
-    document.getElementById('selectWindow').style.display = 'block';
+    document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
     document.getElementById('footer').classList.add('fixed-bottom');
     document.getElementById('timetable').remove();

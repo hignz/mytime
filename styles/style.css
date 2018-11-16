@@ -18,7 +18,7 @@ body {
   margin-bottom: 40px;
 }
 
-#selectWindow {
+#select-window {
   margin-top: 200px;
   animation-delay: 0.2s;
 }
@@ -37,7 +37,7 @@ body {
 }
 
 .btn:hover {
-  color: black !important;
+  color: #21252b !important;
 }
 
 #timetable-window {
