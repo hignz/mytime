@@ -10,12 +10,17 @@ body {
   background-color: #21252b !important;
 }
 
+#courseDropDown {
+  cursor: pointer;
+}
+
 #header {
   margin-bottom: 40px;
 }
 
 #selectWindow {
   margin-top: 200px;
+  animation-delay: 0.2s;
 }
 
 .fas {
@@ -33,10 +38,6 @@ body {
 
 .btn:hover {
   color: black !important;
-}
-
-#selectWindow {
-  animation-delay: 0.2s;
 }
 
 #timetable-window {
