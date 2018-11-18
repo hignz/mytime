@@ -20,41 +20,11 @@ body {
 
 #select-window {
   margin-top: 200px;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 .fas {
   color: white;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
-}
-
-label {
-  cursor: text;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(0, 195, 255);
-  font-weight: bold;
-  transition: color 0.2s linear;
-}
-
-a:hover {
-  text-decoration: none;
-  color: rgb(0, 115, 150);
-}
-
-.icon {
-  transition: opacity 0.2s ease-in-out !important;
-}
-
-.icon:hover {
-  opacity: 0.3;
 }
 
 #course-title {
@@ -71,7 +41,7 @@ a:hover {
 }
 
 #timetable-window {
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 #backBtn {

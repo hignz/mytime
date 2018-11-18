@@ -32,17 +32,15 @@ function makeTimetable (courseCode) {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
+      document.getElementById('select-window').style.display = 'none';
       document.getElementById('timetable-window').style.display = 'block';
-      if (document.getElementById('timetable')) document.getElementById('timetable').remove();
-
       if (json.empty) {
-        document.getElementById('footer').classList.add('fixed-bottom');
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
-      timetable.classList.add('list-group', 'animated', 'fadeIn');
+      timetable.classList.add('list-group');
       timetable.id = 'timetable';
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
@@ -52,13 +50,14 @@ function makeTimetable (courseCode) {
         const header = document.createElement('a');
         const isToday = new Date().getDay() - 1 === i;
         header.innerHTML = json.data[i][0].day;
-        header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold';
+        header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
         header.classList.add(isToday ? 'text-danger' : 'text-dark');
 
         const badge = document.createElement('span');
         badge.innerHTML = json.data[i].length;
-        badge.className = 'badge badge-info float-right';
+        badge.className = 'badge badge-info float-right animated fadeIn';
         badge.classList.add(isToday ? 'badge-danger' : 'badge-dark');
+
         header.append(badge);
         timetable.appendChild(header);
 
@@ -70,7 +69,7 @@ function makeTimetable (courseCode) {
             .replace(/ GD & SD/, '');
           const room = currClass.room.split(' (')[0];
           a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}`;
-          a.className = 'list-group-item list-group-item-action item';
+          a.className = 'list-group-item list-group-item-action item animated fadeIn';
           a.classList.add(
             (isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday) ? 'text-danger'
               : (isClassApporaching(currTime, currClass.startTime) && isToday)
@@ -89,11 +88,11 @@ function makeTimetable (courseCode) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  fillDropDown();
+
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
-  } else {
-    fillDropDown();
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
@@ -109,8 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
     document.getElementById('footer').classList.add('fixed-bottom');
-    history.pushState('', document.title, `${window.location.pathname}${window.location.search}`);
-    fillDropDown();
-    // document.getElementById('timetable').remove();
+    document.getElementById('timetable').remove();
   }, false);
 }, false);
