@@ -34,7 +34,6 @@ function makeTimetable (courseCode) {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('select-window').style.display = 'none';
       document.getElementById('timetable-window').style.display = 'block';
-      // if (document.getElementById('timetable')) document.getElementById('timetable').remove();
       if (json.empty) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
