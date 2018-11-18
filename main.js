@@ -34,6 +34,8 @@ function makeTimetable (courseCode) {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('select-window').style.display = 'none';
       document.getElementById('timetable-window').style.display = 'block';
+      if (document.getElementById('timetable')) document.getElementById('timetable').remove();
+
       if (json.empty) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
@@ -88,11 +90,11 @@ function makeTimetable (courseCode) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  fillDropDown();
-
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
+  } else {
+    fillDropDown();
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
@@ -109,5 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('timetable-window').style.display = 'none';
     document.getElementById('footer').classList.add('fixed-bottom');
     document.getElementById('timetable').remove();
+    fillDropDown();
   }, false);
 }, false);
