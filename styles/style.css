@@ -20,11 +20,29 @@ body {
 
 #select-window {
   margin-top: 200px;
-  animation-delay: 0.2s;
+  animation-delay: 0.1s;
 }
 
 .fas {
   color: white;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+}
+
+label {
+  cursor: text;
+}
+
+.icon {
+  transition: opacity 0.2s ease-in-out !important;
+}
+
+.icon:hover {
+  opacity: 0.3;
 }
 
 #course-title {
@@ -41,7 +59,7 @@ body {
 }
 
 #timetable-window {
-  animation-delay: 0.2s;
+  animation-delay: 0.1s;
 }
 
 #backBtn {
