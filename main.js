@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 function isClassNow (currTime, classStart, classEnd) {
   return Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
-      && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
+    && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
 }
 
 function isClassApporaching (currTime, classStart) {
@@ -31,9 +31,6 @@ function makeTimetable (courseCode) {
   fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
     .then(response => response.json())
     .then((json) => {
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('select-window').style.display = 'none';
-      document.getElementById('timetable-window').style.display = 'block';
       if (document.getElementById('timetable')) document.getElementById('timetable').remove();
 
       if (json.empty) {
@@ -91,25 +88,27 @@ function makeTimetable (courseCode) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.hash) {
+    document.getElementById('loader').style.display = 'none';
     document.getElementById('select-window').style.display = 'none';
+    document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
   } else {
     fillDropDown();
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
+    document.getElementById('loader').style.display = 'none';
     document.getElementById('select-window').style.display = 'none';
+    document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
     const courseCode = select.options[select.selectedIndex].text;
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
-    document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(courseCode));
   }, false);
 
   document.getElementById('backBtn').addEventListener('click', async () => {
     document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
-    document.getElementById('footer').classList.add('fixed-bottom');
     fillDropDown();
   }, false);
 }, false);
