@@ -23,6 +23,10 @@ body {
   animation-delay: 0.2s;
 }
 
+#footer {
+  animation-delay: 0.2s;
+}
+
 .fas {
   color: white;
 }
