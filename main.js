@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 function isClassNow (currTime, classStart, classEnd) {
   return Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
-      && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
+    && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
 }
 
 function isClassApporaching (currTime, classStart) {
@@ -14,7 +14,7 @@ function fillDropDown () {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('selectWindow').style.display = 'block';
+      document.getElementById('select-window').style.display = 'block';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
         opt.text = json[i].course.replace(/\//g, '-');
@@ -32,16 +32,15 @@ function makeTimetable (courseCode) {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('selectWindow').style.display = 'none';
-      document.getElementById('timetable-window').style.display = 'block';
-      console.log(json.empty);
+      if (document.getElementById('timetable')) document.getElementById('timetable').remove();
+
       if (json.empty) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
-      timetable.classList.add('list-group');
+      timetable.classList.add('list-group', 'shadow-sm');
       timetable.id = 'timetable';
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
@@ -50,7 +49,6 @@ function makeTimetable (courseCode) {
         if (!json.data[i].length) continue;
         const header = document.createElement('a');
         const isToday = new Date().getDay() - 1 === i;
-        console.log(json.data[i]);
         header.innerHTML = json.data[i][0].day;
         header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
         header.classList.add(isToday ? 'text-danger' : 'text-dark');
@@ -78,6 +76,7 @@ function makeTimetable (courseCode) {
                 ? 'text-warning'
                 : 'text-light',
           );
+          if ((isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday)) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
 
@@ -90,26 +89,27 @@ function makeTimetable (courseCode) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  fillDropDown();
-
   if (window.location.hash) {
-    document.getElementById('selectWindow').style.display = 'none';
+    document.getElementById('select-window').style.display = 'none';
+    document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
+  } else {
+    fillDropDown();
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
-    document.getElementById('selectWindow').style.display = 'none';
+    document.getElementById('select-window').style.display = 'none';
+    document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
     const courseCode = select.options[select.selectedIndex].text;
-    console.log(window.location.hash);
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
-    document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(courseCode));
   }, false);
 
   document.getElementById('backBtn').addEventListener('click', async () => {
-    document.getElementById('selectWindow').style.display = 'block';
+    document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
-    document.getElementById('timetable').remove();
+    // eslint-disable-next-line no-restricted-globals
+    history.pushState('', document.title, `${window.location.pathname}`);
   }, false);
 }, false);

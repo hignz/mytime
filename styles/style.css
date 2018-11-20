@@ -10,12 +10,25 @@ body {
   background-color: #21252b !important;
 }
 
+#courseDropDown {
+  cursor: pointer;
+}
+
 #header {
   margin-bottom: 40px;
 }
 
-#selectWindow {
-  margin-top: 200px;
+#select-window {
+  margin-top: 150px;
+  animation-delay: 0.2s;
+}
+
+#footer {
+  animation-delay: 0.2s;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .fas {
@@ -31,16 +44,22 @@ body {
   animation-delay: 1s;
 }
 
-.btn:hover {
-  color: black !important;
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
 }
 
-#selectWindow {
-  animation-delay: 0.2s;
+.btn:hover {
+  color: #21252b !important;
 }
 
 #timetable-window {
   animation-delay: 0.2s;
+}
+
+#backBtn {
+  cursor: pointer;
 }
 
 .fab {
