@@ -109,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('backBtn').addEventListener('click', async () => {
     document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
+    // eslint-disable-next-line no-restricted-globals
+    history.pushState('', document.title, `${window.location.pathname}`);
     fillDropDown();
   }, false);
 }, false);
