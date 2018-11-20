@@ -31,6 +31,7 @@ function makeTimetable (courseCode) {
   fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
     .then(response => response.json())
     .then((json) => {
+      document.getElementById('loader').style.display = 'none';
       if (document.getElementById('timetable')) document.getElementById('timetable').remove();
 
       if (json.empty) {
@@ -89,7 +90,6 @@ function makeTimetable (courseCode) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.hash) {
-    document.getElementById('loader').style.display = 'none';
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
-    document.getElementById('loader').style.display = 'none';
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
@@ -112,6 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('timetable-window').style.display = 'none';
     // eslint-disable-next-line no-restricted-globals
     history.pushState('', document.title, `${window.location.pathname}`);
-    fillDropDown();
   }, false);
 }, false);
