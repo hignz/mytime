@@ -39,7 +39,7 @@ function makeTimetable (courseCode) {
       }
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
-      timetable.classList.add('list-group');
+      timetable.classList.add('list-group', 'shadow-sm');
       timetable.id = 'timetable';
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
@@ -75,6 +75,7 @@ function makeTimetable (courseCode) {
                 ? 'text-warning'
                 : 'text-light',
           );
+          if ((isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday)) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
 
