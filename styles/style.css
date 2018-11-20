@@ -27,6 +27,10 @@ body {
   animation-delay: 0.2s;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .fas {
   color: white;
 }
