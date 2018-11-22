@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('timetable-window').style.display = 'block';
     fillDropDown();
   } else {
-    document.getElementById('select-window').style.display = 'block';
     fillDropDown();
+    document.getElementById('select-window').style.display = 'block';
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
