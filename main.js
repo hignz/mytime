@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
-function isClassNow (currTime, classStart, classEnd) {
-  return Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
-    && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`);
+function isClassNow (currTime, classStart, classEnd, isToday) {
+  return (Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
+    && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`) && isToday);
 }
 
-function isClassApporaching (currTime, classStart) {
+function isClassApporaching (currTime, classStart, isToday) {
   const mins = Math.floor((Date.parse(`01/01/1990 ${classStart}`) - Date.parse(`01/01/1990 ${currTime}`)) / 60000);
-  return mins <= 15 && mins > 0;
+  return ((mins <= 15 && mins > 0) && isToday);
 }
 
 function fillDropDown () {
@@ -14,7 +14,7 @@ function fillDropDown () {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('select-window').style.display = 'block';
+      // document.getElementById('select-window').style.display = 'block';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
         opt.text = json[i].course.replace(/\//g, '-');
@@ -71,12 +71,12 @@ function makeTimetable (courseCode) {
           a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}`;
           a.className = 'list-group-item list-group-item-action item animated fadeIn';
           a.classList.add(
-            (isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday) ? 'text-danger'
-              : (isClassApporaching(currTime, currClass.startTime) && isToday)
+            (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)) ? 'text-danger'
+              : (isClassApporaching(currTime, currClass.startTime, isToday))
                 ? 'text-warning'
                 : 'text-light',
           );
-          if ((isClassNow(currTime, currClass.startTime, currClass.endTime) && isToday)) a.classList.add('font-weight-bold');
+          if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
 
@@ -91,9 +91,11 @@ function makeTimetable (courseCode) {
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
-    document.getElementById('timetable-window').style.display = 'block';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
+    document.getElementById('timetable-window').style.display = 'block';
+    fillDropDown();
   } else {
+    document.getElementById('select-window').style.display = 'block';
     fillDropDown();
   }
 
