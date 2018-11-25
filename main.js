@@ -9,7 +9,7 @@ function isClassApporaching (currTime, classStart, isToday) {
   return ((mins <= 15 && mins > 0) && isToday);
 }
 
-async function fillDropDown () {
+async function fillDropDown (callback) {
   fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
     .then(response => response.json())
     .then((json) => {
@@ -20,6 +20,7 @@ async function fillDropDown () {
         const select = document.getElementById('courseDropDown');
         select.append(opt);
       }
+      if (callback) callback();
     })
     .catch((error) => {
       console.error(error);
@@ -31,8 +32,6 @@ function makeTimetable (courseCode) {
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      if (document.getElementById('timetable')) document.getElementById('timetable').remove();
-
       if (json.empty) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
@@ -94,11 +93,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('timetable-window').style.display = 'block';
     fillDropDown();
   } else {
-    await fillDropDown();
-    document.getElementById('select-window').style.display = 'block';
+    await fillDropDown(() => {
+      document.getElementById('select-window').style.display = 'block';
+    });
   }
 
   document.getElementById('searchBtn').addEventListener('click', async () => {
+    if (document.getElementById('timetable')) document.getElementById('timetable').remove();
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
