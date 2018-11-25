@@ -9,12 +9,11 @@ function isClassApporaching (currTime, classStart, isToday) {
   return ((mins <= 15 && mins > 0) && isToday);
 }
 
-function fillDropDown () {
+async function fillDropDown () {
   fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
     .then(response => response.json())
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
-      // document.getElementById('select-window').style.display = 'block';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
         opt.text = json[i].course.replace(/\//g, '-');
@@ -88,14 +87,14 @@ function makeTimetable (courseCode) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
     makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
     document.getElementById('timetable-window').style.display = 'block';
     fillDropDown();
   } else {
-    fillDropDown();
+    await fillDropDown();
     document.getElementById('select-window').style.display = 'block';
   }
 
