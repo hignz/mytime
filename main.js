@@ -27,7 +27,7 @@ async function fillDropDown (callback) {
     });
 }
 
-function makeTimetable (courseCode) {
+async function makeTimetable (courseCode, callback) {
   fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
     .then(response => response.json())
     .then((json) => {
@@ -62,6 +62,7 @@ function makeTimetable (courseCode) {
         for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
           const a = document.createElement('a');
           const currClass = json.data[i][j];
+          console.log(currClass);
           const className = currClass.name
             .split('/')[0]
             .replace(/ GD & SD/, '');
@@ -77,8 +78,9 @@ function makeTimetable (courseCode) {
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
-
-        document.getElementById('footer').classList.remove('fixed-bottom');
+        console.log(json.url);
+        document.getElementById('timetable-ext').href = json.url;
+        if (callback) callback();
       }
     })
     .catch((error) => {
@@ -89,8 +91,9 @@ function makeTimetable (courseCode) {
 document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
-    makeTimetable(encodeURIComponent(window.location.hash.substring(1)));
-    document.getElementById('timetable-window').style.display = 'block';
+    await makeTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
+      document.getElementById('timetable-window').style.display = 'block';
+    });
     fillDropDown();
   } else {
     await fillDropDown(() => {

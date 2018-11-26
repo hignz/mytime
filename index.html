@@ -21,7 +21,7 @@
   <meta name="msapplication-TileColor" content="#21252b">
   <link rel="shortcut icon" href="icons/favicon.ico?v=dLJ4we9RgB">
   <meta name="theme-color" content="#21252b">
-  <title>MyTime</title>
+  <title>MyTerm</title>
 </head>
 
 <body class="animated fadeIn">
@@ -32,7 +32,7 @@
       <p class="text-center mb-20 font-weight-bold text-light">Please wait...</p>
     </div>
     <div id="select-window" class="mb-10 animated fadeIn" style="display: none">
-      <h1 class="text-center text-white" id="header">MyTime</h1>
+      <h1 class="text-center text-white" id="header">MyTerm</h1>
       <h6 class="text-white">Course Codes</h6>
       <div class="input-group">
         <select class="custom-select bg-dark text-white mr-2" id="courseDropDown">
@@ -52,9 +52,13 @@
           </a>
         </div>
         <div class="col-8">
-          <p id="course-title" class="text-left font-weight-bold text-center"></p>
+          <p id="course-title" class="font-weight-bold text-center"></p>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2">
+          <a id="timetable-ext" target="_blank" class="" style="display: none">
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
     </div>
     <div class="list-group" id="timetable"></div>
