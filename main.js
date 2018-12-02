@@ -16,7 +16,8 @@ async function fillDropDown (callback) {
       document.getElementById('loader').style.display = 'none';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
-        opt.text = json[i].course.replace(/\//g, '-');
+        opt.text = json[i].title || json[i].course;
+        opt.value = json[i].course;
         const select = document.getElementById('courseDropDown');
         select.append(opt);
       }
@@ -106,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
-    const courseCode = select.options[select.selectedIndex].text;
+    const courseCode = select.options[select.selectedIndex].value;
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
     makeTimetable(encodeURIComponent(courseCode));
   }, false);
