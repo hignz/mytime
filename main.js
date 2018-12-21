@@ -16,7 +16,7 @@ async function fillDropDown (callback) {
       document.getElementById('loader').style.display = 'none';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
-        opt.text = json[i].title || json[i].course;
+        opt.text = json[i].course || json[i].title;
         opt.value = json[i].course;
         const select = document.getElementById('courseDropDown');
         select.append(opt);
@@ -68,7 +68,7 @@ async function makeTimetable (courseCode, callback) {
             .split('/')[0]
             .replace(/ GD & SD/, '');
           const room = currClass.room.split(' (')[0];
-          a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}`;
+          a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}<br>${currClass.teacher}`;
           a.className = 'list-group-item list-group-item-action item animated fadeIn';
           a.classList.add(
             (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)) ? 'text-danger'
