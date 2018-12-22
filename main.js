@@ -18,7 +18,7 @@ async function fillDropDown (callback) {
         const opt = document.createElement('option');
         opt.text = json[i].course || json[i].title;
         opt.value = json[i].course;
-        const select = document.getElementById('courseDropDown');
+        const select = document.getElementById('courseData');
         select.append(opt);
       }
       if (callback) callback();
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
-    const courseCode = select.options[select.selectedIndex].value;
+    const courseCode = select.value;
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
     makeTimetable(encodeURIComponent(courseCode));
   }, false);
