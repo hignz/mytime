@@ -1,15 +1,15 @@
 /* eslint-disable no-nested-ternary */
-function isClassNow (currTime, classStart, classEnd, isToday) {
+function isClassNow(currTime, classStart, classEnd, isToday) {
   return (Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`)
     && Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`) && isToday);
 }
 
-function isClassApporaching (currTime, classStart, isToday) {
+function isClassApporaching(currTime, classStart, isToday) {
   const mins = Math.floor((Date.parse(`01/01/1990 ${classStart}`) - Date.parse(`01/01/1990 ${currTime}`)) / 60000);
   return ((mins <= 15 && mins > 0) && isToday);
 }
 
-async function fillDropDown (callback) {
+async function fillDropDown(callback) {
   fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
     .then(response => response.json())
     .then((json) => {
@@ -28,7 +28,7 @@ async function fillDropDown (callback) {
     });
 }
 
-async function makeTimetable (courseCode, callback) {
+async function makeTimetable(courseCode, callback) {
   fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
     .then(response => response.json())
     .then((json) => {
@@ -48,14 +48,14 @@ async function makeTimetable (courseCode, callback) {
         if (!json.data[i].length) continue;
         const header = document.createElement('a');
         const isToday = new Date().getDay() - 1 === i;
-        header.innerHTML = json.data[i][0].day;
-        header.className = 'list-group-item list-group-item-action mt-1 font-weight-bold animated fadeIn';
-        header.classList.add(isToday ? 'text-danger' : 'text-dark');
+        header.innerHTML = `<h5 class="d-inline font-weight-bold">${json.data[i][0].day}</h5>`;
+        header.className = 'list-group-item mt-2 animated fadeIn bg-white';
+        header.classList.add(isToday ? 'text-danger' : 'text-secondary');
 
         const badge = document.createElement('span');
         badge.innerHTML = json.data[i].length;
-        badge.className = 'badge badge-info float-right animated fadeIn';
-        badge.classList.add(isToday ? 'badge-danger' : 'badge-dark');
+        badge.className = 'badge float-right badge-pill animated fadeIn';
+        badge.classList.add(isToday ? 'badge-danger' : 'badge-secondary');
 
         header.append(badge);
         timetable.appendChild(header);
@@ -69,12 +69,12 @@ async function makeTimetable (courseCode, callback) {
             .replace(/ GD & SD/, '');
           const room = currClass.room.split(' (')[0];
           a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room}<br>${currClass.teacher}`;
-          a.className = 'list-group-item list-group-item-action item animated fadeIn';
+          a.className = 'list-group-item item animated fadeIn';
           a.classList.add(
             (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)) ? 'text-danger'
               : (isClassApporaching(currTime, currClass.startTime, isToday))
                 ? 'text-warning'
-                : 'text-light',
+                : 'a',
           );
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await makeTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
       document.getElementById('timetable-window').style.display = 'block';
     });
-    fillDropDown();
+    await fillDropDown();
   } else {
     await fillDropDown(() => {
       document.getElementById('select-window').style.display = 'block';
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const select = document.getElementById('courseDropDown');
     const courseCode = select.value;
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
-    makeTimetable(encodeURIComponent(courseCode));
+    await makeTimetable(encodeURIComponent(courseCode));
   }, false);
 
   document.getElementById('backBtn').addEventListener('click', async () => {

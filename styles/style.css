@@ -2,7 +2,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #21252b;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -47,11 +46,7 @@ a:hover {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
-}
-
-.btn:hover {
-  color: #21252b !important;
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(0, 188, 140, 0.75), rgba(0, 188, 140, 0));
 }
 
 #timetable-window {
@@ -64,24 +59,32 @@ hr {
 
 .fab {
   font-size: 24px;
+  color: white;
 }
 
 .container {
   margin-bottom: 4px;
 }
 
-.item {
-  background-color: #282c34;
-}
-
-.custom-select:focus, .custom-select:hover {
-  border-color: #e9e9e9 !important;
-  box-shadow: 0 0 5px rgb(255, 255, 255) !important;
+.form-control:focus {
+  border-color: rgba(0, 188, 140, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 188, 140, 0.6);
+  outline: 0 none;
 }
 
 .item:hover,
 .item:focus {
   background-color: transparent;
+}
+
+.footer-links {
+  transition-delay: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+a > .fab:hover, 
+a > .fas:hover{
+  color: rgba(0, 188, 140, 1);
 }
 
 @media (min-width: 992px) {
