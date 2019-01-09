@@ -79,7 +79,7 @@ async function makeTimetable(courseCode, callback) {
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
-        document.getElementById('timetable-ext').href = json.url;
+        // document.getElementById('timetable-ext').href = json.url;
         if (callback) callback();
       }
     })
