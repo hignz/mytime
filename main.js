@@ -117,4 +117,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // eslint-disable-next-line no-restricted-globals
     history.pushState('', document.title, `${window.location.pathname}`);
   }, false);
+
+  document.getElementById('help');
 }, false);
