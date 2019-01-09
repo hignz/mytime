@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+jQuery(function ($) {
 
-    document.getElementById('bookmark-this').addEventListener('click', (e) => {
+    $('#bookmark-this').click(function (e) {
         var bookmarkURL = window.location.href;
         var bookmarkTitle = document.title;
 
