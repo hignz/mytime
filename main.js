@@ -16,7 +16,7 @@ async function fillDropDown(callback) {
       document.getElementById('loader').style.display = 'none';
       for (let i = 0; i < json.length; i += 1) {
         const opt = document.createElement('option');
-        opt.text = json[i].course || json[i].title;
+        opt.text = json[i].title || json[i].course;
         opt.value = json[i].course;
         const select = document.getElementById('courseData');
         select.append(opt);
@@ -37,6 +37,7 @@ async function makeTimetable(courseCode, callback) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
+      console.log(json.url);
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
       timetable.classList.add('list-group', 'shadow-sm');
@@ -63,7 +64,6 @@ async function makeTimetable(courseCode, callback) {
         for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
           const a = document.createElement('a');
           const currClass = json.data[i][j];
-          console.log(currClass);
           const className = currClass.name
             .split('/')[0]
             .replace(/ GD & SD/, '');
@@ -79,7 +79,6 @@ async function makeTimetable(courseCode, callback) {
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
-        console.log(json.url);
         document.getElementById('timetable-ext').href = json.url;
         if (callback) callback();
       }
