@@ -47,6 +47,7 @@ async function makeTimetable(courseCode, callback) {
 
       for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
         if (!json.data[i].length) continue;
+        let lastClassTime = 0;
         const header = document.createElement('a');
         const isToday = new Date().getDay() - 1 === i;
         header.innerHTML = `<h5 class="d-inline font-weight-bold">${json.data[i][0].day}</h5>`;
@@ -62,8 +63,9 @@ async function makeTimetable(courseCode, callback) {
         timetable.appendChild(header);
 
         for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
-          const a = document.createElement('a');
           const currClass = json.data[i][j];
+          checkForBreak(currClass.startTime, lastClassTime, timetable);
+          const a = document.createElement('a');
           const className = currClass.name
             .split('/')[0]
             .replace(/ GD & SD/, '');
@@ -76,6 +78,7 @@ async function makeTimetable(courseCode, callback) {
                 ? 'text-warning'
                 : 'a',
           );
+          lastClassTime = currClass.endTime;
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
@@ -87,6 +90,17 @@ async function makeTimetable(courseCode, callback) {
       document.getElementById('course-title').textContent = 'Invalid course entered';
       console.error(error);
     });
+}
+
+function checkForBreak(startTime, lastEndTime, timetable) {
+  if (startTime > lastEndTime) {
+    const difference = new Date('01/01/1990 ' + startTime).getHours() - new Date('01/01/1990 ' + lastEndTime).getHours();
+    if (difference < 0) return; // fix for courses which have multiple classes on same time, i.e different groups
+    const freePeriod = document.createElement('a');
+    freePeriod.innerHTML = `Break: ${difference} hour`;
+    freePeriod.className = ('list-group-item item bg-success');
+    timetable.append(freePeriod);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
