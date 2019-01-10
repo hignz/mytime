@@ -87,7 +87,7 @@ async function makeTimetable(courseCode, callback) {
       }
     })
     .catch((error) => {
-      document.getElementById('course-title').style.display = 'Invalid course entered';
+      document.getElementById('course-title').text = 'Invalid course entered';
       console.error(error);
     });
 }
