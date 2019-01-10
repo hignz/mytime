@@ -37,10 +37,10 @@ async function makeTimetable(courseCode, callback) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
-      console.log(json.url);
+      document.getElementById('course-direct-link').href = json.url;
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
-      timetable.classList.add('list-group', 'shadow-sm');
+      timetable.classList.add('list-group');
       timetable.id = 'timetable';
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
@@ -82,12 +82,12 @@ async function makeTimetable(courseCode, callback) {
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
           timetable.appendChild(a);
         }
-        // document.getElementById('timetable-ext').href = json.url;
+
         if (callback) callback();
       }
     })
     .catch((error) => {
-      document.getElementById('course-title').textContent = 'Invalid course entered';
+      document.getElementById('course-title').style.display = 'Invalid course entered';
       console.error(error);
     });
 }
@@ -95,10 +95,11 @@ async function makeTimetable(courseCode, callback) {
 function checkForBreak(startTime, lastEndTime, timetable) {
   if (startTime > lastEndTime) {
     const difference = new Date('01/01/1990 ' + startTime).getHours() - new Date('01/01/1990 ' + lastEndTime).getHours();
-    if (difference < 0) return; // fix for courses which have multiple classes on same time, i.e different groups
+    if (difference < 0)
+      return; // fix for courses which have multiple classes on same time, i.e different groups
     const freePeriod = document.createElement('a');
     freePeriod.innerHTML = `Break: ${difference} hour`;
-    freePeriod.className = ('list-group-item item bg-success');
+    freePeriod.className = ('list-group-item item font-weight-bold text-success');
     timetable.append(freePeriod);
   }
 }
