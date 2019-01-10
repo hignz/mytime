@@ -21,7 +21,6 @@ async function fillDropDown(callback) {
         const select = document.getElementById('courseData');
         const sel = document.getElementById('courseSel');
         select.append(opt);
-        sel.append(opt);
       }
       if (callback) callback();
     })
