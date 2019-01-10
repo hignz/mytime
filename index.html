@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="styles/style.css" id="default">
   <link rel="stylesheet" href="styles/loader.css">
   <link rel="stylesheet" href="styles/tooltip.css">
+  <link rel="stylesheet" href="styles/styleDL.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
@@ -44,7 +45,7 @@
       <h1 class="text-center text-white" id="header"><i class="fas fa-school mr-4"></i>My<span class="text-success">Term</span></h1>
       <label for="courseDropDown" class="text-white">Courses</label>
       <div class="input-group">
-        <input type="text" spellcheck="false" list="courseData" id="courseDropDown" class="form-control bg-secondary text-white mr-2"
+        <input type="text" name="courses" spellcheck="false" list="courseData" id="courseDropDown" class="form-control bg-secondary text-white mr-2"
           placeholder="Type to search or click to find">
         <datalist id="courseData" style="display: none"></datalist>
         <div class="input-group-append">
@@ -105,15 +106,14 @@
       <i class="fas fa-university"></i>
     </a>
   </footer>
-  <script src="main.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/datalist-polyfill/1.23.2/datalist-polyfill.min.js"></script>
+  <script src="datalist.polyfill.min.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
