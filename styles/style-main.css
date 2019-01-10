@@ -1,0 +1,94 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.form-inline {
+  background-color: #21252b !important;
+}
+
+#courseDropDown {
+  cursor: text;
+}
+
+#header {
+  margin-bottom: 40px;
+}
+
+#select-window {
+  margin-top: 130px;
+  animation-delay: 0.2s;
+}
+
+#footer {
+  animation-delay: 0.2s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.fas {
+  color: white;
+}
+
+#course-title {
+  color: white;
+}
+
+.loader {
+  margin-top: 40%;
+  animation-delay: 1s;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(0, 188, 140, 0.75), rgba(0, 188, 140, 0));
+}
+
+#timetable-window {
+  animation-delay: 0.2s;
+}
+
+#backBtn {
+  cursor: pointer;
+}
+
+.fab {
+  font-size: 24px;
+  color: white;
+}
+
+.container {
+  margin-bottom: 4px;
+}
+
+.form-control:focus {
+  border-color: rgba(0, 188, 140, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 188, 140, 0.6);
+  outline: 0 none;
+}
+
+.item:hover,
+.item:focus {
+  background-color: transparent;
+}
+
+.footer-links {
+  transition-delay: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+a > .fab:hover, 
+a > .fas:hover{
+  color: rgba(0, 188, 140, 1);
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
+}
