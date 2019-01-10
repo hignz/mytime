@@ -70,7 +70,7 @@ async function makeTimetable(courseCode, callback) {
             .split('/')[0]
             .replace(/ GD & SD/, '');
           const room = currClass.room.split(' (')[0];
-          a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room.split('-')[0]}<br>${currClass.type}<br>${currClass.teacher.replace(',', ', ')}`;
+          a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room.split('-')[0]} - ${currClass.type}<br>${currClass.teacher.replace(',', ', ')}`;
           a.className = 'list-group-item item animated fadeIn';
           a.classList.add(
             (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)) ? 'text-danger'
