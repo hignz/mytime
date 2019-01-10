@@ -19,7 +19,6 @@ async function fillDropDown(callback) {
         opt.text = json[i].title || json[i].course;
         opt.value = json[i].course;
         const select = document.getElementById('courseData');
-        const sel = document.getElementById('courseSel');
         select.append(opt);
       }
       if (callback) callback();
