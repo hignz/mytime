@@ -45,23 +45,9 @@
       <h1 class="text-center text-white" id="header"><i class="fas fa-school mr-4"></i>My<span class="text-success">Term</span></h1>
       <label for="courseDropDown" class="text-white">Courses</label>
       <div class="input-group">
-        Choose: <input type="text" list="languages">
-        <label for="languages">
-          <datalist id="languages">
-            <select>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Haskell">Haskell</option>
-              <option value="Ruby">Ruby</option>
-              <option value="Go">Go</option>
-              <option value="Python">Python</option>
-              <option value="etc">etc</option>
-            </select>
-          </datalist>
-        </label>
-
         <input type="text" name="courses" spellcheck="false" list="courseData" id="courseDropDown" class="form-control bg-secondary text-white mr-2"
           placeholder="Type to search or click to find">
-        <datalist id="courseData">
+        <datalist id="courseData" style="display: none">
         </datalist>
         <div class="input-group-append">
           <button class="btn btn-outline-success text-white" type="button" id="searchBtn">Search</button>
