@@ -61,7 +61,7 @@
       <hr>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="help-modal">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Bookmark</h5>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="courseinfo-modal">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Course info</h5>
@@ -99,7 +99,7 @@
     <div id="timetable-window" class="animated fadeIn" style="display: none">
       <div class="row mt-3 mb-2">
         <div class="col">
-          <a id="backBtn" class="ml-1" title="Go Back">
+          <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Go Back">
             <i class="fas fa-arrow-left"></i>
           </a>
         </div>
@@ -109,7 +109,7 @@
         </div>
         <div class="col-2">
           <a id="help" href="#" title="Help" class="float-right mr-1" data-toggle="modal" data-target="#help-modal">
-            <i class="fas fa-question-circle text-center"></i>
+            <i class="fas fa-question-circle text-center" data-toggle="tooltip" title="Help"></i>
           </a>
           <span id="date-time"></span>
         </div>
@@ -118,13 +118,16 @@
     <div class="list-group" id="timetable"></div>
   </div>
   <footer class="my-2 animated fadeIn text-center" id="footer">
-    <a href="https://hignz.github.io/room-availability/" title="Check for free rooms" target="_blank" class="text-light mx-4 footer-links">
+    <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4 footer-links"
+      data-toggle="tooltip" title="Free rooms">
       <i class="fas fa-desktop"></i>
     </a>
-    <a href="https://github.com/hignz/timetable-frontend/tree/gh-pages" title="GitHub" target="_blank" class="text-light mx-4 footer-links">
+    <a href="https://github.com/hignz/timetable-frontend/tree/gh-pages" title="GitHub" target="_blank" class="text-light mx-4 footer-links"
+      data-toggle="tooltip">
       <i class="fab fa-github"></i>
     </a>
-    <a href="http://timetables.itsligo.ie:81/studentset.htm" title="IT Sligo site" target="_blank" class="text-light mx-4 footer-links">
+    <a href="http://timetables.itsligo.ie:81/studentset.htm" title="IT Sligo site" target="_blank" class="text-light mx-4 footer-links"
+      data-toggle="tooltip">
       <i class="fas fa-university"></i>
     </a>
   </footer>
@@ -135,7 +138,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
   <script src="main.js"></script>
-  <script src="datalist.polyfill.js"></script>
 </body>
 
 </html>

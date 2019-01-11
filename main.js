@@ -107,6 +107,8 @@ function checkForBreak(startTime, lastEndTime, timetable) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  $('[data-toggle="tooltip"]').tooltip();
+
   const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
   if (iOS) {
