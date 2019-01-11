@@ -131,10 +131,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('select-window').style.display = 'none';
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
-    const courseCode = select.value;
-    let iosSelect;
+    let courseCode = select.value;
     if (iOS) {
-      iosSelect = document.getElementById('courseDataSel');
+      let iosSelect = document.getElementById('courseDataSel');
       courseCode = iosSelect.options[iosSelect.selectedIndex].value;
     }
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
@@ -147,6 +146,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     // eslint-disable-next-line no-restricted-globals
     history.pushState('', document.title, `${window.location.pathname}`);
   }, false);
-
-  document.getElementById('help');
 }, false);
