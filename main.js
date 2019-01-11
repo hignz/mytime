@@ -132,6 +132,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('timetable-window').style.display = 'block';
     const select = document.getElementById('courseDropDown');
     const courseCode = select.value;
+    let iosSelect;
+    if (iOS) {
+      iosSelect = document.getElementById('courseDataSel');
+      courseCode = iosSelect.options[iosSelect.selectedIndex].value;
+    }
     window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
     await makeTimetable(encodeURIComponent(courseCode));
   }, false);
