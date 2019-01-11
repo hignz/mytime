@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
   if (iOS) {
-    document.getElementById('courseData').style.display = 'none';
+    document.getElementById('courseDropDown').style.display = 'none';
     document.getElementById('courseDataSel').style.display = 'block';
   }
 
