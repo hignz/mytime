@@ -42,9 +42,9 @@
       <p class="text-center font-weight-bold text-white">Server spinning up</p>
     </div>
     <div id="select-window" class="mb-10 animated fadeIn" style="display: none">
-      Choose: <input type="text" list="languages">
-      <label for="languages">
-        <datalist id="languages">
+      <input type="text" list="courseData" id="courseDropDown">
+      <label for="courseData">
+        <datalist id="courseData">
           <option value="JavaScript">JavaScript</option>
           <option value="Haskell">Haskell</option>
           <option value="Ruby">Ruby</option>
@@ -57,8 +57,7 @@
       <h1 class="text-center text-white" id="header"><i class="fas fa-school mr-4"></i>My<span class="text-success">Term</span></h1>
       <label for="courseDropDown" class="text-white">Courses</label>
       <div class="input-group">
-        <input type="text" list="courseData" id="courseDropDown" class="form-control bg-secondary text-white mr-2"
-          placeholder="Type to search or click to find">
+        <input type="text" list="courseData" id="courseDropDown">
         <datalist id="courseData">
           <option>Hiiii</option>
           <option>Byeee</option>
