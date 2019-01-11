@@ -1,27 +1,108 @@
-.datalist-polyfill {
-	list-style: none;
-	display: none;
-	background: white;
-	box-shadow: 0 2px 2px #999;
-	position: absolute;
-	left: 0;
-	top: 0;
-	margin: 0;
-	padding: 0;
-	max-height: 300px;
-	overflow-y: auto;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
-.datalist-polyfill:empty {
-	display: none !important;
+.form-inline {
+  background-color: #21252b !important;
 }
 
-    .datalist-polyfill > li {
-        padding: 3px;
-        font: 13px "Lucida Grande", Sans-Serif;
-    }
-    
-    .datalist-polyfill__active {
-        background: #3875d7;
-        color: white;
-    }
+#courseDropDown {
+  cursor: text;
+}
+
+#header {
+  margin-bottom: 40px;
+}
+
+.heading {
+  color: white !important;
+}
+
+.btn {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.card-header{
+  padding: 0;
+}
+
+#select-window {
+  margin-top: 130px;
+  animation-delay: 0.2s;
+}
+
+#footer {
+  animation-delay: 0.2s;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fas {
+  color: white;
+}
+
+#course-title {
+  color: white;
+}
+
+.loader {
+  margin-top: 40%;
+  animation-delay: 1s;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(0, 188, 140, 0.75), rgba(0, 188, 140, 0));
+}
+
+#timetable-window {
+  animation-delay: 0.2s;
+}
+
+#backBtn {
+  cursor: pointer;
+}
+
+.fab {
+  font-size: 24px;
+  color: white;
+}
+
+.container {
+  margin-bottom: 4px;
+}
+
+.form-control:focus {
+  border-color: rgba(0, 188, 140, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 188, 140, 0.6);
+  outline: 0 none;
+}
+
+.item:hover,
+.item:focus {
+  background-color: transparent;
+}
+
+.footer-links {
+  transition-delay: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+a > .fab:hover, 
+a > .fas:hover{
+  color: rgba(0, 188, 140, 1);
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
+}

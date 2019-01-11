@@ -42,7 +42,7 @@ async function makeTimetable(courseCode, callback) {
       document.getElementById('course-direct-link').href = json.url;
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
-      timetable.classList.add('list-group');
+      timetable.classList.add('accordion');
       timetable.id = 'timetable';
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
@@ -50,23 +50,32 @@ async function makeTimetable(courseCode, callback) {
       for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
         if (!json.data[i].length) continue;
         let lastClassTime = 0;
-        const header = document.createElement('a');
+
+        timetable.insertAdjacentHTML('beforeend', `<div class="card bg-success" id="card${i}">
+        <div class="card-header" id="heading${i}">
+          <h5 class="mb-0">
+            <button class="btn btn-lg heading font-weight-bold ml-1" id="header${i}" type="button" data-toggle="collapse" data-target="#collapse${i}"
+              aria-expanded="true" aria-controls="collapse${i}">
+              ${json.data[i][0].day}
+            </button>
+          </h5>
+          <div id="collapse${i}" class="collapse show" aria-labelledby="heading${i}"></div>  
+        </div>`);
+
         const isToday = new Date().getDay() - 1 === i;
-        header.innerHTML = `<h5 class="d-inline font-weight-bold">${json.data[i][0].day}</h5>`;
-        header.className = 'list-group-item mt-2 animated fadeIn bg-white';
-        header.classList.add(isToday ? 'text-danger' : 'text-secondary');
 
-        const badge = document.createElement('span');
-        badge.innerHTML = json.data[i].length;
-        badge.className = 'badge float-right badge-pill animated fadeIn';
-        badge.classList.add(isToday ? 'badge-danger' : 'badge-secondary');
+        document.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-secondary');
 
-        header.append(badge);
-        timetable.appendChild(header);
+        // const badge = document.createElement('span');
+        // badge.innerHTML = json.data[i].length;
+        // badge.className = 'badge float-right badge-pill animated fadeIn';
+        // badge.classList.add(isToday ? 'badge-danger' : 'badge-secondary');
+
+        const currentCollapse = document.getElementById(`collapse${i}`);
 
         for (let j = 0; j < json.data[i].length; j += 1) { // Create class entries
           const currClass = json.data[i][j];
-          checkForBreak(currClass.startTime, lastClassTime, timetable);
+          checkForBreak(currClass.startTime, lastClassTime, currentCollapse);
           const a = document.createElement('a');
           const className = currClass.name
             .split('/')[0]
@@ -82,7 +91,7 @@ async function makeTimetable(courseCode, callback) {
           );
           lastClassTime = currClass.endTime;
           if ((isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))) a.classList.add('font-weight-bold');
-          timetable.appendChild(a);
+          document.getElementById(`collapse${i}`).appendChild(a);
         }
 
         if (callback) callback();
@@ -143,8 +152,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }, false);
 
   document.getElementById('backBtn').addEventListener('click', async () => {
-    document.getElementById('select-window').style.display = 'block';
     document.getElementById('timetable-window').style.display = 'none';
+    document.getElementById('select-window').style.display = 'block';
     // eslint-disable-next-line no-restricted-globals
     history.pushState('', document.title, `${window.location.pathname}`);
   }, false);
