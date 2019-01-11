@@ -18,8 +18,10 @@ async function fillDropDown(callback) {
         const opt = document.createElement('option');
         opt.text = json[i].title || json[i].course;
         opt.value = json[i].course;
-        const select = document.getElementById('courseData');
-        select.append(opt);
+        const dataList = document.getElementById('courseData');
+        const select = document.getElementById('courseDataSel');
+        dataList.append(opt);
+        select.append(opt.cloneNode(true));
       }
       if (callback) callback();
     })
@@ -105,6 +107,13 @@ function checkForBreak(startTime, lastEndTime, timetable) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+  if (iOS) {
+    document.getElementById('courseData').style.display = 'none';
+    document.getElementById('courseDataSel').style.display = 'block';
+  }
+
   if (window.location.hash) {
     document.getElementById('select-window').style.display = 'none';
     await makeTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
