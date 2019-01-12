@@ -108,18 +108,21 @@ async function makeTimetable(courseCode, callback) {
 
 function checkForBreak(startTime, lastEndTime, timetable) {
   if (startTime > lastEndTime) {
-    const difference = new Date('01/01/1990 ' + startTime).getHours() - new Date('01/01/1990 ' + lastEndTime).getHours();
+    let difference = (Math.abs(new Date('01/01/1990 ' + startTime).getTime() - new Date('01/01/1990 ' + lastEndTime).getTime()) / 60000);
+    console.log(difference);
     if (difference < 0)
       return; // fix for courses which have multiple classes on same time, i.e different groups
+    const message = difference >= 60 ? `Break: ${difference / 60} hour${plural(difference / 60)}` : `Break: ${difference} minutes`;
+    console.log(difference);
     const freePeriod = document.createElement('a');
-    freePeriod.innerHTML = `Break: ${difference} hour${plural(difference)}`;
+    freePeriod.innerHTML = message;
     freePeriod.className = ('list-group-item item font-weight-bold text-success');
     timetable.append(freePeriod);
   }
 }
 
 function plural(number) {
-  return number === 1 ? '' : 's';
+  return number > 1 ? 's' : '';
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
