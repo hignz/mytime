@@ -57,10 +57,11 @@ async function makeTimetable(courseCode, callback) {
         timetable.insertAdjacentHTML('beforeend', `<div class="card bg-success" id="card${i}">
         <div class="card-header" id="heading${i}">
           <h5 class="mb-0">
-            <button class="btn btn-lg heading font-weight-bold ml-1 text-left" id="header${i}"  style="width: 100%" type="button" data-toggle="collapse" data-target="#collapse${i}"
-              aria-expanded="true" aria-controls="collapse${i}">
+          <button type="button" class="btn btn-lg heading font-weight-bold ml-1 text-left" id="header${i}" style="width: 100%" data-toggle="collapse" data-target="#collapse${i}"
+            aria-expanded="true" aria-controls="collapse${i}">
               ${json.data[i][0].day}
-            </button>
+              <span class="badge float-right badge-pill animated fadeIn mt-1" id="class-total-badge${i}">${json.data[i].length}</span>
+          </button>
           </h5>
           <div id="collapse${i}" class="collapse show" aria-labelledby="heading${i}"></div>  
         </div>`);
@@ -69,10 +70,7 @@ async function makeTimetable(courseCode, callback) {
 
         document.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-secondary');
 
-        // const badge = document.createElement('span');
-        // badge.innerHTML = json.data[i].length;
-        // badge.className = 'badge float-right badge-pill animated fadeIn';
-        // badge.classList.add(isToday ? 'badge-danger' : 'badge-secondary');
+        if (isToday) document.getElementById(`class-total-badge${i}`).classList.add('badge-danger');
 
         const currentCollapse = document.getElementById(`collapse${i}`);
 
@@ -109,11 +107,9 @@ async function makeTimetable(courseCode, callback) {
 function checkForBreak(startTime, lastEndTime, timetable) {
   if (startTime > lastEndTime) {
     let difference = (Math.abs(new Date('01/01/1990 ' + startTime).getTime() - new Date('01/01/1990 ' + lastEndTime).getTime()) / 60000);
-    console.log(difference);
     if (difference < 0)
       return; // fix for courses which have multiple classes on same time, i.e different groups
     const message = difference >= 60 ? `Break: ${difference / 60} hour${plural(difference / 60)}` : `Break: ${difference} minutes`;
-    console.log(difference);
     const freePeriod = document.createElement('a');
     freePeriod.innerHTML = message;
     freePeriod.className = ('list-group-item item font-weight-bold text-success');
