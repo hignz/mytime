@@ -54,7 +54,7 @@ async function makeTimetable(courseCode, callback) {
         timetable.insertAdjacentHTML('beforeend', `<div class="card bg-success" id="card${i}">
         <div class="card-header" id="heading${i}">
           <h5 class="mb-0">
-            <button class="btn btn-lg heading font-weight-bold ml-1" id="header${i}" type="button" data-toggle="collapse" data-target="#collapse${i}"
+            <button class="btn btn-lg heading font-weight-bold ml-1 text-left" id="header${i}"  style="width: 100%" type="button" data-toggle="collapse" data-target="#collapse${i}"
               aria-expanded="true" aria-controls="collapse${i}">
               ${json.data[i][0].day}
             </button>
@@ -82,7 +82,7 @@ async function makeTimetable(courseCode, callback) {
             .replace(/ GD & SD/, '');
           const room = currClass.room.split(' (')[0];
           a.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>${room.split('-')[0]} - ${currClass.type}<br>${currClass.teacher.replace(',', ', ')}`;
-          a.className = 'list-group-item item animated fadeIn';
+          a.className = 'list-group-item item animated fadeIn text-justify';
           a.classList.add(
             (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)) ? 'text-danger'
               : (isClassApporaching(currTime, currClass.startTime, isToday))
