@@ -68,7 +68,7 @@ async function makeTimetable(courseCode, callback) {
 
         const isToday = new Date().getDay() - 1 === i;
 
-        document.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-secondary');
+        document.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-white');
 
         if (isToday) document.getElementById(`class-total-badge${i}`).classList.add('badge-danger');
 

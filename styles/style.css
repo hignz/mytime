@@ -22,10 +22,6 @@ input::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-.heading {
-  color: white !important;
-}
-
 .btn {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
