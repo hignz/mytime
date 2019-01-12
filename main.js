@@ -5,8 +5,9 @@ function isClassNow(currTime, classStart, classEnd, isToday) {
 }
 
 function isClassApporaching(currTime, classStart, isToday) {
+  const threshold = 20;
   const mins = Math.floor((Date.parse(`01/01/1990 ${classStart}`) - Date.parse(`01/01/1990 ${currTime}`)) / 60000);
-  return ((mins <= 15 && mins > 0) && isToday);
+  return ((mins <= threshold && mins > 0) && isToday);
 }
 
 async function fillDropDown(callback) {
@@ -36,6 +37,8 @@ async function makeTimetable(courseCode, callback) {
     .then((json) => {
       document.getElementById('loader').style.display = 'none';
       if (json.empty) {
+        document.getElementById('timetable-window').style.display = 'block';
+
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
@@ -109,16 +112,22 @@ function checkForBreak(startTime, lastEndTime, timetable) {
     if (difference < 0)
       return; // fix for courses which have multiple classes on same time, i.e different groups
     const freePeriod = document.createElement('a');
-    freePeriod.innerHTML = `Break: ${difference} hour`;
+    freePeriod.innerHTML = `Break: ${difference} hour${plural(difference)}`;
     freePeriod.className = ('list-group-item item font-weight-bold text-success');
     timetable.append(freePeriod);
   }
 }
 
+function plural(number) {
+  return number === 1 ? '' : 's';
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-  $('[data-toggle="tooltip"]').tooltip({
-    trigger: 'hover'
-  });
+  if (window.history && window.history.pushState) {
+    $(window).on('popstate', function () {
+      location.reload();
+    });
+  }
 
   const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
