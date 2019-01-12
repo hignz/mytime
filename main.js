@@ -116,7 +116,9 @@ function checkForBreak(startTime, lastEndTime, timetable) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({
+    trigger: 'hover'
+  });
 
   const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
@@ -157,4 +159,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // eslint-disable-next-line no-restricted-globals
     history.pushState('', document.title, `${window.location.pathname}`);
   }, false);
+
+  document.getElementById('clear').addEventListener('click', async () => {
+    $('#courseDropDown').value = '';
+  }, false);
+
 }, false);
