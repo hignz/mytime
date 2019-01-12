@@ -10,11 +10,16 @@ body {
 }
 
 #courseDropDown {
-  cursor: text;
+  cursor: pointer;
 }
 
 #header {
   margin-bottom: 40px;
+}
+
+input::-webkit-calendar-picker-indicator {
+  background: transparent;
+  cursor: pointer;
 }
 
 .heading {
