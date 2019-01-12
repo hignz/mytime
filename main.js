@@ -125,7 +125,14 @@ function plural(number) {
 document.addEventListener('DOMContentLoaded', async () => {
   if (window.history && window.history.pushState) {
     $(window).on('popstate', function () {
-      location.reload();
+      var hashName = location.hash.split("#!/")[1];
+
+      if (hashName !== '') {
+        var hash = window.location.hash;
+        if (hash === '') {
+          location.reload();
+        }
+      }
     });
   }
 
