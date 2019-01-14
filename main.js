@@ -31,6 +31,10 @@ async function fillDropDown(callback) {
     });
 }
 
+function fillCourseModal(json) {
+
+}
+
 async function makeTimetable(courseCode, callback) {
   fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
     .then(response => response.json())
@@ -42,7 +46,8 @@ async function makeTimetable(courseCode, callback) {
         document.getElementById('course-title').textContent = 'No timetable data found';
         return;
       }
-      document.getElementById('course-direct-link').href = json.url;
+
+      document.getElementById('courseinfo-direct-link').href = json.url;
       const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.createElement('div');
       timetable.classList.add('accordion');
@@ -95,6 +100,7 @@ async function makeTimetable(courseCode, callback) {
           document.getElementById(`collapse${i}`).appendChild(a);
         }
 
+        fillCourseModal(json);
         if (callback) callback();
       }
     })
