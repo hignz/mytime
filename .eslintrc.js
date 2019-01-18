@@ -7,10 +7,10 @@ module.exports = {
     'no-console': 'off',
     'no-nested-ternary': 'off',
     "no-console": "off",
-    "import/order": "off",
     "space-before-function-paren": ["error", "always"],
     "no-restricted-syntax": "off",
     "no-continue": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "import/prefer-default-export": "off",
   }
 };
