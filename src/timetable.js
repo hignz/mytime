@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   getPlural,
   isClassApporaching,
@@ -8,13 +7,13 @@ import {
 const checkForBreak = (startTime, lastEndTime, timetable) => {
   if (startTime > lastEndTime) {
     const difference = (Math.abs(new Date(`01/01/1990 ${startTime}`).getTime() - new Date(`01/01/1990 ${lastEndTime}`).getTime()) / 60000);
-    // fix for courses which have multiple classes on same time, i.e different groups
-    if (difference < 0) { return; }
-    const message = difference >= 60 ? `Break: ${difference / 60} hour${getPlural(difference / 60)}` : `Break: ${difference} minutes`;
-    const freePeriod = document.createElement('a');
-    freePeriod.innerHTML = message;
-    freePeriod.className = ('list-group-item item font-weight-bold text-success');
-    timetable.append(freePeriod);
+    if (difference > 0) {
+      const message = difference >= 60 ? `Break: ${difference / 60} hour${getPlural(difference / 60)}` : `Break: ${difference} minutes`;
+      const freePeriod = document.createElement('a');
+      freePeriod.innerHTML = message;
+      freePeriod.className = ('list-group-item item font-weight-bold text-success');
+      timetable.append(freePeriod);
+    }
   }
 };
 
@@ -25,7 +24,6 @@ export function createTimetable (courseCode, callback) {
       document.querySelector('#loader').style.display = 'none';
       if (json.empty) {
         document.querySelector('#timetable-window').style.display = 'block';
-
         document.querySelector('#course-title').textContent = 'No timetable data found';
         return;
       }
@@ -38,7 +36,7 @@ export function createTimetable (courseCode, callback) {
       document.querySelector('#timetable-window').append(timetable);
       document.querySelector('#course-title').textContent = decodeURIComponent(courseCode);
 
-      for (let i = 0; i < json.data.length; i += 1) { // Create headers and badges
+      for (let i = 0; i < json.data.length - 2; i += 1) { // Create headers and badges
         if (json.data[i].length) {
           let lastClassTime = 0;
 
