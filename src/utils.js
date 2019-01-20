@@ -14,7 +14,7 @@ module.exports = {
     return mins <= threshold && mins > 0 && isToday;
   },
 
-  getCourses: async callback => {
+  fetchCourseCodes: async callback => {
     fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
       .then(response => response.json())
       .then(json => {
@@ -42,5 +42,17 @@ module.exports = {
       .catch(error => {
         console.error(error);
       });
+  },
+
+  getSelectedValue: isIOS => {
+    let courseCode;
+    if (isIOS) {
+      const iosSelect = document.getElementById('courses-select');
+      courseCode = iosSelect.options[iosSelect.selectedIndex].value;
+    } else {
+      const input = document.getElementById('courses');
+      courseCode = input.value;
+    }
+    return courseCode;
   }
 };

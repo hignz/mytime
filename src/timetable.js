@@ -35,9 +35,7 @@ export function createTimetable(courseCode, callback) {
       document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
       const currTime = new Date().toLocaleTimeString('en-GB');
-      const timetable = document.createElement('div');
-      timetable.classList.add('accordion');
-      timetable.id = 'timetable';
+      const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
       const frag = document.createDocumentFragment();
