@@ -16,10 +16,10 @@ document.addEventListener(
 
     const isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
-    if (isIOS) {
-      document.getElementById('courses').style.display = 'none';
-      document.getElementById('courses-select').style.display = 'block';
-    }
+    // if (isIOS) {
+    //   document.getElementById('courses').style.display = 'none';
+    //   document.getElementById('courses-select').style.display = 'block';
+    // }
 
     if (navigator.userAgent.includes('Snapchat')) {
       document.querySelector('#courseinfo-modal').modal('show');

@@ -31,11 +31,11 @@ module.exports = {
           opt.value = json[i].course;
           frag.append(opt);
         }
-        if (iOS) {
-          select.append(frag);
-        } else {
-          dataList.append(frag);
-        }
+        // if (iOS) {
+        //   select.append(frag);
+        // } else {
+        dataList.append(frag);
+        // }
         if (callback) callback();
         console.timeEnd('getCourses()');
       })
