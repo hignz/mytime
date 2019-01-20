@@ -84,7 +84,7 @@ export function createTimetable(courseCode, callback) {
             classEntry.innerHTML = `${currClass.startTime} - ${
               currClass.endTime
             }<br>${className}<br>${room.split('-')[0]} - ${
-              currClass.type
+              room.split('-')[1]
             }<br>${currClass.teacher.replace(',', ', ')}`;
             classEntry.className = 'list-group-item item animated fadeIn';
             classEntry.classList.add(
