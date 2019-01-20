@@ -34,9 +34,8 @@
   <title>MyTerm</title>
 </head>
 
-<body class="animated fadeIn">
-  <div class="container">
-
+<body>
+  <div class="container animated fadeIn">
     <!--Loading spinner-->
     <div class="loader animated rotateIn" id="loader">
       <div class="lds-circle"></div>
@@ -61,51 +60,6 @@
         it</p>
       <hr>
     </div>
-    <!--Help modal-->
-    <div class="modal" tabindex="-1" role="dialog" id="help-modal">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add to home screen</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5 class="text-success font-weight-bold">Instructions to quickly get back to your timetable.</h5>
-            <br>
-            <p class="font-weight-bold">Android:</p>
-            <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
-            <li>Press the three dots in the top right corner, then click "Add to Home screen".</li>
-            <li>An icon will now be on your phones home screen which will take you to your timetable.</li>
-            <br>
-            <p class="font-weight-bold">iPhone:</p>
-            <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
-            <li>Tap on the Share button at the bottom of the browser window. It's represented by a square with an up
-              arrow.</li>
-            <li>The iOS Share Sheet will now appear. Select the option labeled Add to Home Screen.</li>
-            <li>An icon will now be on your iPhones home screen which will take you to your timetable.</li>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Course info modal-->
-    <div class="modal" tabindex="-1" role="dialog" id="courseinfo-modal">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Additional course info</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5 id="courseinfo-header" class="text-left">Coming soon.</h5>
-            <a id="courseinfo-direct-link" target="_blank">Direct link</a>
-          </div>
-        </div>
-      </div>
-    </div>
     <!--Timetable entry container-->
     <div id="timetable-window" class="animated fadeIn" style="display: none">
       <div class="row mt-3 mb-3">
@@ -127,24 +81,67 @@
         </div>
       </div>
     </div>
-    <div class="list-group" id="timetable"></div>
+    <!--Footer-->
+    <footer class="my-2 text-center animated fadeIn" id="footer">
+      <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4 footer-links"
+        data-toggle="tooltip" title="Free rooms">
+        <i class="fas fa-desktop"></i>
+      </a>
+      <a href="https://github.com/hignz/timetable-frontend/tree/gh-pages" title="GitHub" target="_blank" class="text-light mx-4 footer-links"
+        data-toggle="tooltip">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="http://timetables.itsligo.ie:81/studentset.htm" title="IT Sligo site" target="_blank" class="text-light mx-4 footer-links"
+        data-toggle="tooltip">
+        <i class="fas fa-university"></i>
+      </a>
+    </footer>
   </div>
-  <!--Footer-->
-  <footer class="my-2 animated fadeIn text-center" id="footer">
-    <a href="https://hignz.github.io/room-availability/" target="_blank" class="text-light mx-4 footer-links"
-      data-toggle="tooltip" title="Free rooms">
-      <i class="fas fa-desktop"></i>
-    </a>
-    <a href="https://github.com/hignz/timetable-frontend/tree/gh-pages" title="GitHub" target="_blank" class="text-light mx-4 footer-links"
-      data-toggle="tooltip">
-      <i class="fab fa-github"></i>
-    </a>
-    <a href="http://timetables.itsligo.ie:81/studentset.htm" title="IT Sligo site" target="_blank" class="text-light mx-4 footer-links"
-      data-toggle="tooltip">
-      <i class="fas fa-university"></i>
-    </a>
-  </footer>
-
+  <!--Help modal-->
+  <div class="modal" tabindex="-1" role="dialog" id="help-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add to home screen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 class="text-success font-weight-bold">Instructions to quickly get back to your timetable.</h6>
+          <br>
+          <p class="font-weight-bold">Android:</p>
+          <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
+          <li>Press the three dots in the top right corner, then click "Add to Home screen".</li>
+          <li>An icon will now be on your phones home screen which will take you to your timetable.</li>
+          <br>
+          <p class="font-weight-bold">iPhone:</p>
+          <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
+          <li>Tap on the Share button at the bottom of the browser window. It's represented by a square with an up
+            arrow.</li>
+          <li>The iOS Share Sheet will now appear. Select the option labeled Add to Home Screen.</li>
+          <li>An icon will now be on your iPhones home screen which will take you to your timetable.</li>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Course info modal-->
+  <div class="modal" tabindex="-1" role="dialog" id="courseinfo-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Additional course info</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 id="courseinfo-header" class="text-left">Coming soon.</h5>
+          <a id="courseinfo-direct-link" target="_blank">Direct link</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
