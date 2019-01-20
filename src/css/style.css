@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
 
 .form-inline {
@@ -16,7 +16,6 @@ body {
 
 #header {
   margin-bottom: 40px;
-  font-family: 'Roboto Slab', serif;
 }
 
 input::-webkit-calendar-picker-indicator {
@@ -35,11 +34,6 @@ input::-webkit-calendar-picker-indicator {
 
 #select-window {
   margin-top: 130px;
-  animation-delay: 0.2s;
-}
-
-#footer {
-  animation-delay: 0.2s;
 }
 
 a:hover {
@@ -70,6 +64,11 @@ hr {
   animation-delay: 0.2s;
 }
 
+.card-container {
+  border: 1px solid rgba(0, 188, 140, 1);
+  border-radius: 0.3%;
+}
+
 #backBtn {
   cursor: pointer;
 }
@@ -94,16 +93,11 @@ hr {
   background-color: transparent;
 }
 
-.footer-links {
-  transition-delay: 0.2s;
-  transition-timing-function: ease-in-out;
-}
-
 .card-header button {
   font-family: 'Roboto Slab', serif;
 }
 
-a > .fab:hover, 
+a > .fab:hover,
 a > .fas:hover{
   color: rgba(0, 188, 140, 1);
 }
