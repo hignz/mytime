@@ -49,7 +49,7 @@ document.addEventListener(
         }
         selectWindow.style.display = 'none';
         timetableWindow.style.display = 'block';
-        const courseCode = getSelectedValue(isIOS);
+        const courseCode = getSelectedValue();
         window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
         await createTimetable(encodeURIComponent(courseCode));
       },

@@ -20,8 +20,8 @@ module.exports = {
       .then(json => {
         console.time('getCourses()');
         document.getElementById('loader').style.display = 'none';
-        const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-        const select = document.getElementById('courses-select');
+        // const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+        // const select = document.getElementById('courses-select');
         const dataList = document.getElementById('courses-datalist');
         const frag = document.createDocumentFragment();
         let opt;
@@ -44,15 +44,17 @@ module.exports = {
       });
   },
 
-  getSelectedValue: isIOS => {
-    let courseCode;
-    if (isIOS) {
-      const iosSelect = document.getElementById('courses-select');
-      courseCode = iosSelect.options[iosSelect.selectedIndex].value;
-    } else {
-      const input = document.getElementById('courses');
-      courseCode = input.value;
-    }
+  getSelectedValue: () => {
+    // let courseCode;
+    // if (isIOS) {
+    //   const iosSelect = document.getElementById('courses-select');
+    //   courseCode = iosSelect.options[iosSelect.selectedIndex].value;
+    // } else {
+    //   const input = document.getElementById('courses');
+    //   courseCode = input.value;
+    // }
+    const input = document.getElementById('courses');
+    const courseCode = input.value;
     return courseCode;
   }
 };
