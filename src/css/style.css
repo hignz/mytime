@@ -23,6 +23,10 @@ input::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
+summary:focus {
+  outline: none;
+}
+
 .btn {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
