@@ -64,14 +64,13 @@ export function createTimetable(courseCode, callback) {
             <div id="collapse${i}" class="collapse show" aria-labelledby="heading${i}"></div>
           </div>`;
 
-          frag.append(div);
           const isToday = new Date().getDay() - 1 === i;
-          frag.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-white');
-
           if (isToday) {
-            document.getElementById(`class-total-badge${i}`).classList.add('badge-danger');
+            div.querySelector(`#class-total-badge${i}`).classList.add('badge-danger');
           }
 
+          frag.append(div);
+          frag.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-white');
           currentCollapse = frag.getElementById(`collapse${i}`);
 
           for (let j = 0; j < json.data[i].length; j += 1) {
