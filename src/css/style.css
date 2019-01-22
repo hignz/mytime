@@ -1,0 +1,113 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-inline {
+  background-color: #21252b !important;
+}
+
+#courseDropDown {
+  cursor: pointer;
+}
+
+#header {
+  margin-bottom: 40px;
+}
+
+input::-webkit-calendar-picker-indicator {
+  background: transparent;
+  cursor: pointer;
+}
+
+summary:focus {
+  outline: none;
+}
+
+.btn {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.card-header{
+  padding: 0;
+}
+
+#select-window {
+  margin-top: 130px;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fas {
+  color: white;
+}
+
+#course-title {
+  color: white;
+}
+
+.loader {
+  margin-top: 40%;
+  animation-delay: 1s;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(0, 188, 140, 0.75), rgba(0, 188, 140, 0));
+}
+
+.card-container {
+  border: 1px solid rgba(0, 188, 140, 1);
+  border-radius: 0.3%;
+}
+
+#backBtn {
+  cursor: pointer;
+}
+
+.fab {
+  font-size: 24px;
+  color: white;
+}
+
+.container {
+  margin-bottom: 4px;
+}
+
+.form-control:focus {
+  border-color: rgba(0, 188, 140, 0.8);
+  box-shadow: 0px 0px 0px rgba(0, 188, 140, 0.6);
+  outline: 0 none;
+}
+
+.item:hover,
+.item:focus {
+  background-color: transparent; 
+}
+
+.card-header button {
+  font-family: 'Raleway', sans-serif;
+}
+
+.card-header button span {
+  font-family: 'Roboto', sans-serif;
+}
+
+a > .fab:hover,
+a > .fas:hover{
+  color: rgba(0, 188, 140, 1);
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
+}

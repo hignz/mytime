@@ -1,0 +1,30 @@
+{
+  "name": "timetable-frontend",
+  "version": "1.0.0",
+  "description": "Timetable frontend using the IT Sligo API",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "build:prod": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hignz/mytime.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hignz/mytime/issues"
+  },
+  "homepage": "https://github.com/hignz/mytime#readme",
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.5.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.15.3",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  }
+}
