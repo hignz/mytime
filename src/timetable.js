@@ -1,6 +1,13 @@
-import { getPlural, isClassApporaching, isClassNow } from './utils';
+import {
+  getPlural,
+  isClassApporaching,
+  isClassNow,
+  isClassOver,
+  isToday,
+  alertCheck
+} from './utils';
 
-const checkForBreak = (startTime, lastEndTime, timetable) => {
+const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) => {
   if (startTime > lastEndTime) {
     const difference =
       Math.abs(
@@ -14,8 +21,10 @@ const checkForBreak = (startTime, lastEndTime, timetable) => {
           : `Break: ${difference} minutes`;
       const freePeriod = document.createElement('a');
       freePeriod.innerHTML = message;
-      freePeriod.className = 'list-group-item item font-weight-bold text-success';
-      timetable.append(freePeriod);
+      freePeriod.className = `list-group-item item font-weight-bold ${
+        isToday(i) && isClassOver(lastEndTime, currentTime) ? 'text-muted' : 'text-success'
+      }`;
+      currentCollapse.append(freePeriod);
     }
   }
 };
@@ -32,77 +41,84 @@ export function createTimetable(courseCode, callback) {
         return;
       }
 
+      alertCheck();
       document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
-      const currTime = new Date().toLocaleTimeString('en-GB');
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
       const frag = document.createDocumentFragment();
       let classEntry;
       let currentCollapse;
+      const mainCard = document.querySelector('#temp-main');
+      const currentTime = new Date().toLocaleTimeString('en-GB');
+      let clone = document.importNode(mainCard.content, true);
 
+      // Create headers and badges
       for (let i = 0; i < json.data.length - 2; i += 1) {
-        // Create headers and badges
         if (json.data[i].length) {
           let lastClassTime = 0;
+          clone = document.importNode(mainCard.content, true);
+          const card = clone.querySelector('#card-main');
+          card.id += i;
+          const heading = clone.querySelector('#heading');
+          heading.id += i;
+          const header = clone.querySelector('#header');
+          header.id += i;
+          header.setAttribute('data-target', `#collapse${i}`);
+          header.setAttribute('aria-controls', `collapse${i}`);
+          header.className += ` ${isToday(i) ? 'text-danger font-weight-bold' : 'text-white'}`;
+          header.innerHTML += json.data[i][0].day;
+          currentCollapse = clone.querySelector('#collapse');
+          currentCollapse.id += i;
+          const badge = clone.querySelector(`#class-total-badge`);
+          badge.id += i;
+          badge.innerHTML = json.data[i].length;
+          badge.className += isToday(i) ? ' badge-danger' : '';
 
-          const div = document.createElement('div');
-          div.className = 'card-container mb-2';
-          div.innerHTML = `<div class="card" id="card${i}">
-          <div class="card-header" id="heading${i}">
-            <h5 class="mb-0">
-            <button type="button" class="btn btn-lg heading font-weight-bold ml-1 text-left" id="header${i}" style="width: 100%" data-toggle="collapse" data-target="#collapse${i}"
-              aria-expanded="true" aria-controls="collapse${i}">
-                ${json.data[i][0].day}
-                <span class="badge float-right badge-pill mt-1" id="class-total-badge${i}">${
-            json.data[i].length
-          }
-          </span>
-            </button>
-            </h5>
-            <div id="collapse${i}" class="collapse show" aria-labelledby="heading${i}"></div>
-          </div>`;
-
-          const isToday = new Date().getDay() - 1 === i;
-          if (isToday) {
-            div.querySelector(`#class-total-badge${i}`).classList.add('badge-danger');
-          }
-
-          frag.append(div);
-          frag.getElementById(`header${i}`).classList.add(isToday ? 'text-danger' : 'text-white');
+          frag.append(card);
           currentCollapse = frag.getElementById(`collapse${i}`);
 
+          if (isToday(i)) currentCollapse.classList.add('show');
+
+          // Create class entries
           for (let j = 0; j < json.data[i].length; j += 1) {
-            // Create class entries
             const currClass = json.data[i][j];
-            checkForBreak(currClass.startTime, lastClassTime, currentCollapse);
+            checkForBreak(currClass.startTime, lastClassTime, currentCollapse, currentTime, i);
             classEntry = document.createElement('a');
             const className = currClass.name.split('/')[0].replace(/ GD & SD/, '');
             const room = currClass.room.split(' (')[0];
-            classEntry.innerHTML = `${currClass.startTime} - ${
-              currClass.endTime
-            }<br>${className}<br>${room.split('-')[0]} - ${
-              room.split('-')[1]
-            }<br>${currClass.teacher.replace(',', ', ')}`;
-            classEntry.className = 'list-group-item item animated fadeIn';
-            classEntry.classList.add(
-              isClassNow(currTime, currClass.startTime, currClass.endTime, isToday)
-                ? 'text-danger'
-                : isClassApporaching(currTime, currClass.startTime, isToday)
-                ? 'text-warning'
-                : 'a'
-            );
+            const p = document.createElement('p');
+            p.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>
+              ${room.split('-')[0]} - ${room.split('-')[1]}<br>
+              ${currClass.teacher.replace(',', ', ')}`;
+            p.classList.add('mb-0');
+            classEntry.className = `list-group-item item`;
+            if (isToday(i)) {
+              classEntry.className += ` ${
+                isClassNow(currClass.startTime, currClass.endTime, currentTime)
+                  ? 'text-danger font-weight-bold'
+                  : isClassApporaching(currClass.startTime, currentTime)
+                  ? 'text-warning'
+                  : isClassOver(currClass.endTime, currentTime)
+                  ? 'text-muted'
+                  : ''
+              }`;
+            }
+
             lastClassTime = currClass.endTime;
-            if (isClassNow(currTime, currClass.startTime, currClass.endTime, isToday))
-              classEntry.classList.add('font-weight-bold');
+            classEntry.append(p);
             currentCollapse.appendChild(classEntry);
           }
 
-          if (callback) callback();
-          timetable.append(frag);
+          if (typeof callback === 'function') callback();
         }
       }
+      // const card = document.querySelector('#temp-next-class');
+      // const currentClassClone = document.importNode(card.content, true);
+      // currentClassClone.querySelector('#card-header span').innerHTML = 'currClass.room';
+      // timetable.append(currentClassClone);
+      timetable.append(frag);
       console.timeEnd('timetable');
     })
     .catch(error => {

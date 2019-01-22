@@ -1,18 +1,22 @@
 module.exports = {
   getPlural: number => (number > 1 ? 's' : ''),
 
-  isClassNow: (currTime, classStart, classEnd, isToday) =>
-    Date.parse(`01/01/1990 ${currTime}`) >= Date.parse(`01/01/1990 ${classStart}`) &&
-    Date.parse(`01/01/1990 ${currTime}`) <= Date.parse(`01/01/1990 ${classEnd}`) &&
-    isToday,
+  isToday: dayInt => new Date().getDay() - 1 === dayInt,
 
-  isClassApporaching: (currTime, classStart, isToday) => {
+  isClassNow: (classStart, classEnd, currentTime) =>
+    new Date(`01/01/1990 ${currentTime}`) >= new Date(`01/01/1990 ${classStart}`) &&
+    new Date(`01/01/1990 ${currentTime}`) <= new Date(`01/01/1990 ${classEnd}`),
+
+  isClassApporaching: (classStart, currentTime) => {
     const threshold = 20;
     const mins = Math.floor(
-      (Date.parse(`01/01/1990 ${classStart}`) - Date.parse(`01/01/1990 ${currTime}`)) / 60000
+      (Date.parse(`01/01/1990 ${classStart}`) - Date.parse(`01/01/1990 ${currentTime}`)) / 60000
     );
-    return mins <= threshold && mins > 0 && isToday;
+    return mins <= threshold && mins > 0;
   },
+
+  isClassOver: (classEnd, currentTime) =>
+    new Date(`01/01/1990 ${classEnd}`) - new Date(`01/01/1990 ${currentTime}`) < 0,
 
   fetchCourseCodes: async callback => {
     fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
@@ -20,8 +24,6 @@ module.exports = {
       .then(json => {
         console.time('getCourses()');
         document.getElementById('loader').style.display = 'none';
-        // const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-        // const select = document.getElementById('courses-select');
         const dataList = document.getElementById('courses-datalist');
         const frag = document.createDocumentFragment();
         let opt;
@@ -31,12 +33,9 @@ module.exports = {
           opt.value = json[i].course;
           frag.append(opt);
         }
-        // if (iOS) {
-        //   select.append(frag);
-        // } else {
         dataList.append(frag);
-        // }
-        if (callback) callback();
+
+        if (typeof callback === 'function') callback();
         console.timeEnd('getCourses()');
       })
       .catch(error => {
@@ -45,16 +44,15 @@ module.exports = {
   },
 
   getSelectedValue: () => {
-    // let courseCode;
-    // if (isIOS) {
-    //   const iosSelect = document.getElementById('courses-select');
-    //   courseCode = iosSelect.options[iosSelect.selectedIndex].value;
-    // } else {
-    //   const input = document.getElementById('courses');
-    //   courseCode = input.value;
-    // }
     const input = document.getElementById('courses');
     const courseCode = input.value;
     return courseCode;
+  },
+
+  alertCheck: () => {
+    if (!localStorage.getItem('visted') && window.location.hash !== '') {
+      localStorage.setItem('visted', true);
+      document.getElementById('alert').style.display = 'block';
+    }
   }
 };
