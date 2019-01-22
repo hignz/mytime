@@ -53,6 +53,10 @@ a:hover {
   color: white;
 }
 
+#footer {
+  animation-delay: 0.2s;
+}
+
 .loader {
   margin-top: 40%;
   animation-delay: 1s;
