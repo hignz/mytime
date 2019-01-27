@@ -20,6 +20,16 @@ document.addEventListener(
 
     const timetableWindow = document.getElementById('timetable-window');
     const selectWindow = document.getElementById('select-window');
+    const courseInput = document.getElementById('courses');
+    const searchBtn = document.getElementById('searchBtn');
+    courseInput.addEventListener('keyup', () => {
+      console.log(searchBtn);
+      if (courseInput.value.length === 0) {
+        searchBtn.disabled = true;
+      } else {
+        searchBtn.disabled = false;
+      }
+    });
 
     if (window.location.hash) {
       document.getElementById('select-window').style.display = 'none';

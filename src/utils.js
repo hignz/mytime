@@ -47,9 +47,13 @@ module.exports = {
   getSelectedValue: () => {
     const input = document.getElementById('courses');
     const courseCode = input.value;
-    const dataSet = document.querySelector(`#courses-datalist option[value='${courseCode}']`)
-      .dataset;
-    return dataSet.value;
+    const selectedOption = document.querySelector(
+      `#courses-datalist option[value='${courseCode}']`
+    );
+    if (selectedOption === null) {
+      return '';
+    }
+    return selectedOption.dataset.value;
   },
 
   alertCheck: () => {
