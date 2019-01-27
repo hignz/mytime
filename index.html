@@ -36,12 +36,13 @@
 
 <body>
   <div class="container animated fadeIn">
-      <div class="alert alert-success alert-dismissible fade show mt-2 text-center" id="alert" role="alert" data-dismiss="alert" style="display: none">
-        <strong>Did you know</strong> you can expand/collapse each day by tapping on its header
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="alert alert-success alert-dismissible fade show mt-2 text-center" id="alert" role="alert" data-dismiss="alert"
+      style="display: none">
+      <strong>Did you know</strong> you can expand/collapse each day by tapping on its header
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <!--Loading spinner-->
     <div class="loader animated fadeIn" id="loader">
       <div class="lds-circle"></div>
@@ -55,14 +56,13 @@
       <div class="input-group">
         <input type="text" list="courses-datalist" spellcheck="false" id="courses" class="form-control bg-secondary text-white mr-2"
           placeholder="Start typing to search">
-        <!-- <select id="courses-select" class="form-control bg-secondary text-white mr-2" style="display: none"></select> -->
         <div class="input-group-append">
           <button class="btn btn-outline-success text-white" type="button" id="searchBtn">Search</button>
         </div>
       </div>
       <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
-        <p class="text-center text-success mt-2"><a class="font-weight-bold"
-          data-toggle="modal" data-target="#help-modal">Bookmark </a>your timetable after finding it!</p>
+      <p class="text-center text-success mt-3"><a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark
+        </a>your timetable after finding it!</p>
       <hr>
     </div>
     <!--Timetable entry container-->
@@ -161,17 +161,16 @@
     </div>
   </template>
   <template id="temp-main">
-      <div class="card card-container mb-2" id="card-main">
-        <div class="card-header" id="heading">
-          <h5 class="mb-0">
-            <button type="button" class="btn btn-lg heading ml-1 text-left"
-              id="header" style="width: 100%" data-toggle="collapse" data-target="#collapse" aria-expanded="true"
-              aria-controls="collapse">
-              <span class="badge float-right badge-pill mt-1" id="class-total-badge"></span>
-            </button>
-          </h5>
-          <div id="collapse" class="collapse" aria-labelledby="heading"></div>
-          <!-- <div class="card-footer text-muted">
+    <div class="card card-container mb-2" id="card-main">
+      <div class="card-header" id="heading">
+        <h5 class="mb-0">
+          <button type="button" class="btn btn-lg heading ml-1 text-left" id="header" style="width: 100%" data-toggle="collapse"
+            data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+            <span class="badge float-right badge-pill mt-1" id="class-total-badge"></span>
+          </button>
+        </h5>
+        <div id="collapse" class="collapse" aria-labelledby="heading"></div>
+        <!-- <div class="card-footer text-muted">
             2 days ago
           </div> -->
       </div>
@@ -183,4 +182,5 @@
   <script src="/dist/main.js"></script>
   <script src="src/datalist-polyfill.min.js"></script>
 </body>
+
 </html>
