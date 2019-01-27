@@ -1,11 +1,4 @@
-import {
-  getPlural,
-  isClassApporaching,
-  isClassNow,
-  isClassOver,
-  isToday,
-  alertCheck
-} from './utils';
+import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
 
 const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) => {
   if (startTime > lastEndTime) {
@@ -38,12 +31,11 @@ export function createTimetable(courseCode, callback) {
       if (json.empty) {
         document.getElementById('timetable-window').style.display = 'block';
         document.getElementById('course-title').textContent = 'No timetable data found';
+        document.getElementById('courseinfo-direct-link').href = json.url;
         return;
       }
-
-      alertCheck();
-      document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
+      document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);

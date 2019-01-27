@@ -1,9 +1,9 @@
 import { createTimetable } from './timetable';
-import { fetchCourseCodes, getSelectedValue } from './utils';
+import { fetchCourseCodes, getSelectedValue, alertCheck } from './utils';
 
 document.addEventListener(
   'DOMContentLoaded',
-  async () => {
+  () => {
     if (window.history && window.history.pushState) {
       window.onpopstate = () => {
         const { hash } = window.location;
@@ -23,19 +23,20 @@ document.addEventListener(
 
     if (window.location.hash) {
       document.getElementById('select-window').style.display = 'none';
-      await createTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
+      createTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
         timetableWindow.style.display = 'block';
+        alertCheck();
       });
-      await fetchCourseCodes();
+      fetchCourseCodes();
     } else {
-      await fetchCourseCodes(() => {
+      fetchCourseCodes(() => {
         selectWindow.style.display = 'block';
       });
     }
 
     document.getElementById('searchBtn').addEventListener(
       'click',
-      async () => {
+      () => {
         const timetable = document.getElementById('timetable');
         while (timetable.firstChild) {
           timetable.removeChild(timetable.firstChild);
@@ -44,14 +45,15 @@ document.addEventListener(
         timetableWindow.style.display = 'block';
         const courseCode = getSelectedValue();
         window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
-        await createTimetable(encodeURIComponent(courseCode));
+        createTimetable(encodeURIComponent(courseCode));
+        alertCheck();
       },
       false
     );
 
     document.getElementById('backBtn').addEventListener(
       'click',
-      async () => {
+      () => {
         document.title = `MyTerm`;
         timetableWindow.style.display = 'none';
         selectWindow.style.display = 'block';
