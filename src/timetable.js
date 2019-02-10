@@ -22,8 +22,8 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) 
   }
 };
 
-export function createTimetable(courseCode, callback) {
-  fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
+export function createTimetable(courseCode, semester, callback) {
+  fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}/${semester}`)
     .then(response => response.json())
     .then(json => {
       console.time('timetable');
