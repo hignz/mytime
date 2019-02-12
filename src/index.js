@@ -21,7 +21,7 @@ document.addEventListener(
       const collegeIndex = $collegeSelect.options[$collegeSelect.selectedIndex].value;
       const courseCode = getSelectedValue();
       window.location.hash = `#${courseCode}-${collegeIndex}${semester ? `-${semester}` : ''}`;
-      createTimetable(encodeURIComponent(courseCode), semester);
+      createTimetable(encodeURIComponent(courseCode), collegeIndex, semester || '');
     };
 
     function BackButtonClick() {
