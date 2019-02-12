@@ -62,6 +62,10 @@ a:hover {
   animation-delay: 1s;
 }
 
+#searchBtn {
+  flex: 1;
+}
+
 hr {
   border: 0;
   height: 1px;
