@@ -39,7 +39,7 @@ document.addEventListener(
       hash = hash.replace(/(-\d)/g, '');
       createTimetable(
         encodeURIComponent(hash),
-        hashSplit[1] === undefined ? '0' : hashSplit[1],
+        hashSplit[1] || '0',
         hashSplit[2] === undefined ? '' : hashSplit[2],
         () => {
           $timetableWindow.style.display = 'block';
