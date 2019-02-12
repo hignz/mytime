@@ -35,7 +35,7 @@
 </head>
 
 <body>
-  <div class="container animated fadeIn">
+  <main class="container animated fadeIn">
     <div class="alert alert-success alert-dismissible fade show mt-2 text-center" id="alert" role="alert"
       data-dismiss="alert" style="display: none">
       <span class="font-italic">Did you know you can expand/collapse each day by tapping on its header</span>
@@ -58,16 +58,26 @@
         <input type="text" list="courses-datalist" spellcheck="false" id="courses"
           class="form-control bg-secondary text-white" placeholder="Start typing to search" tabindex="0" required>
       </div>
-      <div class="input-group-append mt-2">
-        <button class="btn btn-outline-success btn-block text-white" type="button" id="searchBtn"
-          disabled>Search</button>
-        <button type="button" id="toggleBtn" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" id="semOneBtn">Semester 1</a>
-          <a class="dropdown-item" id="semTwoBtn">Semester 2</a>
+      <div class="form-group mt-2">
+        <label for="selectColleges">Institutes</label>
+        <select class="form-control bg-secondary text-white" id="selectColleges">
+          <option value="0">IT Sligo</option>
+          <option value="1">Limerick Institute of Technology</option>
+          <option value="2">Athlone Institute of Technology</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success text-white" type="button" id="searchBtn"
+            disabled>Search</button>
+          <button type="button" id="toggleBtn" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" id="semOneBtn">Semester 1</a>
+            <a class="dropdown-item" id="semTwoBtn">Semester 2</a>
+          </div>
         </div>
       </div>
       <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
@@ -114,7 +124,7 @@
         <i class="fas fa-university"></i>
       </a>
     </footer>
-  </div>
+  </main>
   <!--Help modal-->
   <div class="modal" tabindex="-1" role="dialog" id="help-modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
