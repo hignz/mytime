@@ -10,7 +10,7 @@ document.addEventListener(
     const $searchBtn = document.getElementById('searchBtn');
     const $toggleBtn = document.getElementById('toggleBtn');
     const $timetable = document.getElementById('timetable');
-    const $collegeSelect = document.getElementById('selectColleges');
+    // const $collegeSelect = document.getElementById('selectColleges');
 
     const SearchButtonClick = semester => {
       while ($timetable.firstChild) {
@@ -18,10 +18,10 @@ document.addEventListener(
       }
       $selectWindow.style.display = 'none';
       $timetableWindow.style.display = 'block';
-      const collegeIndex = $collegeSelect.options[$collegeSelect.selectedIndex].value;
+      // const collegeIndex = $collegeSelect.options[$collegeSelect.selectedIndex].value;
       const courseCode = getSelectedValue();
-      window.location.hash = `#${courseCode}-${collegeIndex}${semester ? `-${semester}` : ''}`;
-      createTimetable(encodeURIComponent(courseCode), collegeIndex, semester || '');
+      window.location.hash = `#${courseCode}-${0}${semester ? `-${semester}` : ''}`;
+      createTimetable(encodeURIComponent(courseCode), 0, semester || '');
     };
 
     function BackButtonClick() {
