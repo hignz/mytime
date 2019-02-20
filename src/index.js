@@ -29,7 +29,6 @@ document.addEventListener(
       $timetableWindow.style.display = 'none';
       $selectWindow.style.display = 'block';
       window.history.pushState('', document.title, `${window.location.pathname}`);
-      $courseInput.focus();
     }
 
     if (window.location.hash) {
