@@ -1,5 +1,6 @@
 import { createTimetable } from './timetable';
 import { fetchCourseCodes, getSelectedValue, alertCheck } from './utils';
+import './styles/main.css';
 
 document.addEventListener(
   'DOMContentLoaded',
