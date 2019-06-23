@@ -122,7 +122,7 @@
           </div>
         </div>
         <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
-        <div
+        <!-- <div
           class="alert alert-danger alert-dismissible fade show mt-2 text-center"
           role="alert"
           data-dismiss="alert"
@@ -133,7 +133,7 @@
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
+        </div> -->
         <p class="text-center text-success mt-3 font-weight-light">
           <a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark </a>
           your timetable after finding it!
@@ -180,6 +180,7 @@
         <a
           href="https://hignz.github.io/room-availability/"
           target="_blank"
+          rel="noopener"
           class="text-light mx-4 footer-links"
           data-toggle="tooltip"
           title="Free rooms"
@@ -190,6 +191,7 @@
           href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
           title="GitHub"
           target="_blank"
+          rel="noopener"
           class="text-light mx-4 footer-links"
           data-toggle="tooltip"
         >
@@ -199,6 +201,7 @@
           href="http://timetables.itsligo.ie:81/studentset.htm"
           title="IT Sligo site"
           target="_blank"
+          rel="noopener"
           class="text-light mx-4 footer-links"
           data-toggle="tooltip"
         >
@@ -255,11 +258,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <a id="courseinfo-direct-link" target="_blank">Direct link</a>
+            <a id="courseinfo-direct-link" target="_blank" rel="noopener">Direct link</a>
           </div>
         </div>
       </div>
     </div>
+    <!-- Templates -->
     <template id="temp-next-class">
       <div class="card mb-2" id="card">
         <div class="card-header py-2 font-weight-bold text-success" id="card-header">
@@ -297,17 +301,19 @@
         </div>
       </div>
     </template>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-      crossorigin="anonymous"
-    ></script>
+      src="https://code.jquery.com/jquery-3.4.1.slim.js"
+      integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+      crossorigin="anonymous">
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" 
+      integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU=" 
+      crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"         
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+      crossorigin="anonymous">
+    </script>
     <script src="/dist/main.js"></script>
     <script src="src/datalist-polyfill.min.js"></script>
   </body>
