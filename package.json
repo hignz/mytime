@@ -26,5 +26,6 @@
     "prettier": "^1.15.3",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1"
-  }
+  },
+  "dependencies": {}
 }
