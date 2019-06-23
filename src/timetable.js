@@ -1,11 +1,4 @@
-import {
-  getPlural,
-  isClassApporaching,
-  isClassNow,
-  isClassOver,
-  isToday,
-  alertCheck
-} from './utils';
+import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
 
 const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) => {
   if (startTime > lastEndTime) {
@@ -29,21 +22,23 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) 
   }
 };
 
-export function createTimetable(courseCode, callback) {
-  fetch(`https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}`)
+export function createTimetable(courseCode, collegeIndex, semester, callback) {
+  fetch(
+    `https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}/${collegeIndex}/${semester ||
+      ''}`
+  )
     .then(response => response.json())
     .then(json => {
       console.time('timetable');
       document.getElementById('loader').style.display = 'none';
       if (json.empty) {
         document.getElementById('timetable-window').style.display = 'block';
-        document.getElementById('course-title').textContent = 'No timetable data found';
+        document.getElementById('course-title').textContent = 'No timetable found';
+        document.getElementById('courseinfo-direct-link').href = json.url;
         return;
       }
-
-      alertCheck();
-      document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
+      document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
       document.getElementById('course-title').textContent = decodeURIComponent(courseCode);

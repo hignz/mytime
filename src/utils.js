@@ -29,8 +29,9 @@ module.exports = {
         let opt;
         for (let i = 0; i < json.length; i += 1) {
           opt = document.createElement('option');
-          opt.text = json[i].title || json[i].course;
-          opt.value = json[i].course;
+          opt.text = json[i].course;
+          opt.value = json[i].title || json[i].course;
+          opt.setAttribute('data-value', json[i].course);
           frag.append(opt);
         }
         dataList.append(frag);
@@ -46,7 +47,13 @@ module.exports = {
   getSelectedValue: () => {
     const input = document.getElementById('courses');
     const courseCode = input.value;
-    return courseCode;
+    const selectedOption = document.querySelector(
+      `#courses-datalist option[value='${courseCode}']`
+    );
+    if (selectedOption === null) {
+      return '';
+    }
+    return selectedOption.dataset.value;
   },
 
   alertCheck: () => {

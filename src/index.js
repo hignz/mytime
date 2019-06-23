@@ -1,64 +1,121 @@
 import { createTimetable } from './timetable';
-import { fetchCourseCodes, getSelectedValue } from './utils';
+import { fetchCourseCodes, getSelectedValue, alertCheck } from './utils';
+import './styles/main.css';
 
 document.addEventListener(
   'DOMContentLoaded',
-  async () => {
+  () => {
+    const $timetableWindow = document.getElementById('timetable-window');
+    const $selectWindow = document.getElementById('select-window');
+    const $courseInput = document.getElementById('courses');
+    const $searchBtn = document.getElementById('searchBtn');
+    const $toggleBtn = document.getElementById('toggleBtn');
+    const $timetable = document.getElementById('timetable');
+    // const $collegeSelect = document.getElementById('selectColleges');
+
+    const DisplayElement = (element, value) => {
+      element.style.display = value === false ? 'none' : 'block';
+    };
+
+    if (window.location.hash) {
+      $selectWindow.style.display = 'none';
+      let hash = window.location.hash.substring(1);
+      const hashSplit = hash.split('-');
+      hash = hash.replace(/(-\d)/g, '');
+      createTimetable(
+        encodeURIComponent(hash),
+        hashSplit[1] || '0',
+        hashSplit[2] === undefined ? '' : hashSplit[2],
+        () => {
+          DisplayElement($timetableWindow, true);
+          alertCheck();
+        }
+      );
+      fetchCourseCodes();
+    } else {
+      fetchCourseCodes(() => {
+        DisplayElement($selectWindow, true);
+      });
+    }
+
     if (window.history && window.history.pushState) {
       window.onpopstate = () => {
         const { hash } = window.location;
-
         if (hash === '') {
           window.location.reload();
         }
       };
     }
 
-    if (navigator.userAgent.includes('Snapchat')) {
-      document.querySelector('#courseinfo-modal').modal('show');
-    }
+    const SearchButtonClick = semester => {
+      while ($timetable.firstChild) {
+        $timetable.removeChild($timetable.firstChild);
+      }
 
-    const timetableWindow = document.getElementById('timetable-window');
-    const selectWindow = document.getElementById('select-window');
+      DisplayElement($selectWindow, false);
+      DisplayElement($timetableWindow, true);
+      // const collegeIndex = $collegeSelect.options[$collegeSelect.selectedIndex].value;
+      const courseCode = getSelectedValue();
+      window.location.hash = `#${courseCode}-${0}${semester ? `-${semester}` : ''}`;
+      createTimetable(encodeURIComponent(courseCode), 0, semester || '');
+    };
 
-    if (window.location.hash) {
-      document.getElementById('select-window').style.display = 'none';
-      await createTimetable(encodeURIComponent(window.location.hash.substring(1)), () => {
-        timetableWindow.style.display = 'block';
-      });
-      await fetchCourseCodes();
-    } else {
-      await fetchCourseCodes(() => {
-        selectWindow.style.display = 'block';
-      });
-    }
+    const BackButtonClick = () => {
+      document.title = `MyTerm`;
+      DisplayElement($timetableWindow, false);
+      DisplayElement($selectWindow, true);
+
+      window.history.pushState('', document.title, `${window.location.pathname}`);
+    };
+
+    $courseInput.addEventListener('keyup', e => {
+      if ($courseInput.value.length < 1) {
+        $searchBtn.disabled = true;
+        $toggleBtn.disabled = true;
+      } else {
+        $searchBtn.disabled = false;
+        $toggleBtn.disabled = false;
+      }
+
+      if (e.keyCode === 13 && !$searchBtn.disabled && $timetableWindow.style.display === 'none') {
+        SearchButtonClick();
+      }
+    });
+
+    document.addEventListener('keyup', e => {
+      if (e.keyCode === 8 && $timetableWindow.style.display === 'block') {
+        BackButtonClick();
+      }
+    });
 
     document.getElementById('searchBtn').addEventListener(
       'click',
-      async () => {
-        const timetable = document.getElementById('timetable');
-        while (timetable.firstChild) {
-          timetable.removeChild(timetable.firstChild);
-        }
-        selectWindow.style.display = 'none';
-        timetableWindow.style.display = 'block';
-        const courseCode = getSelectedValue();
-        window.location.hash = courseCode[0] === '#' ? `#${courseCode}` : courseCode;
-        await createTimetable(encodeURIComponent(courseCode));
+      () => {
+        SearchButtonClick();
+        alertCheck();
       },
       false
     );
 
-    document.getElementById('backBtn').addEventListener(
+    document.getElementById('semOneBtn').addEventListener(
       'click',
-      async () => {
-        document.title = `MyTerm`;
-        timetableWindow.style.display = 'none';
-        selectWindow.style.display = 'block';
-        window.history.pushState('', document.title, `${window.location.pathname}`);
+      () => {
+        SearchButtonClick('0');
+        alertCheck();
       },
       false
     );
+
+    document.getElementById('semTwoBtn').addEventListener(
+      'click',
+      () => {
+        SearchButtonClick('1');
+        alertCheck();
+      },
+      false
+    );
+
+    document.getElementById('backBtn').addEventListener('click', () => BackButtonClick(), false);
   },
   false
 );
