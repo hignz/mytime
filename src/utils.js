@@ -23,7 +23,7 @@ module.exports = {
   },
 
   fetchCourseCodes: async (index, callback) => {
-    fetch(`http://localhost:3000/api/courses?college=${index}`)
+    fetch(`https://itsligo-utils.herokuapp.com/api/courses?college=${index}`)
       .then(response => response.json())
       .then(json => {
         console.time('getCourses()');

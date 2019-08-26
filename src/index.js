@@ -37,6 +37,7 @@ document.addEventListener(
     const parent = document.querySelector('#parent');
     const picker = new Picker(parent);
     picker.setColor(localStorage.getItem('accentColor'));
+    picker.setOptions({ popup: 'left' });
 
     picker.onChange = c => {
       document.documentElement.style.setProperty('--accent', c.hex);
