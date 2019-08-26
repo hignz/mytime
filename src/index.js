@@ -39,6 +39,11 @@ document.addEventListener(
     picker.setColor(localStorage.getItem('accentColor'));
     picker.setOptions({ popup: 'left' });
 
+    if (!localStorage.getItem('visited')) {
+      window.location.reload(true);
+      localStorage.setItem('visited', 1);
+    }
+
     picker.onChange = c => {
       document.documentElement.style.setProperty('--accent', c.hex);
       localStorage.setItem('accentColor', c.hex);
