@@ -1,17 +1,91 @@
+
+:root {
+  --coral-color: #e06c75;
+  --green-color: #98c379;
+  --malibu-color: #61afef;
+  --foundation-blue-color: #56b6c2;
+  --light-white-color: #abb2bf;
+  --dark-color: #5c6370;
+  --light-dark-color: #7f848e;
+  --light-white-color: #abb2bf;
+  --chalky-color: #e5c07b;
+  --whiskey-color: #d19a66;
+  --error-color: #f44747;
+  --purple-color: #c678dd;
+  --background-color: #282c34;
+  --dark-background-color: #21252b;
+  --accent: #56b6c2;
+  --accent-rgba: 86, 182, 194, 0.75;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   font-family: 'Roboto', sans-serif;
+  background-color: var(--dark-background-color);
 }
 
-.form-inline {
-  background-color: #21252b !important;
+.text--accent {
+  color: var(--accent);
+}
+
+.bg--dark {
+  background-color: var(--background-color);
+}
+
+.bg--darker {
+  background-color: var(--dark-background-color);
+}
+
+.bg--red {
+  background-color: var(--coral-color);
+}
+
+.text--green {
+  color: var(--green-color);
+}
+
+.text--red {
+  color: var(--coral-color);
+}
+
+a:not([href]):not([tabindex]){
+  color: var(--accent);
+}
+
+a:not([href]):not([tabindex]):hover{
+  color: var(--accent);
 }
 
 #courseDropDown {
   cursor: pointer;
+}
+
+.custom-select:focus {
+  border-color: var(--accent);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#colleges:focus {
+  outline-color: var(--accent);
+}
+
+.input {
+  color: red; 
+}
+
+#colleges {
+  border: 1px solid var(--light-white-color);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 38px;
+  width: 100%;
 }
 
 .header {
@@ -48,17 +122,33 @@ summary:focus {
   margin-top: 80px;
 }
 
+.select-outline {
+  border: 1px solid var(--accent);
+}
+
 a:hover {
   text-decoration: none;
   cursor: pointer;
 }
 
+.dropdown-item:hover {
+  background: var(--background-color);
+}
+
+item a {
+  cursor: text;
+}
+
+select option {
+  background-color: var(--background-color); 
+}
+
 .fas {
-  color: white;
+  color: var(--light-white-color);
 }
 
 #course-title {
-  color: white;
+  color: var(--accent);
 }
 
 #footer {
@@ -77,11 +167,11 @@ a:hover {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(0, 188, 140, 0.75), rgba(0, 188, 140, 0));
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(var(--accent-rgba)), rgba(0, 188, 140, 0));
 }
 
-.card-container {
-  border: 1px solid rgba(0, 188, 140, 1);
+.card {
+  border: 1px solid var(--accent);
   border-radius: 0.3%;
 }
 
@@ -89,19 +179,47 @@ hr {
   cursor: pointer;
 }
 
-.fab {
-  font-size: 24px;
-  color: white;
+.fab, .fa, .fas {
+  font-size: 20px;
+  color: grey;
+}
+
+i.brand-logo {
+  font-size: 36px;
+}
+
+.btn-outline {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline:disabled:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+.btn-outline:not(:disabled):hover {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  cursor: pointer;
 }
 
 .container {
   margin-bottom: 4px;
 }
 
+.form-control {
+  border-color: var(--light-white-color);
+  color: white;
+}
+
 .form-control:focus {
-  border-color: rgba(0, 188, 140, 0.8);
-  box-shadow: 0px 0px 0px rgba(0, 188, 140, 0.6);
+  border-color: var(--accent);
+  box-shadow: 0px 0px 0px var(--accent);
   outline: 0 none;
+  background-color: transparent;
+  color: white;
 }
 
 .item:hover,
@@ -114,8 +232,9 @@ hr {
 }
 
 a > .fab:hover,
-a > .fas:hover{
-  color: rgba(0, 188, 140, 1);
+a > .fas:hover,
+a > .fa:hover {
+  color: var(--accent);
 }
 
 @media (min-width: 992px) {
