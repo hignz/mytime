@@ -34,7 +34,7 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
 
 export function createTimetable(courseCode, collegeIndex, semester, callback) {
   fetch(
-    `http://localhost:3000/api/timetable/?code=${courseCode}&college=${collegeIndex}&sem=${semester}`
+    `https://itsligo-utils.herokuapp.com/api/timetable/?code=${courseCode}&college=${collegeIndex}&sem=${semester}`
   )
     .then(response => response.json())
     .then(json => {
