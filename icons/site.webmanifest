@@ -1,19 +1,14 @@
 {
-    "name": "MyTerm",
-    "short_name": "MyTerm",
+    "name": "",
+    "short_name": "",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png?v=00zRNxpA59",
+            "src": "/android-chrome-192x192.png?v=zX7rAqYdW5",
             "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/android-chrome-384x384.png?v=00zRNxpA59",
-            "sizes": "384x384",
             "type": "image/png"
         }
     ],
-    "theme_color": "#222222",
-    "background_color": "#222222",
+    "theme_color": "#21252b",
+    "background_color": "#21252b",
     "display": "standalone"
 }
