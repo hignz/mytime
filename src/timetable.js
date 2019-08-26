@@ -1,6 +1,6 @@
 import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
 
-const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) => {
+const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, collegeIndex) => {
   if (startTime > lastEndTime) {
     const difference =
       Math.abs(
@@ -14,9 +14,19 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) 
           : `Break: ${difference} minutes`;
       const freePeriod = document.createElement('a');
       freePeriod.innerHTML = message;
-      freePeriod.className = `list-group-item item font-weight-bold ${
-        isToday(i) && isClassOver(lastEndTime, currentTime) ? 'text-muted' : 'text-success'
+      freePeriod.className = `list-group-item item freePeriod font-weight-bold bg-dark ${
+        isToday(i) && isClassOver(startTime, currentTime) ? 'text-muted' : 'text--green'
       }`;
+      if (collegeIndex) {
+        const btn = document.createElement('button');
+        btn.classList.add('btn', 'btn-outline', 'btn-sm', 'float-right');
+        btn.innerHTML = 'Rooms';
+        btn.value = `${lastEndTime}-${startTime}`;
+        btn.addEventListener('click', e => {
+          console.log(e.target.value);
+        });
+        freePeriod.append(btn);
+      }
       currentCollapse.append(freePeriod);
     }
   }
@@ -24,30 +34,37 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i) 
 
 export function createTimetable(courseCode, collegeIndex, semester, callback) {
   fetch(
-    `https://itsligo-utils.herokuapp.com/api/timetable/${courseCode}/${collegeIndex}/${semester ||
-      ''}`
+    `http://localhost:3000/api/timetable/?code=${courseCode}&college=${collegeIndex}&sem=${semester}`
   )
     .then(response => response.json())
     .then(json => {
       console.time('timetable');
       document.getElementById('loader').style.display = 'none';
-      if (json.empty) {
+      if (json.empty || json.data.length === 0) {
         document.getElementById('timetable-window').style.display = 'block';
         document.getElementById('course-title').textContent = 'No timetable found';
         document.getElementById('courseinfo-direct-link').href = json.url;
         return;
       }
       document.getElementById('courseinfo-direct-link').href = json.url;
-      document.title = `MyTerm | ${decodeURIComponent(courseCode)}`;
+      document.getElementById('courseinfo-college').innerHTML = json.college;
+      document.getElementById('courseinfo-semester').innerHTML = `Semester: ${parseInt(
+        json.semester,
+        0
+      ) + 1}`;
+      document.title = `${decodeURIComponent(json.courseCode)}`;
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
-      document.getElementById('course-title').textContent = decodeURIComponent(courseCode);
+      document.getElementById('course-title').textContent = `${decodeURIComponent(
+        json.courseCode
+      )}`;
       const frag = document.createDocumentFragment();
       let classEntry;
       let currentCollapse;
       const mainCard = document.querySelector('#temp-main');
       const currentTime = new Date().toLocaleTimeString('en-GB');
       let clone = document.importNode(mainCard.content, true);
+      let currentClass;
 
       // Create headers and badges
       for (let i = 0; i < json.data.length - 2; i += 1) {
@@ -62,14 +79,13 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
           header.id += i;
           header.setAttribute('data-target', `#collapse${i}`);
           header.setAttribute('aria-controls', `collapse${i}`);
-          header.className += ` ${isToday(i) ? 'text-danger font-weight-bold' : 'text-white'}`;
+          header.className += ` ${isToday(i) ? 'text--accent font-weight-bold' : 'text-white'}`;
           header.innerHTML += json.data[i][0].day;
           currentCollapse = clone.querySelector('#collapse');
           currentCollapse.id += i;
           const badge = clone.querySelector(`#class-total-badge`);
           badge.id += i;
           badge.innerHTML = json.data[i].length;
-          badge.className += isToday(i) ? ' badge-danger' : '';
 
           frag.append(card);
           currentCollapse = frag.getElementById(`collapse${i}`);
@@ -79,40 +95,56 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
           // Create class entries
           for (let j = 0; j < json.data[i].length; j += 1) {
             const currClass = json.data[i][j];
-            checkForBreak(currClass.startTime, lastClassTime, currentCollapse, currentTime, i);
+            checkForBreak(
+              currClass.startTime,
+              lastClassTime,
+              currentCollapse,
+              currentTime,
+              i,
+              collegeIndex
+            );
             classEntry = document.createElement('a');
             const className = currClass.name.split('/')[0].replace(/ GD & SD/, '');
             const room = currClass.room.split(' (')[0];
             const p = document.createElement('p');
             p.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>
-              ${room.split('-')[0]} - ${room.split('-')[1]}<br>
+              ${room.split('-')[0]}${room.split('-')[1] ? ` - ${room.split('-')[1]}` : ''}<br>
               ${currClass.teacher.replace(',', ', ')}`;
             p.classList.add('mb-0');
-            classEntry.className = `list-group-item item`;
+            classEntry.className = `list-group-item item bg-dark text-white`;
             if (isToday(i)) {
               classEntry.className += ` ${
                 isClassNow(currClass.startTime, currClass.endTime, currentTime)
-                  ? 'text-danger font-weight-bold'
+                  ? 'text-danger  font-weight-bold'
                   : isClassApporaching(currClass.startTime, currentTime)
                   ? 'text-warning'
                   : isClassOver(currClass.endTime, currentTime)
                   ? 'text-muted'
-                  : ''
+                  : 'text-white'
               }`;
             }
 
             lastClassTime = currClass.endTime;
             classEntry.append(p);
             currentCollapse.appendChild(classEntry);
+            if (isToday(i) && isClassNow(currClass.startTime, currClass.endTime, currentTime)) {
+              currentClass = currClass;
+            }
           }
 
           if (typeof callback === 'function') callback();
         }
       }
-      // const card = document.querySelector('#temp-next-class');
-      // const currentClassClone = document.importNode(card.content, true);
-      // currentClassClone.querySelector('#card-header span').innerHTML = 'currClass.room';
-      // timetable.append(currentClassClone);
+      // if (currentClass) {
+      //   const card = document.querySelector('#temp-next-class');
+      //   const currentClassClone = document.importNode(card.content, true);
+      //   currentClassClone.querySelector('#card-header span').innerHTML = `You have class now!`;
+      //   currentClassClone.querySelector('#card-title').innerHTML = `${currentClass.name}`;
+      //   currentClassClone.querySelector('#card-text').innerHTML = `From ${
+      //     currentClass.startTime
+      //   } to ${currentClass.endTime} in room ${currentClass.room}`;
+      //   timetable.append(currentClassClone);
+      // }
       timetable.append(frag);
       console.timeEnd('timetable');
     })

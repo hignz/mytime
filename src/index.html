@@ -18,17 +18,15 @@
     <!-- Meta -->
     <meta name="google-site-verification" content="8HFOH_Tq0lJTs7PZ0oD2uSiKBN9uKF5hILirnpLKy3g" />
     <meta name="description" content="See your timetable at a glance. An alternative to IT Sligo's timetable system." />
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      rel="preload"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css" 
-      integrity="sha256-6W1mxPaAt4a6pkJVW5x5Xmq/LvxuQpR9dlzgy77SeZs=" 
-      crossorigin="anonymous" />
-    <link rel="stylesheet" href="./src/css/loader-min.css" />
-    <link rel="stylesheet" href="./src/css/main.css" />
+    <link rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
+      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" 
+      crossorigin="anonymous" /> 
+    <!-- <link rel="stylesheet" href="./src/css/loader-min.css" />
+    <link rel="stylesheet" href="./dist/css/main.css" /> -->
     <link rel="stylesheet"
       rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" 
@@ -56,7 +54,7 @@
   </head>
 
   <body>
-    <main class="container animated fadeIn">
+    <main class="container animated fadeIn fast">
       <div
         class="alert alert-success alert-dismissible fade show mt-2 text-center"
         id="alert"
@@ -77,40 +75,113 @@
         <p class="text-center mt-4 font-weight-bold text-white">Please wait...</p>
         <p class="text-center font-weight-bold text-white">Server spinning up</p>
       </div>
+      <!-- <div>
+        <div class="spinner" id="loader">
+          <div class="cube1"></div>
+          <div class="cube2"></div>
+        </div>
+        <p class="text-center mt-4 font-weight-bold text-white">Please wait...</p>
+        <p class="text-center font-weight-bold text-white">Server spinning up</p>
+
+      </div> -->
+      
       <!--Select window-->
-      <div id="select-window" class="mb-10 animated fadeIn" style="display: none">
+      <div id="select-window" class="mb-10" style="display: none">
         <h1 class="text-center text-white header">
-          <i class="fas fa-school mr-4"></i>My<span class="text-success">test</span>
-        </h1>
-        <label for="courses" class="text-white">Courses</label>
-        <div class="input-group">
+          <i class="fas fa-graduation-cap mr-2 brand-logo"></i>My<span class="text--accent">Term</span>
+        </h1>    
+        <form class="mx-2">
+          <div class="form-group row">
+            <label for="colleges" class="text-white">Colleges</label>
+            <select
+              id="colleges"
+              class="form-control custom-select bg--dark text-white"
+              tabindex="0"
+              required>
+              <option value="0">IT Sligo</option>
+              <option value="1">Athlone IT</option>
+              <!-- <option value="2">Limerick IT</option> -->
+            </select>
+    
+          </div>
+          <div class="form-group row">
+              <label for="courses" class="text-white">Courses</label>
+              <input
+                type="text"
+                autocomplete="off"
+                list="courses-datalist"
+                spellcheck="false"
+                id="courses"
+                class="form-control bg--dark text--white"
+                placeholder="Start typing to find your course..."
+                tabindex="0"
+                required
+              />    
+          </div>
+
+          <div class="form-group row">
+            <div class="btn-group btn-block special my-4" role="group" aria-label="Button group with nested dropdown">
+              <button class="btn btn-outline" type="button" id="searchBtn" disabled>
+                Search
+              </button>
+              <button
+                type="button"
+                id="toggleBtn"
+                class="btn btn-outline dropdown-toggle dropdown-toggle-split"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                disabled
+              >
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu bg-dark">
+                <a class="dropdown-item" id="semOneBtn">Semester 1</a>
+                <a class="dropdown-item" id="semTwoBtn">Semester 2</a>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <!-- <div class="form-group">
+
+        </div>
+        <div class="form-group"> -->
+          <!-- <label for="colleges" class="text-white">Colleges</label>
+          <select
+            id="colleges"
+            class="form-control custom-select bg--dark text-white"
+            tabindex="0"
+            required>
+            <option value="0">Athlone IT</option>
+            <option value="1">IT Sligo</option>
+            <option value="2">Limerick IT</option>
+          </select> -->
+        <!-- </div>
+        <div class="form-group"> -->
+          <!-- <label for="courses" class="text-white">Courses</label>
           <input
             type="text"
+            autocomplete="off"
             list="courses-datalist"
             spellcheck="false"
             id="courses"
-            class="form-control bg-secondary text-white"
-            placeholder="Start typing to search"
+            class="form-control bg--dark"
+            placeholder="Start typing to find your course..."
             tabindex="0"
             required
-          />
-        </div>
-        <div class="form-group mt-2">
-          <!-- <label for="selectColleges">Institutes</label>
-        <select class="form-control bg-secondary text-white" id="selectColleges">
-          <option value="0">IT Sligo</option>
-          <option value="1">Limerick Institute of Technology</option>
-          <option value="2">Athlone Institute of Technology</option>
-        </select> -->
-        </div>
-        <div class="btn-group special" role="group" aria-label="Button group with nested dropdown">
-          <button class="btn btn-outline-success text-white" type="button" id="searchBtn" disabled>
+          /> -->
+
+        <!-- </div> -->
+        <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
+        <!-- <div class="btn-group special my-4" role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-outline" type="button" id="searchBtn" disabled>
             Search
           </button>
           <button
             type="button"
             id="toggleBtn"
-            class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+            class="btn btn-outline dropdown-toggle dropdown-toggle-split"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
@@ -118,12 +189,11 @@
           >
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu bg-dark">
             <a class="dropdown-item" id="semOneBtn">Semester 1</a>
             <a class="dropdown-item" id="semTwoBtn">Semester 2</a>
           </div>
-        </div>
-        <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
+        </div> -->
         <!-- <div
           class="alert alert-danger alert-dismissible fade show mt-2 text-center"
           role="alert"
@@ -136,14 +206,14 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div> -->
-        <p class="text-center text-success mt-3 font-weight-light">
+        <hr />
+        <p class="text-center text--accent mt-3 font-weight-light">
           <a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark </a>
           your timetable after finding it!
         </p>
-        <hr />
       </div>
       <!--Timetable entry container-->
-      <div id="timetable-window" class="animated fadeIn fast" style="display: none">
+      <div id="timetable-window" style="display: none">
         <div class="row mt-3 mb-3">
           <div class="col">
             <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Go Back">
@@ -154,7 +224,7 @@
             <a
               id="course-title"
               title="More Course Info"
-              class="font-weight-bold text-center text-success"
+              class="font-weight-bold text-center text--accent"
               data-toggle="modal"
               data-target="#courseinfo-modal"
               style="display: block"
@@ -163,23 +233,32 @@
           </div>
           <div class="col-2">
             <a
-              id="help"
-              href="#"
-              title="Help"
+              title="Settings"
+              target="_blank"
+              rel="noopener"
               class="float-right mr-1"
+              data-toggle="modal"
+              data-target="#settings-modal"
+            >
+              <i class="fa fa-cog"></i>
+            </a>  
+            <a
+              id="help"
+              title="Help"
+              class="float-right mr-4"
               data-toggle="modal"
               data-target="#help-modal"
             >
-              <i class="fas fa-question-circle text-center" data-toggle="tooltip" title="Help"></i>
+              <i class="fas fa-question-circle" data-toggle="tooltip" title="Help"></i>
             </a>
-            <span id="date-time"></span>
-          </div>
+
+          </div>  
         </div>
         <div class="" id="timetable" data-spy="scroll"></div>
       </div>
       <!--Footer-->
-      <footer class="my-2 text-center animated fadeIn" id="footer">
-        <a
+      <!-- <footer class="text-center animated bounceIn faster" id="footer" style="display: none"> -->
+        <!-- <a
           href="https://hignz.github.io/room-availability/"
           target="_blank"
           rel="noopener"
@@ -188,18 +267,8 @@
           title="Free rooms"
         >
           <i class="fas fa-desktop"></i>
-        </a>
-        <a
-          href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
-          title="GitHub"
-          target="_blank"
-          rel="noopener"
-          class="text-light mx-4 footer-links"
-          data-toggle="tooltip"
-        >
-          <i class="fab fa-github"></i>
-        </a>
-        <a
+        </a> -->
+        <!-- <a
           href="http://timetables.itsligo.ie:81/studentset.htm"
           title="IT Sligo site"
           target="_blank"
@@ -207,27 +276,54 @@
           class="text-light mx-4 footer-links"
           data-toggle="tooltip"
         >
-          <i class="fas fa-university"></i>
-        </a>
-      </footer>
+          <i class="fas fa-university"></i> -->
+        <!-- </a>
+      </footer> -->
+  
     </main>
+
+    <footer class="footer" id="footer">
+      <a
+        href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
+        title="GitHub"
+        target="_blank"
+        rel="noopener"
+        class="ml-3"
+        data-toggle="tooltip"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+
+      <a
+      title="Settings"
+      target="_blank"
+      rel="noopener"
+      class="float-right mr-3"
+      data-toggle="modal"
+      data-target="#settings-modal"
+    >
+      <i class="fa fa-cog"></i>
+    </a>  
+
+    </footer>
+
     <!--Help modal-->
-    <div class="modal" tabindex="-1" role="dialog" id="help-modal">
+    <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="help-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
           <div class="modal-header">
-            <h5 class="modal-title">Add to home screen</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title text--accent font-weight-bold">Add to home screen</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <h6 class="text-success font-weight-bold">
-              Instructions to quickly get back to your timetable.
+            <h6 class="text-white font-weight-bold">
+              Instructions on how to add a shortcut to your phones homescreen.
             </h6>
             <br />
-            <p class="font-weight-bold">Android:</p>
-            <ul>
+            <p class="font-weight-bold text--accent">Android:</p>
+            <ul class="text-white">
               <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
               <li>Press the three dots in the top right corner, then click "Add to Home screen".</li>
               <li>
@@ -235,8 +331,8 @@
               </li>
             </ul>
             <br />
-            <p class="font-weight-bold">iPhone:</p>
-            <ul>
+            <p class="font-weight-bold text--accent">iPhone:</p>
+            <ul class="text-white">
               <li>Navigate to the timetable that you wish to add as a home screen icon.</li>
               <li>
                 Tap on the Share button at the bottom of the browser window. It's represented by a
@@ -255,38 +351,84 @@
       </div>
     </div>
     <!--Course info modal-->
-    <div class="modal" tabindex="-1" role="dialog" id="courseinfo-modal">
+    <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="courseinfo-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
           <div class="modal-header">
-            <h5 class="modal-title">Additional course info</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title text--accent font-weight-bold">Additional course info</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <a id="courseinfo-direct-link" target="_blank" rel="noopener" href="">Direct link</a>
+            <p class="text-white" id="courseinfo-college"></p>
+            <p class="text-white" id="courseinfo-semester"></p>
+            <a id="courseinfo-direct-link" class="text--accent" target="_blank" rel="noopener" href="">Direct link</a>
           </div>
         </div>
       </div>
     </div>
+    <!-- Setttings Modal -->
+    <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="settings-modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text--accent font-weight-bold">Settings</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label class="text-white ml-1" for="colorPicker">Accent Color</label>
+              <div class="input-group">
+                  <select id="colorPicker" class="custom-select select-outline bg--dark text-white">
+                    <option value="#56b6c2">Foundation Blue</option>
+                    <option value="#F4E9D8">Off White</option>
+                    <option value="#98c379">Green</option>
+                    <option value="#e06c75">Coral</option>
+                    <option value="#61afef">Maliblu</option>
+                    <option value="#c678dd">Purple</option>
+                    <option value="#d19a66">Whiskey</option>
+                    <option value="#FF70A6">Lavish</option>
+                    <option value="#FF9770">Atomic Tangerine</option>
+                    <option value="#E9FF70">Highlighter</option>
+                  </select>
+                  <div class="input-group-append" id="parent">
+                    <button class="btn btn-outline" type="button">Custom</button>
+                  </div>
+                </div>
+              <!-- <label for="colorPickerBg">Accent Color</label>
+              <div class="input-group">
+                  <select id="colorPickerBg" class="custom-select select-outline bg--dark text-white">
+                    <option value="#21252b">Dark</option>
+                    <option value="#eee">Light</option>
+                  </select>
+                  <div class="input-group-append" id="parent">
+                    <button class="btn btn-outline" type="button">Custom</button>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
     <!-- Templates -->
     <template id="temp-next-class">
-      <div class="card mb-2" id="card">
-        <div class="card-header py-2 font-weight-bold text-success" id="card-header">
-          <span class="ml-4">Helssslo</span>
+      <div class="card mb-2 bg-dark" id="card">
+        <div class="card-header py-2 font-weight-bold text--red" id="card-header">
+          <span class="ml-4"></span>
         </div>
         <div class="card-body">
-          <h5 class="card-title" id="card-title">Special title treatment</h5>
-          <p class="card-text" id="card-text">
-            With supporting text below as a natural lead-in to additional content.
-          </p>
+          <h5 class="card-title text-white" id="card-title"></h5>
+          <p class="card-text text-white" id="card-text"></p>
         </div>
       </div>
     </template>
     <template id="temp-main">
-      <div class="card card-container mb-2" id="card-main">
-        <div class="card-header" id="heading">
+      <div class="card card-container mb-2 bg-dark" id="card-main">
+        <div class="card-header bg-dark" id="heading">
           <h5 class="mb-0">
             <button
               type="button"
@@ -312,16 +454,11 @@
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
       crossorigin="anonymous"></script>
-    <script 
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" 
-      integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU=" 
+    <!-- <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" 
+      integrity="sha256-fzFFyH01cBVPYzl16KT40wqjhgPtq6FFUB6ckN2+GGw=" 
       crossorigin="anonymous">
-    </script>
-    <script 
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"         
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
-      crossorigin="anonymous">
-    </script>
+    </script> -->
     <script src="src/datalist-polyfill.min.js"></script>
   </body>
 </html>

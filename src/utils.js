@@ -18,13 +18,18 @@ module.exports = {
   isClassOver: (classEnd, currentTime) =>
     new Date(`01/01/1990 ${classEnd}`) - new Date(`01/01/1990 ${currentTime}`) < 0,
 
-  fetchCourseCodes: async callback => {
-    fetch('https://itsligo-utils.herokuapp.com/api/allcourses')
+  displayElement: (element, value) => {
+    element.style.display = value === false ? 'none' : 'block';
+  },
+
+  fetchCourseCodes: async (index, callback) => {
+    fetch(`http://localhost:3000/api/courses?college=${index}`)
       .then(response => response.json())
       .then(json => {
         console.time('getCourses()');
         document.getElementById('loader').style.display = 'none';
         const dataList = document.getElementById('courses-datalist');
+        dataList.innerHTML = '';
         const frag = document.createDocumentFragment();
         let opt;
         for (let i = 0; i < json.length; i += 1) {
