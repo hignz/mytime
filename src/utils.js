@@ -34,7 +34,7 @@ module.exports = {
         const opt = document.createElement('option');
         for (let i = 0; i < json.length; i += 1) {
           const cloneOpt = opt.cloneNode(true);
-          cloneOpt.text = json[i].course;
+          // cloneOpt.text = decodeURIComponent(json[i].course);
           cloneOpt.value = json[i].title || json[i].course;
           cloneOpt.setAttribute('data-value', json[i].course);
           frag.append(cloneOpt);
@@ -58,7 +58,7 @@ module.exports = {
     if (selectedOption === null) {
       return '';
     }
-    return selectedOption.dataset.value;
+    return selectedOption.getAttribute('data-value');
   },
 
   alertCheck: () => {
