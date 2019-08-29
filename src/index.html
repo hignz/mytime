@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script 
-      async 
-      src="https://www.googletagmanager.com/gtag/js?id=UA-131752115-1">
-    </script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      gtag('config', 'UA-131752115-1');
-    </script>
     <!-- Meta -->
     <meta name="google-site-verification" content="8HFOH_Tq0lJTs7PZ0oD2uSiKBN9uKF5hILirnpLKy3g" />
     <meta name="description" content="See your timetable at a glance. An alternative to IT Sligo's timetable system." />
@@ -25,10 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
       integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" 
       crossorigin="anonymous" /> 
-    <!-- <link rel="stylesheet" href="./src/css/loader-min.css" />
-    <link rel="stylesheet" href="./dist/css/main.css" /> -->
     <link rel="stylesheet"
-      rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" 
       integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" 
       crossorigin="anonymous" />
@@ -46,11 +29,25 @@
     <link rel="shortcut icon" href="/icons/favicon.ico?v=zX7rAqYdW5">
     <meta name="msapplication-TileColor" content="#21252b">
     <meta name="theme-color" content="#21252b">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script 
+      async 
+      src="https://www.googletagmanager.com/gtag/js?id=UA-131752115-1">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-131752115-1');
+    </script>
     <title>MyTerm</title>
   </head>
 
   <body>
-    <main class="container animated fadeIn fast">
+    <main class="container">
       <div
         class="alert alert-success alert-dismissible fade show mt-2 text-center"
         id="alert"
@@ -59,25 +56,25 @@
         style="display: none"
       >
         <span class="font-italic"
-          >Did you know you can expand/collapse each day by tapping on its header</span
+          >You can now customize the colors of MyTerm from the settings cog!</span
         >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <!--Loading spinner-->
-      <div class="loader animated fadeIn" id="loader">
-        <div class="lds-circle"></div>
-        <p class="text-center mt-4 font-weight-bold text-white">Please wait...</p>
-        <p class="text-center font-weight-bold text-white">Server spinning up</p>
+      <div class="loader animated fadeIn slow" id="loader">
+        <div class="lds"><div></div><div></div><div></div></div>
+        <p class="font-weight-bold ml-1 text--light-white">Loading...</p>
       </div>
 
       <!--Select window-->
       <div id="select-window" class="mb-10" style="display: none">
-        <h1 class="text-center text-white header">
-          <i class="fas fa-graduation-cap mr-2 brand-logo"></i>My<span class="text--accent">Term</span>
+          <h1 class="text-center text-white header">
+              <!-- <i class="fas fa-graduation-cap brand-logo text--light-white"></i> -->
+            <span class="font-weight-bold">My</span><span class="text--accent">Term</span>
         </h1>    
-        <form class="mx-2">
+        <div class="mx-2">
           <div class="form-group row">
             <label for="colleges" class="text-white">Colleges</label>
             <select
@@ -94,7 +91,7 @@
           <div class="form-group row">
               <label for="courses" class="text-white">Courses</label>
               <input
-                type="text"
+                type="search"
                 autocomplete="off"
                 list="courses-datalist"
                 spellcheck="false"
@@ -128,7 +125,7 @@
               </div>
             </div>
           </div>
-        </form>
+        </div>
         
         <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
         <hr />
@@ -140,12 +137,12 @@
       <!--Timetable entry container-->
       <div id="timetable-window" style="display: none">
         <div class="row mt-3 mb-3">
-          <div class="col">
+          <div class="col-2">
             <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Go Back">
               <i class="fas fa-arrow-left"></i>
             </a>
           </div>
-          <div class="col-7">
+          <div class="col-8">
             <a
               id="course-title"
               title="More Course Info"
@@ -156,27 +153,17 @@
             >
             </a>
           </div>
-          <div class="col-3">
-            <a
-              title="Settings"
-              target="_blank"
-              rel="noopener"
-              class="float-right mr-1"
-              data-toggle="modal"
-              data-target="#settings-modal"
-            >
-              <i class="fa fa-cog"></i>
-            </a>  
-            <a
-              id="help"
-              title="Help"
-              class="float-right mr-4"
-              data-toggle="modal"
-              data-target="#help-modal"
-            >
-              <i class="fas fa-question-circle" data-toggle="tooltip" title="Help"></i>
-            </a>
-
+          <div class="col-2">
+            <div class="dropdown dropleft">
+                <a class="btn dropdown-toggle text-center float-right p-0 pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v float-right"></i>
+                </a>
+              
+                <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="#" title="Settings" target="_blank" rel="noopener" data-toggle="modal" data-target="#settings-modal">Settings</a>
+                  <a class="dropdown-item" href="#" id="help" title="Help" data-toggle="modal" data-target="#help-modal">Add to homescreen</a>
+                </div>
+              </div>
           </div>  
         </div>
         <div class="" id="timetable" data-spy="scroll"></div>
@@ -287,14 +274,15 @@
                   <select id="colorPicker" class="custom-select select-outline bg--dark text-white">
                     <option value="#56b6c2">Foundation Blue</option>
                     <option value="#F4E9D8">Off White</option>
-                    <option value="#98c379">Green</option>
+                    <option value="#00bb8b">Green</option>
                     <option value="#e06c75">Coral</option>
                     <option value="#61afef">Maliblu</option>
                     <option value="#c678dd">Purple</option>
-                    <option value="#d19a66">Whiskey</option>
+                    <option value="#0FA3B1">Cyan</option>
                     <option value="#FF70A6">Lavish</option>
                     <option value="#FF9770">Atomic Tangerine</option>
                     <option value="#E9FF70">Highlighter</option>
+                    <option id="customOption" value="#eeeeee">Custom</option>
                   </select>
                   <div class="input-group-append" id="parent">
                     <button class="btn btn-outline" type="button">Custom</button>
@@ -334,7 +322,7 @@
           <h5 class="mb-0">
             <button
               type="button"
-              class="btn btn-lg heading ml-1 text-left"
+              class="btn btn-lg btn-collapsable heading ml-1 text-left"
               id="header"
               style="width: 100%"
               data-toggle="collapse"
@@ -347,20 +335,11 @@
           </h5>
           <div id="collapse" class="collapse" aria-labelledby="heading"></div>
           <!-- <div class="card-footer text-muted">
-            2 days ago
+            <p id="card-footer-text"></p>
           </div> -->
         </div>
       </div>
     </template>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-      crossorigin="anonymous"></script>
-    <!-- <script 
-      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" 
-      integrity="sha256-fzFFyH01cBVPYzl16KT40wqjhgPtq6FFUB6ckN2+GGw=" 
-      crossorigin="anonymous">
-    </script> -->
     <script src="src/datalist-polyfill.min.js"></script>
   </body>
 </html>
