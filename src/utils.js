@@ -31,13 +31,13 @@ module.exports = {
         const dataList = document.getElementById('courses-datalist');
         dataList.innerHTML = '';
         const frag = document.createDocumentFragment();
-        let opt;
+        const opt = document.createElement('option');
         for (let i = 0; i < json.length; i += 1) {
-          opt = document.createElement('option');
-          opt.text = json[i].course;
-          opt.value = json[i].title || json[i].course;
-          opt.setAttribute('data-value', json[i].course);
-          frag.append(opt);
+          const cloneOpt = opt.cloneNode(true);
+          cloneOpt.text = json[i].course;
+          cloneOpt.value = json[i].title || json[i].course;
+          cloneOpt.setAttribute('data-value', json[i].course);
+          frag.append(cloneOpt);
         }
         dataList.append(frag);
 
@@ -62,9 +62,22 @@ module.exports = {
   },
 
   alertCheck: () => {
-    if (!localStorage.getItem('visted') && window.location.hash !== '') {
-      localStorage.setItem('visted', true);
+    if (!localStorage.getItem('showAlert')) {
+      localStorage.setItem('showAlert', true);
       document.getElementById('alert').style.display = 'block';
     }
+  },
+
+  hexToRgbA: hex => {
+    let c;
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+      c = hex.substring(1).split('');
+      if (c.length === 3) {
+        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+      }
+      c = `0x${c.join('')}`;
+      return `${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},0.75`;
+    }
+    throw new Error('Bad Hex');
   }
 };
