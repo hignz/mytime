@@ -51,6 +51,10 @@ body {
   color: var(--coral-color);
 }
 
+.text--light-white {
+  color: var(--light-white-color);
+}
+
 a:not([href]):not([tabindex]){
   color: var(--accent);
 }
@@ -131,8 +135,13 @@ a:hover {
   cursor: pointer;
 }
 
+.dropdown-item {
+  color: var(--accent);
+}
+
 .dropdown-item:hover {
   background: var(--background-color);
+  color: var(--accent);
 }
 
 item a {
@@ -157,7 +166,14 @@ select option {
 
 .loader {
   margin-top: 40%;
-  animation-delay: 1s;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 100px;
 }
 
 #searchBtn {
@@ -185,7 +201,11 @@ hr {
 }
 
 i.brand-logo {
-  font-size: 36px;
+  font-size: 38px;
+}
+
+.btn-collapsable:hover {
+  color: var(--accent);
 }
 
 .btn-outline {
@@ -197,7 +217,6 @@ i.brand-logo {
   border-color: var(--accent);
   color: var(--accent);
 }
-
 
 .btn-outline:not(:disabled):hover {
   border-color: var(--accent);
