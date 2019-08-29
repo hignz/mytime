@@ -1,5 +1,8 @@
 import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
 
+const a = document.createElement('a');
+const p = document.createElement('p');
+
 const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, collegeIndex) => {
   if (startTime > lastEndTime) {
     const difference =
@@ -12,12 +15,12 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
         difference >= 60
           ? `Break: ${difference / 60} hour${getPlural(difference / 60)}`
           : `Break: ${difference} minutes`;
-      const freePeriod = document.createElement('a');
+      const freePeriod = a.cloneNode(true);
       freePeriod.innerHTML = message;
       freePeriod.className = `list-group-item item freePeriod font-weight-bold bg-dark ${
         isToday(i) && isClassOver(startTime, currentTime) ? 'text-muted' : 'text--green'
       }`;
-      if (collegeIndex) {
+      if (collegeIndex === '0') {
         const btn = document.createElement('button');
         btn.classList.add('btn', 'btn-outline', 'btn-sm', 'float-right');
         btn.innerHTML = 'Rooms';
@@ -40,7 +43,7 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
     .then(json => {
       console.time('timetable');
       document.getElementById('loader').style.display = 'none';
-      if (json.empty || json.data.length === 0) {
+      if (json.empty || !json.data) {
         document.getElementById('timetable-window').style.display = 'block';
         document.getElementById('course-title').textContent = 'No timetable found';
         document.getElementById('courseinfo-direct-link').href = json.url;
@@ -52,6 +55,7 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
         json.semester,
         0
       ) + 1}`;
+
       document.title = `${decodeURIComponent(json.courseCode)}`;
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
@@ -63,29 +67,27 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       let currentCollapse;
       const mainCard = document.querySelector('#temp-main');
       const currentTime = new Date().toLocaleTimeString('en-GB');
-      let clone = document.importNode(mainCard.content, true);
+      let clone;
       let currentClass;
+      let summary;
 
       // Create headers and badges
       for (let i = 0; i < json.data.length - 2; i += 1) {
         if (json.data[i].length) {
           let lastClassTime = 0;
           clone = document.importNode(mainCard.content, true);
-          const card = clone.querySelector('#card-main');
+          const card = clone.getElementById('card-main');
           card.id += i;
-          const heading = clone.querySelector('#heading');
+          const heading = clone.getElementById('heading');
           heading.id += i;
-          const header = clone.querySelector('#header');
+          const header = clone.getElementById('header');
           header.id += i;
           header.setAttribute('data-target', `#collapse${i}`);
           header.setAttribute('aria-controls', `collapse${i}`);
           header.className += ` ${isToday(i) ? 'text--accent font-weight-bold' : 'text-white'}`;
           header.innerHTML += json.data[i][0].day;
-          currentCollapse = clone.querySelector('#collapse');
+          currentCollapse = clone.getElementById('collapse');
           currentCollapse.id += i;
-          const badge = clone.querySelector(`#class-total-badge`);
-          badge.id += i;
-          badge.innerHTML = json.data[i].length;
 
           frag.append(card);
           currentCollapse = frag.getElementById(`collapse${i}`);
@@ -103,19 +105,19 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
               i,
               collegeIndex
             );
-            classEntry = document.createElement('a');
-            const className = currClass.name.split('/')[0].replace(/ GD & SD/, '');
+            classEntry = a.cloneNode(true);
+            const className = currClass.name.split('/')[0];
             const room = currClass.room.split(' (')[0];
-            const p = document.createElement('p');
-            p.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>
+            const pClone = p.cloneNode(true);
+            pClone.innerHTML = `${currClass.startTime} - ${currClass.endTime}<br>${className}<br>
               ${room.split('-')[0]}${room.split('-')[1] ? ` - ${room.split('-')[1]}` : ''}<br>
-              ${currClass.teacher.replace(',', ', ')}`;
-            p.classList.add('mb-0');
+              ${currClass.teacher}`;
+            pClone.classList.add('mb-0');
             classEntry.className = `list-group-item item bg-dark text-white`;
             if (isToday(i)) {
               classEntry.className += ` ${
                 isClassNow(currClass.startTime, currClass.endTime, currentTime)
-                  ? 'text-danger  font-weight-bold'
+                  ? 'text-danger animated flash slow'
                   : isClassApporaching(currClass.startTime, currentTime)
                   ? 'text-warning'
                   : isClassOver(currClass.endTime, currentTime)
@@ -125,12 +127,18 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
             }
 
             lastClassTime = currClass.endTime;
-            classEntry.append(p);
+
+            summary = a.cloneNode(true);
+            summary.innerText = `Classes: ${json.data[i].length}`;
+            summary.classList.add('text-muted', 'list-group-item', 'item', 'bg-dark');
+
+            classEntry.appendChild(pClone);
             currentCollapse.appendChild(classEntry);
-            if (isToday(i) && isClassNow(currClass.startTime, currClass.endTime, currentTime)) {
-              currentClass = currClass;
-            }
+            // if (isToday(i) && isClassNow(currClass.startTime, currClass.endTime, currentTime)) {
+            //   currentClass = currClass;
+            // }
           }
+          currentCollapse.appendChild(summary);
 
           if (typeof callback === 'function') callback();
         }
