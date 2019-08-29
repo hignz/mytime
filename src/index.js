@@ -1,12 +1,13 @@
-import 'bootstrap/js/dist/modal';
-import 'bootstrap/js/dist/dropdown';
-import 'bootstrap/js/dist/collapse';
 import './styles/main.css';
 import './styles/loader-min.css';
 import './datalist-polyfill.min';
+import 'bootstrap/js/dist/modal';
+import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/collapse';
+import 'bootstrap/js/dist/alert';
 import Picker from 'vanilla-picker';
 import { createTimetable } from './timetable';
-import { fetchCourseCodes, getSelectedValue, alertCheck, displayElement } from './utils';
+import { fetchCourseCodes, getSelectedValue, alertCheck, displayElement, hexToRgbA } from './utils';
 
 document.addEventListener(
   'DOMContentLoaded',
@@ -22,6 +23,13 @@ document.addEventListener(
     const $colorPicker = document.getElementById('colorPicker');
     const $collegeSelect = document.getElementById('colleges');
     // const $colorPickerBg = document.getElementById('colorPickerBg');
+    const parent = document.getElementById('parent');
+    const picker = new Picker({
+      parent,
+      popup: 'left',
+      alpha: false,
+      color: localStorage.getItem('customAccentColor') || localStorage.getItem('accentColor')
+    });
 
     const searchParams = new URLSearchParams(window.location.search);
 
@@ -34,10 +42,8 @@ document.addEventListener(
     );
     $colorPicker.selectedIndex = localStorage.getItem('colorPickerIndex');
 
-    const parent = document.querySelector('#parent');
-    const picker = new Picker(parent);
-    picker.setColor(localStorage.getItem('accentColor'));
-    picker.setOptions({ popup: 'left' });
+    const customOption = document.getElementById('customOption');
+    customOption.value = localStorage.getItem('customAccentColor') || '#eeeeee';
 
     if (!localStorage.getItem('visited')) {
       window.location.reload(true);
@@ -53,6 +59,15 @@ document.addEventListener(
       localStorage.setItem('accentColorRgba', rgbaAccent);
     };
 
+    picker.onDone = c => {
+      customOption.removeAttribute('hidden');
+      console.log(c.hex.substring(0, c.hex.length - 2));
+      customOption.value = c.hex.substring(0, c.hex.length - 2);
+      $colorPicker.selectedIndex = $colorPicker.options.length - 1;
+      localStorage.setItem('colorPickerIndex', $colorPicker.selectedIndex);
+      localStorage.setItem('customAccentColor', c.hex.substring(0, c.hex.length - 2));
+    };
+
     if (searchParams.has('code')) {
       $selectWindow.style.display = 'none';
       displayElement($footer, false);
@@ -63,28 +78,24 @@ document.addEventListener(
         searchParams.get('sem'),
         () => {
           displayElement($timetableWindow, true);
-          alertCheck();
         }
       );
-      fetchCourseCodes(collegeIndex);
       displayElement($footer, false);
     } else {
       fetchCourseCodes(collegeIndex, () => {
         displayElement($selectWindow, true);
       });
+      alertCheck();
       displayElement($footer, true);
     }
 
     const searchButtonClick = semester => {
-      while ($timetable.firstChild) {
-        $timetable.removeChild($timetable.firstChild);
-      }
+      $timetable.innerHTML = '';
 
       displayElement($selectWindow, false);
       displayElement($timetableWindow, true);
       displayElement($footer, false);
       collegeIndex = $collegeSelect.options[$collegeSelect.selectedIndex].value;
-      console.log(collegeIndex);
       const courseCode = getSelectedValue();
       window.history.pushState(
         '',
@@ -101,6 +112,12 @@ document.addEventListener(
       displayElement($selectWindow, true);
       displayElement($footer, true);
 
+      fetchCourseCodes(collegeIndex);
+
+      document.getElementById('course-title').innerHTML = '';
+
+      alertCheck();
+
       window.history.pushState('', document.title, `${window.location.pathname}`);
     };
 
@@ -110,27 +127,20 @@ document.addEventListener(
       fetchCourseCodes(index);
     });
 
-    function hexToRgbA(hex) {
-      let c;
-      if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-        c = hex.substring(1).split('');
-        if (c.length === 3) {
-          c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-        }
-        c = `0x${c.join('')}`;
-        return `${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},0.75`;
-      }
-      throw new Error('Bad Hex');
-    }
-
     $colorPicker.addEventListener('change', e => {
-      document.documentElement.style.setProperty('--accent', e.target.value);
-      localStorage.setItem('accentColor', e.target.value);
+      const selectedColor = e.target.value;
+      // Set CSS variable, set local storage hex and selected index
+      document.documentElement.style.setProperty('--accent', selectedColor);
+      localStorage.setItem('accentColor', selectedColor);
       localStorage.setItem('colorPickerIndex', $colorPicker.selectedIndex);
 
-      const rgbaAccent = hexToRgbA(e.target.value);
+      // Get RGBA of selected hex, set CSS variable and store in local storage
+      const rgbaAccent = hexToRgbA(selectedColor);
       document.documentElement.style.setProperty('--accent-rgba', rgbaAccent);
       localStorage.setItem('accentColorRgba', rgbaAccent);
+
+      // Set pickers color for next open
+      picker.setColor(selectedColor);
     });
 
     // $colorPickerBg.addEventListener('change', e => {
@@ -139,7 +149,12 @@ document.addEventListener(
     //   localStorage.setItem('colorPickerBgIndex', $colorPicker.selectedIndex);
     // });
 
-    $courseInput.addEventListener('keyup', e => {
+    window.onpopstate = () => {
+      // window.location.reload();
+      BackButtonClick();
+    };
+
+    $courseInput.addEventListener('change', e => {
       if ($courseInput.value.trim().length < 1) {
         $searchBtn.disabled = true;
         $toggleBtn.disabled = true;
@@ -147,15 +162,14 @@ document.addEventListener(
         $searchBtn.disabled = false;
         $toggleBtn.disabled = false;
       }
-
-      if (e.keyCode === 13 && !$searchBtn.disabled && $timetableWindow.style.display === 'none') {
-        searchButtonClick();
-      }
     });
 
     document.addEventListener('keyup', e => {
       if (e.keyCode === 8 && $timetableWindow.style.display === 'block') {
         BackButtonClick();
+      }
+      if (e.keyCode === 13 && !$searchBtn.disabled && $timetableWindow.style.display === 'none') {
+        searchButtonClick();
       }
     });
 
@@ -163,7 +177,6 @@ document.addEventListener(
       'click',
       () => {
         searchButtonClick();
-        alertCheck();
       },
       false
     );
@@ -172,7 +185,6 @@ document.addEventListener(
       'click',
       () => {
         searchButtonClick('0');
-        alertCheck();
       },
       false
     );
@@ -181,7 +193,6 @@ document.addEventListener(
       'click',
       () => {
         searchButtonClick('1');
-        alertCheck();
       },
       false
     );
