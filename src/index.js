@@ -1,5 +1,4 @@
 import './styles/main.css';
-import './styles/loader-min.css';
 import './datalist-polyfill.min';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/dropdown';
@@ -61,32 +60,32 @@ document.addEventListener(
 
     picker.onDone = c => {
       customOption.removeAttribute('hidden');
-      console.log(c.hex.substring(0, c.hex.length - 2));
       customOption.value = c.hex.substring(0, c.hex.length - 2);
       $colorPicker.selectedIndex = $colorPicker.options.length - 1;
       localStorage.setItem('colorPickerIndex', $colorPicker.selectedIndex);
       localStorage.setItem('customAccentColor', c.hex.substring(0, c.hex.length - 2));
+
+      if (c.hex.substring(0, c.hex.length - 2) === '#696969') {
+        window.open('https://i.imgur.com/AnxcJSO.jpg');
+      }
     };
 
     if (searchParams.has('code')) {
-      $selectWindow.style.display = 'none';
+      displayElement($selectWindow, false);
       displayElement($footer, false);
 
+      displayElement($timetableWindow, true);
       createTimetable(
         searchParams.get('code'),
         searchParams.get('college') || '0',
-        searchParams.get('sem'),
-        () => {
-          displayElement($timetableWindow, true);
-        }
+        searchParams.get('sem')
       );
-      displayElement($footer, false);
     } else {
+      displayElement($footer, true);
       fetchCourseCodes(collegeIndex, () => {
         displayElement($selectWindow, true);
       });
       alertCheck();
-      displayElement($footer, true);
     }
 
     const searchButtonClick = semester => {
@@ -111,7 +110,6 @@ document.addEventListener(
       displayElement($timetableWindow, false);
       displayElement($selectWindow, true);
       displayElement($footer, true);
-
       fetchCourseCodes(collegeIndex);
 
       document.getElementById('course-title').innerHTML = '';
@@ -175,7 +173,8 @@ document.addEventListener(
 
     document.getElementById('searchBtn').addEventListener(
       'click',
-      () => {
+      e => {
+        console.log(e.target);
         searchButtonClick();
       },
       false
