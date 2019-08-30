@@ -1,7 +1,7 @@
 {
-  "name": "timetable-frontend",
-  "version": "1.0.0",
-  "description": "Timetable frontend using the IT Sligo API",
+  "name": "myterm",
+  "version": "1.0.1",
+  "description": "Frontend to view timetables for IT Sligo and Athlone IT",
   "main": "index.js",
   "scripts": {
     "build": "node_modules\\.bin\\webpack",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/hignz/mytime.git"
   },
-  "author": "",
+  "author": "hignz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hignz/mytime/issues"
@@ -28,13 +28,10 @@
     "eslint-config-prettier": "^3.5.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "file-loader": "^4.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.7.0",
     "prettier": "^1.15.3",
-    "purgecss-webpack-plugin": "^1.5.0",
-    "style-loader": "^0.23.1",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
@@ -43,7 +40,6 @@
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
-    "postcss-loader": "^3.0.0",
     "vanilla-picker": "^2.9.2"
   }
 }
