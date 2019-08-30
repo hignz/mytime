@@ -25,9 +25,13 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
         btn.classList.add('btn', 'btn-outline', 'btn-sm', 'float-right');
         btn.innerHTML = 'Rooms';
         btn.value = `${lastEndTime}-${startTime}`;
-        btn.addEventListener('click', e => {
-          console.log(e.target.value);
-        });
+        btn.setAttribute('data-toggle', 'modal');
+        btn.setAttribute('data-target', '#roominfo-modal');
+
+        // btn.addEventListener('click', e => {
+        //   const modal = document.getElementById('roominfo-modal');
+        //   console.log(modal);
+        // });
         freePeriod.append(btn);
       }
       currentCollapse.append(freePeriod);
