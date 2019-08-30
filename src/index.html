@@ -47,7 +47,7 @@
   </head>
 
   <body>
-    <main class="container">
+    <main class="container animated fadeIn fast">
       <div
         class="alert alert-success alert-dismissible fade show mt-2 text-center"
         id="alert"
@@ -63,7 +63,7 @@
         </button>
       </div>
       <!--Loading spinner-->
-      <div class="loader animated fadeIn slow" id="loader">
+      <div class="loader animated fadeIn slow delay-2s" id="loader">
         <div class="lds"><div></div><div></div><div></div></div>
         <p class="font-weight-bold ml-1 text--light-white">Loading...</p>
       </div>
@@ -72,14 +72,14 @@
       <div id="select-window" class="mb-10" style="display: none">
           <h1 class="text-center text-white header">
               <!-- <i class="fas fa-graduation-cap brand-logo text--light-white"></i> -->
-            <span class="font-weight-bold">My</span><span class="text--accent">Term</span>
+            <span class="font-weight-bold">My</span><span class="font-weight-bold text--accent">Term</span>
         </h1>    
         <div class="mx-2">
           <div class="form-group row">
             <label for="colleges" class="text-white">Colleges</label>
             <select
               id="colleges"
-              class="form-control custom-select bg--dark text-white"
+              class="form-control bg--dark text-white"
               tabindex="0"
               required>
               <option value="0">IT Sligo</option>
@@ -130,8 +130,7 @@
         <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
         <hr />
         <p class="text-center text--accent mt-3 font-weight-light">
-          <a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark </a>
-          your timetable after finding it!
+          <a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark your timetable after finding it!</a>
         </p>
       </div>
       <!--Timetable entry container-->
@@ -180,7 +179,7 @@
         class="ml-3"
         data-toggle="tooltip"
       >
-        <i class="fab fa-github"></i>
+        <i class="fab fa-github animated bounceInLeft"></i>
       </a>
 
       <a
@@ -191,7 +190,7 @@
       data-toggle="modal"
       data-target="#settings-modal"
     >
-      <i class="fa fa-cog"></i>
+      <i class="fa fa-cog animated bounceInRight"></i>
     </a>  
 
     </footer>
@@ -257,6 +256,21 @@
         </div>
       </div>
     </div>
+    <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="roominfo-modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text--accent font-weight-bold">Free rooms</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-white">Once I stop procrastinating, this window will show free rooms during your break.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Setttings Modal -->
     <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="settings-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -271,7 +285,7 @@
             <form>
               <label class="text-white ml-1" for="colorPicker">Accent Color</label>
               <div class="input-group">
-                  <select id="colorPicker" class="custom-select select-outline bg--dark text-white">
+                  <select id="colorPicker" class="form-control custom-select select-outline bg--dark text-white">
                     <option value="#56b6c2">Foundation Blue</option>
                     <option value="#F4E9D8">Off White</option>
                     <option value="#00bb8b">Green</option>
@@ -307,7 +321,7 @@
     <!-- Templates -->
     <template id="temp-next-class">
       <div class="card mb-2 bg-dark" id="card">
-        <div class="card-header py-2 font-weight-bold text--red" id="card-header">
+        <div class="card-header font-weight-bold text--red" id="card-header">
           <span class="ml-4"></span>
         </div>
         <div class="card-body">
