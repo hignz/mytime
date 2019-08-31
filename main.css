@@ -1,0 +1,317 @@
+
+:root {
+  --coral-color: #e06c75;
+  --green-color: #98c379;
+  --malibu-color: #61afef;
+  --foundation-blue-color: #56b6c2;
+  --light-white-color: #abb2bf;
+  --dark-color: #5c6370;
+  --light-dark-color: #7f848e;
+  --light-white-color: #abb2bf;
+  --chalky-color: #e5c07b;
+  --whiskey-color: #d19a66;
+  --error-color: #f44747;
+  --purple-color: #c678dd;
+  --background-color: #282c34;
+  --dark-background-color: #21252b;
+  --accent: #56b6c2;
+  --accent-rgba: 86, 182, 194, 0.75;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--dark-background-color);
+}
+
+.text--accent {
+  color: var(--accent);
+}
+
+.bg--dark {
+  background-color: var(--background-color);
+}
+
+.bg--darker {
+  background-color: var(--dark-background-color);
+}
+
+.bg--red {
+  background-color: var(--coral-color);
+}
+
+.text--green {
+  color: var(--green-color);
+}
+
+.text--red {
+  color: var(--coral-color);
+}
+
+.text--light-white {
+  color: var(--light-white-color);
+}
+
+a:not([href]):not([tabindex]){
+  color: var(--accent);
+}
+
+a:not([href]):not([tabindex]):hover{
+  color: var(--accent);
+}
+
+#courseDropDown {
+  cursor: pointer;
+}
+
+#colleges:focus {
+  border-color: var(--accent);
+  box-shadow: 0px 0px 0px var(--accent);
+  outline: 0 none;
+  background-color: var(--background-color);
+  color: white;
+}
+
+.input {
+  color: red; 
+}
+
+#colleges {
+  border: 1px solid var(--light-white-color);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 38px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+input::-webkit-calendar-picker-indicator {
+  background: transparent;
+  cursor: pointer;
+}
+
+summary:focus {
+  outline: none;
+}
+
+.btn-group.special {
+  display: flex;
+}
+
+.special .btn {
+  flex: 0.05;
+}
+
+.btn {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.card-header{
+  padding: 2px;
+}
+
+#select-window {
+  margin-top: 80px;
+}
+
+.select-outline {
+  border: 1px solid var(--accent);
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-item {
+  color: var(--accent);
+}
+
+.dropdown-item:hover {
+  background: var(--background-color);
+  color: var(--accent);
+}
+
+item a {
+  cursor: text;
+}
+
+select option {
+  background-color: var(--background-color); 
+}
+
+select option {
+  background-color: var(--background-color); 
+}
+
+.fas {
+  color: var(--light-white-color);
+}
+
+#course-title {
+  color: var(--accent);
+}
+
+.loader {
+  margin-top: 40%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 100px;
+  animation-delay: 0.45s;
+}
+
+#searchBtn {
+  flex: 1;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(var(--accent-rgba)), rgba(0, 188, 140, 0));
+}
+
+.card {
+  border: 1px solid var(--accent);
+  border-radius: 0.3%;
+}
+
+#backBtn {
+  cursor: pointer;
+}
+
+.fab, .fa, .fas {
+  font-size: 20px;
+  color: grey;
+}
+
+i.brand-logo {
+  font-size: 38px;
+}
+
+.btn-collapsable:hover {
+  color: var(--accent);
+}
+
+.btn-outline {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline:disabled:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline:not(:disabled):hover {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+.container {
+  margin-bottom: 4px;
+}
+
+.form-control {
+  border-color: var(--light-white-color);
+  color: white;
+}
+
+.form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0px 0px 0px var(--accent);
+  outline: 0 none;
+  background-color: var(--background-color);
+  color: white;
+}
+
+.item:hover,
+.item:focus {
+  background-color: transparent; 
+}
+
+.card-header button span {
+  font-family: 'Roboto', sans-serif;
+}
+
+a > .fab:hover,
+a > .fas:hover,
+a > .fa:hover {
+  color: var(--accent);
+}
+
+.lds {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: var(--accent);
+  animation: lds 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.lds div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.lds div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+  50%, 100% {
+    top: 19px;
+    height: 26px;
+  }
+}
+
+.ct-series-a .ct-line {
+  /* Set the colour of this series line */
+  stroke: var(--accent);
+  /* Control the thikness of your lines */
+  stroke-width: 5px;
+}
+
+/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+.ct-series-a .ct-point {
+  /* Colour of your points */
+  stroke: var(--accent);
+}
+
+.ct-label {
+  color: white;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
+}
+
