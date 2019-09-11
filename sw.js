@@ -1,4 +1,4 @@
-importScripts("precache-manifest.1c6cce2332d391cae06bf50571a0abb1.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.836ea98b1968eb1bf1c9e9ba1e80c4b6.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable no-restricted-globals */
 const cacheName = 'v2';
