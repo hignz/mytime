@@ -1,16 +1,29 @@
-import './styles/main.css';
-import './datalist-polyfill.min';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/alert';
+import './datalist-polyfill.min';
+import './styles/main.css';
 import Picker from 'vanilla-picker';
 import { createTimetable } from './timetable';
-import { fetchCourseCodes, getSelectedValue, alertCheck, displayElement, hexToRgbA } from './utils';
+import {
+  fetchCourseCodes,
+  getSelectedValue,
+  displayElement,
+  hexToRgbA,
+  clearCourseInfoModal
+} from './utils';
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', e => {
+  deferredPrompt = e;
+});
 
 document.addEventListener(
   'DOMContentLoaded',
   () => {
+    const $loader = document.getElementById('loader');
     const $timetableWindow = document.getElementById('timetable-window');
     const $selectWindow = document.getElementById('select-window');
     const $courseInput = document.getElementById('courses');
@@ -21,6 +34,7 @@ document.addEventListener(
     const $colleges = document.getElementById('colleges');
     const $colorPicker = document.getElementById('colorPicker');
     const $collegeSelect = document.getElementById('colleges');
+    const $confirmationModal = document.getElementById('course-confirmation-modal');
     // const $colorPickerBg = document.getElementById('colorPickerBg');
     const parent = document.getElementById('parent');
     const picker = new Picker({
@@ -29,6 +43,8 @@ document.addEventListener(
       alpha: false,
       color: localStorage.getItem('customAccentColor') || localStorage.getItem('accentColor')
     });
+
+    const isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
 
     const searchParams = new URLSearchParams(window.location.search);
 
@@ -44,10 +60,12 @@ document.addEventListener(
     const customOption = document.getElementById('customOption');
     customOption.value = localStorage.getItem('customAccentColor') || '#eeeeee';
 
-    if (!localStorage.getItem('visited')) {
-      window.location.reload(true);
-      localStorage.setItem('visited', 1);
+    if (!localStorage.getItem('showConfirmationModal')) {
+      localStorage.setItem('showConfirmationModal', true);
     }
+    document.getElementById('showConfirmationModal').checked = JSON.parse(
+      localStorage.getItem('showConfirmationModal')
+    );
 
     picker.onChange = c => {
       document.documentElement.style.setProperty('--accent', c.hex);
@@ -58,7 +76,7 @@ document.addEventListener(
       localStorage.setItem('accentColorRgba', rgbaAccent);
     };
 
-    picker.onDone = c => {
+    picker.onClose = c => {
       customOption.removeAttribute('hidden');
       customOption.value = c.hex.substring(0, c.hex.length - 2);
       $colorPicker.selectedIndex = $colorPicker.options.length - 1;
@@ -70,23 +88,57 @@ document.addEventListener(
       }
     };
 
+    $courseInput.addEventListener('change', e => {
+      if (isMobile && JSON.parse(localStorage.getItem('showConfirmationModal'))) {
+        const selectedOption = document.querySelector(
+          `#courses-datalist option[value='${$courseInput.value}']`
+        );
+
+        if (selectedOption !== null) {
+          $confirmationModal.querySelector('#content').innerHTML = selectedOption.value;
+          document.getElementById('btnOpenModal').click();
+        }
+      }
+    });
+
+    const brandLetters = Array.from(document.querySelectorAll('.brand'));
+
+    document.querySelector('.brand-container').addEventListener('click', e => {
+      const node = e.target;
+      if (node.classList.contains('inline-block')) {
+        if (node.classList.contains('vibrate-1')) {
+          node.classList.remove('vibrate-1');
+          return;
+        }
+        node.classList.add('vibrate-1');
+        const allSelected = brandLetters.every(l => l.classList.contains('vibrate-1'));
+        if (allSelected) {
+          document.querySelector('.brand-container').classList.add('tracking-out-expand-fwd-top');
+        }
+      }
+    });
+
     if (searchParams.has('code')) {
       displayElement($selectWindow, false);
       displayElement($footer, false);
-
       displayElement($timetableWindow, true);
+
       createTimetable(
         searchParams.get('code'),
         searchParams.get('college') || '0',
         searchParams.get('sem')
       );
     } else {
-      displayElement($footer, true);
+      displayElement($selectWindow, true);
       fetchCourseCodes(collegeIndex, () => {
-        displayElement($selectWindow, true);
+        displayElement($loader, false);
+        displayElement($footer, true);
       });
-      alertCheck();
     }
+
+    document.getElementById('showConfirmationModal').addEventListener('change', e => {
+      localStorage.setItem('showConfirmationModal', e.target.checked);
+    });
 
     const searchButtonClick = semester => {
       $timetable.innerHTML = '';
@@ -99,10 +151,14 @@ document.addEventListener(
       window.history.pushState(
         '',
         document.title,
-        `?code=${courseCode}&college=${collegeIndex}${semester ? `&sem=${semester}` : ''}`
+        `?code=${decodeURIComponent(courseCode)}&college=${collegeIndex}${
+          semester ? `&sem=${semester}` : ''
+        }`
       );
 
+      displayElement($loader, true);
       createTimetable(courseCode, collegeIndex, semester || '');
+      document.querySelector('.brand-container').classList.remove('tracking-out-expand-fwd-top');
     };
 
     const BackButtonClick = () => {
@@ -114,13 +170,14 @@ document.addEventListener(
 
       document.getElementById('course-title').innerHTML = '';
 
-      alertCheck();
+      clearCourseInfoModal();
 
       window.history.pushState('', document.title, `${window.location.pathname}`);
     };
 
     $colleges.addEventListener('change', () => {
       $courseInput.value = '';
+      $searchBtn.disabled = true;
       const index = $colleges.options[$colleges.selectedIndex].value;
       fetchCourseCodes(index);
     });
@@ -171,10 +228,26 @@ document.addEventListener(
       }
     });
 
+    document.getElementById('confirmationCloseBtn').addEventListener(
+      'click',
+      () => {
+        $courseInput.value = '';
+      },
+      false
+    );
+
+    document.getElementById('confirmationSearchBtn').addEventListener(
+      'click',
+      () => {
+        document.getElementById('btnOpenModal').click();
+        searchButtonClick();
+      },
+      false
+    );
+
     document.getElementById('searchBtn').addEventListener(
       'click',
-      e => {
-        console.log(e.target);
+      () => {
         searchButtonClick();
       },
       false

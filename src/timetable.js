@@ -1,4 +1,11 @@
-import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
+import {
+  getPlural,
+  isClassApporaching,
+  isClassNow,
+  isClassOver,
+  isToday,
+  createLineChart
+} from './utils';
 
 const a = document.createElement('a');
 const p = document.createElement('p');
@@ -45,14 +52,16 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
   )
     .then(response => response.json())
     .then(json => {
-      console.time('timetable');
+      // console.time('timetable');
       document.getElementById('loader').style.display = 'none';
       if (json.empty || !json.data) {
         document.getElementById('timetable-window').style.display = 'block';
-        document.getElementById('course-title').textContent = 'No timetable found';
+        document.getElementById('course-title').textContent =
+          'We can"t find any classes for this course';
         document.getElementById('courseinfo-direct-link').href = json.url;
         return;
       }
+      document.title = `${json.title || json.courseCode}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
       document.getElementById('courseinfo-college').innerHTML = json.college;
       document.getElementById('courseinfo-semester').innerHTML = `Semester: ${parseInt(
@@ -60,12 +69,9 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
         0
       ) + 1}`;
 
-      document.title = `${decodeURIComponent(json.courseCode)}`;
       const timetable = document.getElementById('timetable');
       document.getElementById('timetable-window').append(timetable);
-      document.getElementById('course-title').textContent = `${decodeURIComponent(
-        json.courseCode
-      )}`;
+      document.getElementById('course-title').textContent = `${json.title || json.courseCode}`;
       const frag = document.createDocumentFragment();
       let classEntry;
       let currentCollapse;
@@ -132,21 +138,24 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
 
             lastClassTime = currClass.endTime;
 
-            summary = a.cloneNode(true);
-            summary.innerText = `Classes: ${json.data[i].length}`;
-            summary.classList.add('text-muted', 'list-group-item', 'item', 'bg-dark');
-
             classEntry.appendChild(pClone);
             currentCollapse.appendChild(classEntry);
             // if (isToday(i) && isClassNow(currClass.startTime, currClass.endTime, currentTime)) {
             //   currentClass = currClass;
             // }
           }
+
+          summary = a.cloneNode(true);
+          summary.innerHTML = `Classes: ${json.data[i].length} &emsp; Start: ${
+            json.data[i][0].startTime
+          } &emsp; Finish: ${json.data[i][json.data[i].length - 1].endTime}`;
+          summary.classList.add('text-muted', 'list-group-item', 'item', 'bg-dark');
           currentCollapse.appendChild(summary);
 
           if (typeof callback === 'function') callback();
         }
       }
+
       // if (currentClass) {
       //   const card = document.querySelector('#temp-next-class');
       //   const currentClassClone = document.importNode(card.content, true);
@@ -158,11 +167,12 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       //   timetable.append(currentClassClone);
       // }
       timetable.append(frag);
-      console.timeEnd('timetable');
+      createLineChart(json.data);
+      // console.timeEnd('timetable');
     })
     .catch(error => {
-      document.getElementById('timetable-window').style.display = 'block';
-      document.getElementById('course-title').text = 'Invalid course entered';
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('course-title').text = 'An error has occured';
       console.error(error);
     });
 }

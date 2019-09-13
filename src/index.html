@@ -3,7 +3,7 @@
   <head>
     <!-- Meta -->
     <meta name="google-site-verification" content="8HFOH_Tq0lJTs7PZ0oD2uSiKBN9uKF5hILirnpLKy3g" />
-    <meta name="description" content="See your timetable at a glance. An alternative to IT Sligo's timetable system." />
+    <meta name="description" content="See your timetable at a glance. Supports IT Sligo, Athlone IT and Limerick IT." />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -20,11 +20,12 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" 
       integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" 
       crossorigin="anonymous" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=zX7rAqYdW5">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=zX7rAqYdW5">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=zX7rAqYdW5">
-    <link rel="manifest" href="/icons/site.webmanifest?v=zX7rAqYdW5">
+    <link rel="manifest" href="/icons/site.webmanifest">
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=zX7rAqYdW5" color="#21252b">
     <link rel="shortcut icon" href="/icons/favicon.ico?v=zX7rAqYdW5">
     <meta name="msapplication-TileColor" content="#21252b">
@@ -47,7 +48,7 @@
   </head>
 
   <body>
-    <main class="container animated fadeIn fast">
+    <main class="container animated fadeIn faster">
       <div
         class="alert alert-success alert-dismissible fade show mt-2 text-center"
         id="alert"
@@ -63,17 +64,21 @@
         </button>
       </div>
       <!--Loading spinner-->
-      <div class="loader animated fadeIn slow delay-2s" id="loader">
+      <div class="loader animated fadeIn" id="loader" style="display: none">
         <div class="lds"><div></div><div></div><div></div></div>
         <p class="font-weight-bold ml-1 text--light-white">Loading...</p>
       </div>
-
+      
       <!--Select window-->
       <div id="select-window" class="mb-10" style="display: none">
-          <h1 class="text-center text-white header">
-              <!-- <i class="fas fa-graduation-cap brand-logo text--light-white"></i> -->
-            <span class="font-weight-bold">My</span><span class="font-weight-bold text--accent">Term</span>
-        </h1>    
+          <div class="text-center text-white brand-container">
+            <div class="brand inline-block">M</div>
+            <div class="brand inline-block">y</div>
+            <div class="brand inline-block text--accent">T</div>
+            <div class="brand inline-block text--accent">e</div>
+            <div class="brand inline-block text--accent">r</div>
+            <div class="brand inline-block text--accent">m</div>
+          </div>
         <div class="mx-2">
           <div class="form-group row">
             <label for="colleges" class="text-white">Colleges</label>
@@ -84,7 +89,7 @@
               required>
               <option value="0">IT Sligo</option>
               <option value="1">Athlone IT</option>
-              <!-- <option value="2">Limerick IT</option> -->
+              <option value="2">Limerick IT</option>
             </select>
     
           </div>
@@ -137,14 +142,14 @@
       <div id="timetable-window" style="display: none">
         <div class="row mt-3 mb-3">
           <div class="col-2">
-            <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Go Back">
+            <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Back">
               <i class="fas fa-arrow-left"></i>
             </a>
           </div>
           <div class="col-8">
             <a
               id="course-title"
-              title="More Course Info"
+              title="Course Information"
               class="font-weight-bold text-center text--accent"
               data-toggle="modal"
               data-target="#courseinfo-modal"
@@ -154,7 +159,7 @@
           </div>
           <div class="col-2">
             <div class="dropdown dropleft">
-                <a class="btn dropdown-toggle text-center float-right p-0 pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn dropdown-toggle text-center float-right p-0 pr-1" title="More" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v float-right"></i>
                 </a>
               
@@ -167,33 +172,43 @@
         </div>
         <div class="" id="timetable" data-spy="scroll"></div>
       </div>
-  
+
     </main>
 
-    <footer class="footer" id="footer">
-      <a
-        href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
-        title="GitHub"
-        target="_blank"
-        rel="noopener"
-        class="ml-3"
-        data-toggle="tooltip"
-      >
-        <i class="fab fa-github animated bounceInLeft"></i>
-      </a>
-
-      <a
-      title="Settings"
-      target="_blank"
-      rel="noopener"
-      class="float-right mr-3"
-      data-toggle="modal"
-      data-target="#settings-modal"
-    >
-      <i class="fa fa-cog animated bounceInRight"></i>
-    </a>  
-
+    <footer class="footer" id="footer" style="display: none">
+        <div class="row">
+            <div class="col">
+                <a
+                href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
+                title="GitHub"
+                target="_blank"
+                rel="noopener"
+                class="ml-3"
+                aria-label="Github"
+                data-toggle="tooltip"
+              >
+                <i class="fab fa-github animated bounceInLeft"></i>
+              </a>
+        
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <a
+                title="Settings"
+                target="_blank"
+                rel="noopener"
+                class="float-right mr-3"
+                data-toggle="modal"
+                data-target="#settings-modal"
+              >
+                <i class="fa fa-cog animated bounceInRight"></i>
+              </a>  
+          
+            </div>
+          </div>
     </footer>
+    <button id="btnOpenModal" type="button" data-toggle="modal" data-target="#course-confirmation-modal" style="display: none"></button>
 
     <!--Help modal-->
     <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="help-modal">
@@ -251,11 +266,16 @@
           <div class="modal-body">
             <p class="text-white" id="courseinfo-college"></p>
             <p class="text-white" id="courseinfo-semester"></p>
-            <a id="courseinfo-direct-link" class="text--accent" target="_blank" rel="noopener" href="">Direct link</a>
+            <p>
+              <a id="courseinfo-direct-link" class="text--accent" target="_blank" rel="noopener" href="">Direct link</a>
+            </p>
+            <p class="text-white">Classes Per Day</p>
+            <div class="ct-chart ct-perfect-fourth"></div>
           </div>
         </div>
       </div>
     </div>
+    <!--Room info modal-->
     <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="roominfo-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
@@ -271,7 +291,29 @@
         </div>
       </div>
     </div>
-    <!-- Setttings Modal -->
+    <!-- Course Confirmation Modal -->
+    <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="course-confirmation-modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text--accent font-weight-bold">You selected</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="content" class="text-white"></p>
+            <button class="btn btn-outline-red" data-dismiss="modal" aria-label="Close" id="confirmationCloseBtn">
+              Back
+            </button>
+            <button class="btn btn-outline float-right" id="confirmationSearchBtn">
+              View Timetable
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Settings Modal -->
     <div class="modal animated fadeIn faster" tabindex="-1" role="dialog" id="settings-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
@@ -302,17 +344,12 @@
                     <button class="btn btn-outline" type="button">Custom</button>
                   </div>
                 </div>
-              <!-- <label for="colorPickerBg">Accent Color</label>
-              <div class="input-group">
-                  <select id="colorPickerBg" class="custom-select select-outline bg--dark text-white">
-                    <option value="#21252b">Dark</option>
-                    <option value="#eee">Light</option>
-                  </select>
-                  <div class="input-group-append" id="parent">
-                    <button class="btn btn-outline" type="button">Custom</button>
+                <hr>
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" id="showConfirmationModal">
+                    <label class="form-check-label text-white" for="showConfirmationModal">Show Confirmation Modal</label>
                   </div>
-                </div> -->
-              </form>
+                </form>
             </div>
           </div>
         </div>
@@ -348,12 +385,16 @@
             </button>
           </h5>
           <div id="collapse" class="collapse" aria-labelledby="heading"></div>
-          <!-- <div class="card-footer text-muted">
-            <p id="card-footer-text"></p>
-          </div> -->
         </div>
       </div>
     </template>
-    <script src="src/datalist-polyfill.min.js"></script>
-  </body>
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script>
+      if ("serviceWorker" in navigator){
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js");
+        })
+      }
+    </script>
+</body>
 </html>
