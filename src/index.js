@@ -48,6 +48,8 @@ document.addEventListener(
 
     const searchParams = new URLSearchParams(window.location.search);
 
+    M.AutoInit();
+
     let collegeIndex = $colleges.options[$colleges.selectedIndex].value;
 
     document.documentElement.style.setProperty('--accent', localStorage.getItem('accentColor'));

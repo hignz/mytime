@@ -7,10 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
-      integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" 
-      crossorigin="anonymous" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" 
       integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" 
@@ -71,49 +68,50 @@
       
       <!--Select window-->
       <div id="select-window" class="mb-10" style="display: none">
-          <div class="text-center text-white brand-container">
-            <div class="brand inline-block">M</div>
-            <div class="brand inline-block">y</div>
+          <div class="center-align text-white brand-container">
+            <div class="brand inline-block white-text">M</div>
+            <div class="brand inline-block white-text">y</div>
             <div class="brand inline-block text--accent">T</div>
             <div class="brand inline-block text--accent">e</div>
             <div class="brand inline-block text--accent">r</div>
             <div class="brand inline-block text--accent">m</div>
           </div>
         <div class="mx-2">
-          <div class="form-group row">
-            <label for="colleges" class="text-white">Colleges</label>
+          <div class="input-field">
             <select
-              id="colleges"
-              class="form-control bg--dark text-white"
-              tabindex="0"
-              required>
-              <option value="0">IT Sligo</option>
-              <option value="1">Athlone IT</option>
-              <option value="2">Limerick IT</option>
-            </select>
+            id="colleges"
+            class="form-control bg--dark white-text"
+            tabindex="0"
+            required>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="0">IT Sligo</option>
+            <option value="1">Athlone IT</option>
+            <option value="2">Limerick IT</option>
+          </select>
+          <label for="colleges" class="text-white">Colleges</label>
     
           </div>
-          <div class="form-group row">
-              <label for="courses" class="text-white">Courses</label>
-              <input
-                type="search"
-                autocomplete="off"
-                list="courses-datalist"
-                spellcheck="false"
-                id="courses"
-                class="form-control bg--dark text--white"
-                placeholder="Start typing to find your course..."
-                tabindex="0"
-                required
-              />    
+          <div class="input-field">
+            <input
+            type="search"
+            autocomplete="off"
+            list="courses-datalist"
+            spellcheck="false"
+            id="courses"
+            class="autocomplete bg--dark white-text"
+            placeholder="Start typing to find your course..."
+            tabindex="0"
+            required
+            />    
+            <label for="courses" class="text-white">Courses</label>
           </div>
 
-          <div class="form-group row">
+          <div class="input-field row">
             <div class="btn-group btn-block special my-4" role="group" aria-label="Button group with nested dropdown">
-              <button class="btn btn-outline" type="button" id="searchBtn" disabled>
+              <button class="waves-effect btn" type="button" id="searchBtn">
                 Search
               </button>
-              <button
+              <!-- <button
                 type="button"
                 id="toggleBtn"
                 class="btn btn-outline dropdown-toggle dropdown-toggle-split"
@@ -127,26 +125,26 @@
               <div class="dropdown-menu bg-dark">
                 <a class="dropdown-item" id="semOneBtn">Semester 1</a>
                 <a class="dropdown-item" id="semTwoBtn">Semester 2</a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
         
         <datalist id="courses-datalist" title="Tap to display filtered courses"></datalist>
         <hr />
-        <p class="text-center text--accent mt-3 font-weight-light">
+        <p class="center-align text--accent mt-3 font-weight-light">
           <a class="font-weight-bold" data-toggle="modal" data-target="#help-modal">Bookmark your timetable after finding it!</a>
         </p>
       </div>
       <!--Timetable entry container-->
       <div id="timetable-window" style="display: none">
         <div class="row mt-3 mb-3">
-          <div class="col-2">
+          <div class="col s2">
             <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Back">
               <i class="fas fa-arrow-left"></i>
             </a>
           </div>
-          <div class="col-8">
+          <div class="col s8">
             <a
               id="course-title"
               title="Course Information"
@@ -157,7 +155,7 @@
             >
             </a>
           </div>
-          <div class="col-2">
+          <div class="col s2">
             <div class="dropdown dropleft">
                 <a class="btn dropdown-toggle text-center float-right p-0 pr-1" title="More" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v float-right"></i>
@@ -177,7 +175,7 @@
 
     <footer class="footer" id="footer" style="display: none">
         <div class="row">
-            <div class="col">
+            <div class="col s2">
                 <a
                 href="https://github.com/hignz/timetable-frontend/tree/gh-pages"
                 title="GitHub"
@@ -191,9 +189,9 @@
               </a>
         
             </div>
-            <div class="col">
+            <div class="col s8">
             </div>
-            <div class="col">
+            <div class="col s2">
                 <a
                 title="Settings"
                 target="_blank"
@@ -388,6 +386,8 @@
         </div>
       </div>
     </template>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script>
       if ("serviceWorker" in navigator){
