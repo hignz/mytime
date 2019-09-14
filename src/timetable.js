@@ -13,10 +13,9 @@ const p = document.createElement('p');
 const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, collegeIndex) => {
   if (startTime > lastEndTime) {
     const difference =
-      Math.abs(
-        new Date(`01/01/1990 ${startTime}`).getTime() -
-          new Date(`01/01/1990 ${lastEndTime}`).getTime()
-      ) / 60000;
+      (new Date(`01/01/1990 ${startTime}`).getTime() -
+        new Date(`01/01/1990 ${lastEndTime}`).getTime()) /
+      60000;
     if (difference > 0) {
       const message =
         difference >= 60
@@ -80,9 +79,16 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       let clone;
       let currentClass;
       let summary;
-
+      let o = 0;
+      json.data.forEach((element, index) => {
+        if (index <= 4) {
+          o += element.length;
+        }
+      });
+      console.log(o);
+      const length = o > 0 ? json.data.length - 2 : json.data.length;
       // Create headers and badges
-      for (let i = 0; i < json.data.length - 2; i += 1) {
+      for (let i = 0; i < length; i += 1) {
         if (json.data[i].length) {
           let lastClassTime = 0;
           clone = document.importNode(mainCard.content, true);
