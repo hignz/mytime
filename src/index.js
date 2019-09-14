@@ -99,6 +99,7 @@ document.addEventListener(
           document.getElementById('btnOpenModal').click();
         }
       }
+      $courseInput.blur();
     });
 
     const brandLetters = Array.from(document.querySelectorAll('.brand'));
