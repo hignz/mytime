@@ -124,11 +124,11 @@ document.addEventListener(
       displayElement($footer, false);
       displayElement($timetableWindow, true);
 
-      createTimetable(
-        searchParams.get('code'),
-        searchParams.get('college') || '0',
-        searchParams.get('sem')
-      );
+      createTimetable({
+        courseCode: searchParams.get('code'),
+        collegeIndex: searchParams.get('college') || '0',
+        semester: searchParams.get('sem')
+      });
     } else {
       displayElement($selectWindow, true);
       fetchCourseCodes(collegeIndex, () => {
@@ -158,11 +158,11 @@ document.addEventListener(
       );
 
       displayElement($loader, true);
-      createTimetable(courseCode, collegeIndex, semester || '');
+      createTimetable({ courseCode, collegeIndex, semester: semester || '' });
       document.querySelector('.brand-container').classList.remove('tracking-out-expand-fwd-top');
     };
 
-    const BackButtonClick = () => {
+    const backButtonClick = () => {
       document.title = `MyTerm`;
       displayElement($timetableWindow, false);
       displayElement($selectWindow, true);
@@ -207,7 +207,7 @@ document.addEventListener(
 
     window.onpopstate = () => {
       // window.location.reload();
-      BackButtonClick();
+      backButtonClick();
     };
 
     $courseInput.addEventListener('change', e => {
@@ -222,7 +222,7 @@ document.addEventListener(
 
     document.addEventListener('keyup', e => {
       if (e.keyCode === 8 && $timetableWindow.style.display === 'block') {
-        BackButtonClick();
+        backButtonClick();
       }
       if (e.keyCode === 13 && !$searchBtn.disabled && $timetableWindow.style.display === 'none') {
         searchButtonClick();
@@ -270,7 +270,7 @@ document.addEventListener(
       false
     );
 
-    document.getElementById('backBtn').addEventListener('click', () => BackButtonClick(), false);
+    document.getElementById('backBtn').addEventListener('click', () => backButtonClick(), false);
   },
   false
 );

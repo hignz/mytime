@@ -10,11 +10,12 @@ import {
 const a = document.createElement('a');
 const p = document.createElement('p');
 
-const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, collegeIndex) => {
-  if (startTime > lastEndTime) {
+const checkForBreak = options => {
+  const { startTime, lastClassTime, currentCollapse, currentTime, i, collegeIndex } = options;
+  if (startTime > lastClassTime) {
     const difference =
       (new Date(`01/01/1990 ${startTime}`).getTime() -
-        new Date(`01/01/1990 ${lastEndTime}`).getTime()) /
+        new Date(`01/01/1990 ${lastClassTime}`).getTime()) /
       60000;
     if (difference > 0) {
       const message =
@@ -30,7 +31,7 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
         const btn = document.createElement('button');
         btn.classList.add('btn', 'btn-outline', 'btn-sm', 'float-right');
         btn.innerHTML = 'Rooms';
-        btn.value = `${lastEndTime}-${startTime}`;
+        btn.value = `${lastClassTime}-${startTime}`;
         btn.setAttribute('data-toggle', 'modal');
         btn.setAttribute('data-target', '#roominfo-modal');
 
@@ -45,13 +46,16 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
   }
 };
 
-export function createTimetable(courseCode, collegeIndex, semester, callback) {
+export function createTimetable(options, callback) {
   fetch(
-    `https://itsligo-utils.herokuapp.com/api/timetable/?code=${courseCode}&college=${collegeIndex}&sem=${semester}`
+    `https://itsligo-utils.herokuapp.com/api/timetable/?code=${options.courseCode}&college=${
+      options.collegeIndex
+    }&sem=${options.semester}`
   )
     .then(response => response.json())
     .then(json => {
       // console.time('timetable');
+      const { collegeIndex } = options;
       document.getElementById('loader').style.display = 'none';
       if (json.empty || !json.data) {
         document.getElementById('timetable-window').style.display = 'block';
@@ -74,18 +78,17 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       const frag = document.createDocumentFragment();
       let classEntry;
       let currentCollapse;
-      const mainCard = document.querySelector('#temp-main');
-      const currentTime = new Date().toLocaleTimeString('en-GB');
-      let clone;
       let currentClass;
       let summary;
+      let clone;
+      const mainCard = document.querySelector('#temp-main');
+      const currentTime = new Date().toLocaleTimeString('en-GB');
       let o = 0;
       json.data.forEach((element, index) => {
         if (index <= 4) {
           o += element.length;
         }
       });
-      console.log(o);
       const length = o > 0 ? json.data.length - 2 : json.data.length;
       // Create headers and badges
       for (let i = 0; i < length; i += 1) {
@@ -113,14 +116,14 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
           // Create class entries
           for (let j = 0; j < json.data[i].length; j += 1) {
             const currClass = json.data[i][j];
-            checkForBreak(
-              currClass.startTime,
+            checkForBreak({
+              startTime: currClass.startTime,
               lastClassTime,
               currentCollapse,
               currentTime,
               i,
               collegeIndex
-            );
+            });
             classEntry = a.cloneNode(true);
             const className = currClass.name.split('/')[0];
             const room = currClass.room.split(' (')[0];
