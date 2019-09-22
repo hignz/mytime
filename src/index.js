@@ -44,10 +44,6 @@ document.addEventListener(
       color: localStorage.getItem('customAccentColor') || localStorage.getItem('accentColor')
     });
 
-    const isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
-
-    const searchParams = new URLSearchParams(window.location.search);
-
     let collegeIndex = $colleges.options[$colleges.selectedIndex].value;
 
     document.documentElement.style.setProperty('--accent', localStorage.getItem('accentColor'));
@@ -57,12 +53,10 @@ document.addEventListener(
     );
     $colorPicker.selectedIndex = localStorage.getItem('colorPickerIndex');
 
-    const customOption = document.getElementById('customOption');
-    customOption.value = localStorage.getItem('customAccentColor') || '#eeeeee';
-
     if (!localStorage.getItem('showConfirmationModal')) {
       localStorage.setItem('showConfirmationModal', true);
     }
+
     document.getElementById('showConfirmationModal').checked = JSON.parse(
       localStorage.getItem('showConfirmationModal')
     );
@@ -76,6 +70,9 @@ document.addEventListener(
       localStorage.setItem('accentColorRgba', rgbaAccent);
     };
 
+    const customOption = document.getElementById('customOption');
+    customOption.value = localStorage.getItem('customAccentColor') || '#eeeeee';
+
     picker.onClose = c => {
       customOption.removeAttribute('hidden');
       customOption.value = c.hex.substring(0, c.hex.length - 2);
@@ -88,7 +85,9 @@ document.addEventListener(
       }
     };
 
-    $courseInput.addEventListener('change', e => {
+    const isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
+
+    $courseInput.addEventListener('change', () => {
       if (isMobile && JSON.parse(localStorage.getItem('showConfirmationModal'))) {
         const selectedOption = document.querySelector(
           `#courses-datalist option[value='${$courseInput.value}']`
@@ -118,6 +117,8 @@ document.addEventListener(
         }
       }
     });
+
+    const searchParams = new URLSearchParams(window.location.search);
 
     if (searchParams.has('code')) {
       displayElement($selectWindow, false);
