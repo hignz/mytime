@@ -80,19 +80,7 @@ module.exports = {
     }
     throw new Error('Bad Hex');
   },
-  animateCSS: (element, animationName, callback) => {
-    const node = document.querySelector(element);
-    node.classList.add('animated', animationName, 'faster');
 
-    function handleAnimationEnd() {
-      node.classList.remove('animated', animationName);
-      node.removeEventListener('animationend', handleAnimationEnd);
-
-      if (typeof callback === 'function') callback();
-    }
-
-    node.addEventListener('animationend', handleAnimationEnd);
-  },
   createLineChart: (classes, chart) => {
     const classesPerDay = classes.map(c => c.length);
 
