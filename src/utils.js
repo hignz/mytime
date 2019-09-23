@@ -26,7 +26,7 @@ module.exports = {
     fetch(`https://itsligo-utils.herokuapp.com/api/courses?college=${index}`)
       .then(response => response.json())
       .then(json => {
-        console.time('getCourses()');
+        // console.time('getCourses()');
         document.getElementById('loader').style.display = 'none';
         const dataList = document.getElementById('courses-datalist');
         dataList.innerHTML = '';
@@ -42,7 +42,7 @@ module.exports = {
         dataList.append(frag);
 
         if (typeof callback === 'function') callback();
-        console.timeEnd('getCourses()');
+        // console.timeEnd('getCourses()');
       })
       .catch(error => {
         console.error(error);
@@ -92,5 +92,42 @@ module.exports = {
     }
 
     node.addEventListener('animationend', handleAnimationEnd);
+  },
+  createLineChart: (classes, chart) => {
+    const classesPerDay = classes.map(c => c.length);
+
+    const data = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      series: [classesPerDay.slice(0, 5)]
+    };
+
+    const options = {
+      width: 400,
+      height: 175,
+      fullWidth: true,
+      axisX: { showGrid: false },
+      axisY: { showGrid: false },
+      high: Math.max(...classesPerDay) + 3,
+      low: 0
+    };
+
+    chart = new Chartist.Line('.ct-chart', data, options, [
+      [
+        'screen and (max-width: 480px)',
+        {
+          width: 275,
+          chartPadding: {
+            left: -10
+          }
+        }
+      ]
+    ]);
+  },
+
+  clearCourseInfoModal: () => {
+    document.getElementById('courseinfo-college').innerHTML = '';
+    document.getElementById('courseinfo-semester').innerHTML = '';
+    document.getElementById('courseinfo-direct-link').innerHTML = '';
+    document.querySelector('.ct-chart').innerHTML = '';
   }
 };
