@@ -24,7 +24,7 @@ const checkForBreak = options => {
           : `Break: ${difference} minutes`;
       const freePeriod = a.cloneNode(true);
       freePeriod.innerHTML = message;
-      freePeriod.className = `list-group-item item freePeriod font-weight-bold bg-dark ${
+      freePeriod.className = `list-group-item item freePeriod card font-weight-bold ${
         isToday(i) && isClassOver(startTime, currentTime) ? 'text-muted' : 'text--green'
       }`;
       if (collegeIndex === '0') {
@@ -132,7 +132,7 @@ export function createTimetable(options, callback) {
               ${room.split('-')[0]}${room.split('-')[1] ? ` - ${room.split('-')[1]}` : ''}<br>
               ${currClass.teacher}`;
             pClone.classList.add('mb-0');
-            classEntry.className = `list-group-item item bg-dark text-white`;
+            classEntry.className = `list-group-item item card text-white`;
             if (isToday(i)) {
               classEntry.className += ` ${
                 isClassNow(currClass.startTime, currClass.endTime, currentTime)
@@ -158,7 +158,7 @@ export function createTimetable(options, callback) {
           summary.innerHTML = `Classes: ${json.data[i].length} &emsp; Start: ${
             json.data[i][0].startTime
           } &emsp; Finish: ${json.data[i][json.data[i].length - 1].endTime}`;
-          summary.classList.add('text-muted', 'list-group-item', 'item', 'bg-dark');
+          summary.classList.add('text-muted', 'list-group-item', 'item', 'card');
           currentCollapse.appendChild(summary);
 
           if (typeof callback === 'function') callback();

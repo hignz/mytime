@@ -22,6 +22,13 @@
       crossorigin="anonymous" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nosifer&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Butcherman&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Frijole&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Mystery+Quest&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Eater&display=swap" rel="stylesheet">
+
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=zX7rAqYdW5">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=zX7rAqYdW5">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=zX7rAqYdW5">
@@ -142,7 +149,7 @@
       <div id="timetable-window" style="display: none">
         <div class="row mt-3 mb-3">
           <div class="col-2">
-            <a id="backBtn" data-toggle="tooltip" class="ml-1" title="Back">
+            <a id="backBtn" data-toggle="tooltip" class="ml-1 float-left pt-1" title="Back">
               <i class="fas fa-arrow-left"></i>
             </a>
           </div>
@@ -159,8 +166,8 @@
           </div>
           <div class="col-2">
             <div class="dropdown dropleft">
-                <a class="btn dropdown-toggle text-center float-right p-0 pr-1" title="More" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v float-right"></i>
+                <a class="btn dropdown-toggle text-center float-right p-0 mr-2 pt-1" title="More" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-v float-right"></i>
                 </a>
               
                 <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuLink">
@@ -280,13 +287,17 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
           <div class="modal-header">
-            <h5 class="modal-title text--accent font-weight-bold">Free rooms</h5>
+            <h5 class="modal-title text--accent font-weight-bold">Study Rooms</h5>
             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p class="text-white">Once I stop procrastinating, this window will show free rooms during your break.</p>
+            <a href="https://libreserve.itsligo.ie/Web/schedule.php" class="text--accent" target="_blank" rel="noopener">
+              <button class="btn btn-outline">
+                Book a room
+              </button>
+            </a>
           </div>
         </div>
       </div>
@@ -329,23 +340,22 @@
               <div class="input-group">
                   <select id="colorPicker" class="form-control custom-select select-outline bg--dark text-white">
                     <option value="#56b6c2">Foundation Blue</option>
-                    <option value="#F4E9D8">Off White</option>
-                    <option value="#00bb8b">Green</option>
+                    <option value="#EDF2F4">Off White</option>
+                    <option value="#00bb8b">Classic Green</option>
                     <option value="#e06c75">Coral</option>
-                    <option value="#61afef">Maliblu</option>
+                    <option value="#73E2A7">Light Green</option>
                     <option value="#c678dd">Purple</option>
                     <option value="#0FA3B1">Cyan</option>
                     <option value="#FF70A6">Lavish</option>
                     <option value="#FF9770">Atomic Tangerine</option>
-                    <option value="#E9FF70">Highlighter</option>
+                    <option value="#E2F89C">Highlighter</option>
                     <option id="customOption" value="#eeeeee">Custom</option>
                   </select>
                   <div class="input-group-append" id="parent">
                     <button class="btn btn-outline" type="button">Custom</button>
                   </div>
                 </div>
-                <hr>
-                <div class="form-check mt-2">
+                <div class="form-check mt-4">
                     <input type="checkbox" class="form-check-input" id="showConfirmationModal">
                     <label class="form-check-label text-white" for="showConfirmationModal">Show Confirmation Modal</label>
                   </div>
@@ -368,8 +378,8 @@
       </div>
     </template>
     <template id="temp-main">
-      <div class="card card-container mb-2 bg-dark" id="card-main">
-        <div class="card-header bg-dark" id="heading">
+      <div class="card card-container mb-2" id="card-main">
+        <div class="card-header" id="heading">
           <h5 class="mb-0">
             <button
               type="button"

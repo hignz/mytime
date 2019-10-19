@@ -12,8 +12,8 @@
   --whiskey-color: #d19a66;
   --error-color: #f44747;
   --purple-color: #31e89f;
-  --background-color: #282c34;
-  --dark-background-color: #21252b;
+  --background-color: #383133;
+  --dark-background-color: #231f20;
   --accent: #56b6c2;
   --accent-rgba: 86, 182, 194, 0.75;
 }
@@ -24,6 +24,9 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   font-family: 'Roboto', sans-serif;
+  /* font-family: 'Butcherman', cursive; */
+  /* font-family: 'Creepster', cursive; */
+
   background-color: var(--dark-background-color);
 }
 
@@ -79,6 +82,13 @@ a:not([href]):not([tabindex]):hover{
   color: red; 
 }
 
+.card {
+  background-color: var(--background-color);
+  border: none;
+  border: 1px solid var(--background-color);
+  border-radius: 0.3%;
+}
+
 #colleges {
   border: 1px solid var(--light-white-color);
 }
@@ -96,7 +106,14 @@ footer {
 
 .brand {
   margin-bottom: 30px;
-  font-size: 38px;
+  font-size: 72px;
+  /* font-family: 'Nosifer', cursive; */
+  /* font-family: 'Butcherman', cursive; */
+  /* font-family: 'Creepster', cursive; */
+  /* font-family: 'Frijole', cursive; */
+  /* font-family: 'Mystery Quest', cursive; */
+  font-family: 'Eater', cursive;
+  color: #eb6123;
 }
 
 input::-webkit-calendar-picker-indicator {
@@ -125,8 +142,12 @@ summary:focus {
   -webkit-box-shadow: none !important;
 }
 
-.card-header{
+.card-header  {
   padding: 2px;
+}
+
+.card-header h5 {
+  font-family: 'Eater', cursive;
 }
 
 #select-window {
@@ -169,6 +190,7 @@ select option {
 
 #course-title {
   color: var(--accent);
+  font-family: 'Eater', cursive;
 }
 
 .loader {
@@ -192,11 +214,6 @@ hr {
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 188, 140, 0), rgba(var(--accent-rgba)), rgba(0, 188, 140, 0));
-}
-
-.card {
-  border: 1px solid var(--accent);
-  border-radius: 0.3%;
 }
 
 #backBtn {

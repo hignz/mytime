@@ -46,6 +46,8 @@ document.addEventListener(
 
     let collegeIndex = $colleges.options[$colleges.selectedIndex].value;
 
+    localStorage.setItem('accentColor', '#eb6123');
+    localStorage.setItem('accentColorRgba', '235,97,35');
     document.documentElement.style.setProperty('--accent', localStorage.getItem('accentColor'));
     document.documentElement.style.setProperty(
       '--accent-rgba',
