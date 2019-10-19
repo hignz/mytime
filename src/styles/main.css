@@ -24,9 +24,6 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   font-family: 'Roboto', sans-serif;
-  /* font-family: 'Butcherman', cursive; */
-  /* font-family: 'Creepster', cursive; */
-
   background-color: var(--dark-background-color);
 }
 
@@ -107,11 +104,6 @@ footer {
 .brand {
   margin-bottom: 30px;
   font-size: 72px;
-  /* font-family: 'Nosifer', cursive; */
-  /* font-family: 'Butcherman', cursive; */
-  /* font-family: 'Creepster', cursive; */
-  /* font-family: 'Frijole', cursive; */
-  /* font-family: 'Mystery Quest', cursive; */
   font-family: 'Eater', cursive;
   color: #eb6123;
 }
