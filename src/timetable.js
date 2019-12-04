@@ -34,11 +34,6 @@ const checkForBreak = (startTime, lastEndTime, currentCollapse, currentTime, i, 
         btn.value = `${lastEndTime}-${startTime}`;
         btn.setAttribute('data-toggle', 'modal');
         btn.setAttribute('data-target', '#roominfo-modal');
-
-        // btn.addEventListener('click', e => {
-        //   const modal = document.getElementById('roominfo-modal');
-        //   console.log(modal);
-        // });
         freePeriod.append(btn);
       }
       currentCollapse.append(freePeriod);
@@ -54,6 +49,17 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
     .then(json => {
       // console.time('timetable');
       document.getElementById('loader').style.display = 'none';
+
+      console.log([...new Set(json.data.flat().map(el => el.name))]);
+      const arr = [...new Set(json.data.flat().map(el => el.name))];
+
+      console.log(
+        arr.map(el => ({
+          name: el,
+          count: json.data.flat().filter(elm => elm.name === el).length
+        }))
+      );
+
       if (json.empty || !json.data) {
         document.getElementById('timetable-window').style.display = 'block';
         document.getElementById('course-title').textContent =
