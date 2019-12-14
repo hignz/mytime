@@ -1,7 +1,7 @@
 {
   "name": "myterm",
   "version": "1.0.1",
-  "description": "Frontend to view timetables for IT Sligo and Athlone IT",
+  "description": "View timetables for IT Sligo and Limerick IT on a blazingly quick and responsive frontend.",
   "main": "index.js",
   "scripts": {
     "build": "node_modules\\.bin\\webpack",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hignz/mytime.git"
+    "url": "git+https://github.com/hignz/myterm.git"
   },
   "author": "hignz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hignz/mytime/issues"
+    "url": "https://github.com/hignz/myterm/issues"
   },
-  "homepage": "https://github.com/hignz/mytime#readme",
+  "homepage": "https://github.com/hignz/myterm#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
