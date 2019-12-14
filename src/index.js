@@ -101,23 +101,6 @@ document.addEventListener(
       }
     });
 
-    const brandLetters = Array.from(document.querySelectorAll('.brand'));
-
-    document.querySelector('.brand-container').addEventListener('click', e => {
-      const node = e.target;
-      if (node.classList.contains('inline-block')) {
-        if (node.classList.contains('vibrate-1')) {
-          node.classList.remove('vibrate-1');
-          return;
-        }
-        node.classList.add('vibrate-1');
-        const allSelected = brandLetters.every(l => l.classList.contains('vibrate-1'));
-        if (allSelected) {
-          document.querySelector('.brand-container').classList.add('tracking-out-expand-fwd-top');
-        }
-      }
-    });
-
     if (searchParams.has('code')) {
       displayElement($selectWindow, false);
       displayElement($footer, false);
