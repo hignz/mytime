@@ -40,7 +40,6 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
   )
     .then(response => response.json())
     .then(json => {
-      // console.time('timetable');
       document.getElementById('loader').style.display = 'none';
 
       if (json.empty || !json.data) {
@@ -129,9 +128,6 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
 
             classEntry.appendChild(pClone);
             currentCollapse.appendChild(classEntry);
-            // if (isToday(i) && isClassNow(currClass.startTime, currClass.endTime, currentTime)) {
-            //   currentClass = currClass;
-            // }
           }
 
           summary = a.cloneNode(true);
@@ -144,17 +140,6 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
           if (typeof callback === 'function') callback();
         }
       }
-
-      // if (currentClass) {
-      //   const card = document.querySelector('#temp-next-class');
-      //   const currentClassClone = document.importNode(card.content, true);
-      //   currentClassClone.querySelector('#card-header span').innerHTML = `You have class now!`;
-      //   currentClassClone.querySelector('#card-title').innerHTML = `${currentClass.name}`;
-      //   currentClassClone.querySelector('#card-text').innerHTML = `From ${
-      //     currentClass.startTime
-      //   } to ${currentClass.endTime} in room ${currentClass.room}`;
-      //   timetable.append(currentClassClone);
-      // }
       timetable.append(frag);
 
       const arr = [...new Set(json.data.flat().map(el => el.name))];
