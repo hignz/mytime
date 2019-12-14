@@ -1,11 +1,4 @@
-import {
-  getPlural,
-  isClassApporaching,
-  isClassNow,
-  isClassOver,
-  isToday,
-  createLineChart
-} from './utils';
+import { getPlural, isClassApporaching, isClassNow, isClassOver, isToday } from './utils';
 
 const a = document.createElement('a');
 const p = document.createElement('p');
@@ -50,16 +43,6 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       // console.time('timetable');
       document.getElementById('loader').style.display = 'none';
 
-      console.log([...new Set(json.data.flat().map(el => el.name))]);
-      const arr = [...new Set(json.data.flat().map(el => el.name))];
-
-      console.log(
-        arr.map(el => ({
-          name: el,
-          count: json.data.flat().filter(elm => elm.name === el).length
-        }))
-      );
-
       if (json.empty || !json.data) {
         document.getElementById('timetable-window').style.display = 'block';
         document.getElementById('course-title').textContent =
@@ -69,7 +52,7 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       }
       document.title = `${json.title || json.courseCode}`;
       document.getElementById('courseinfo-direct-link').href = json.url;
-      document.getElementById('courseinfo-college').innerHTML = json.college;
+      document.getElementById('courseinfo-direct-link').innerHTML = json.college;
       document.getElementById('courseinfo-semester').innerHTML = `Semester: ${parseInt(
         json.semester,
         0
@@ -173,8 +156,25 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       //   timetable.append(currentClassClone);
       // }
       timetable.append(frag);
-      createLineChart(json.data);
-      // console.timeEnd('timetable');
+
+      const arr = [...new Set(json.data.flat().map(el => el.name))];
+
+      const classTotals = arr
+        .map(el => ({
+          name: el,
+          count: json.data.flat().filter(elm => elm.name === el).length
+        }))
+        .sort((a, b) => b.count - a.count);
+
+      const courseBreakdown = document.getElementById('course-breakdown');
+
+      courseBreakdown.innerHTML = '';
+
+      classTotals.forEach(el => {
+        courseBreakdown.innerHTML += `<tr><th>${el.name}</th><th style="text-align:center">${
+          el.count
+        }</th></tr>`;
+      });
     })
     .catch(error => {
       document.getElementById('loader').style.display = 'none';
