@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   optimization: {
@@ -64,6 +65,7 @@ module.exports = {
     new InjectManifest({
       swSrc: './src/src-sw.js',
       swDest: 'sw.js'
-    })
+    }),
+    new CopyWebpackPlugin([{ from: 'src/assets', to: 'assets' }])
   ]
 };
