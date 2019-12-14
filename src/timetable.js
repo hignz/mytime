@@ -171,9 +171,9 @@ export function createTimetable(courseCode, collegeIndex, semester, callback) {
       courseBreakdown.innerHTML = '';
 
       classTotals.forEach(el => {
-        courseBreakdown.innerHTML += `<tr><th>${el.name}</th><th style="text-align:center">${
+        courseBreakdown.innerHTML += `<tr><td>${el.name}</td><td style="text-align:center">${
           el.count
-        }</th></tr>`;
+        }</td></tr>`;
       });
     })
     .catch(error => {
