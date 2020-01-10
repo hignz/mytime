@@ -1,9 +1,11 @@
+import './datalist-polyfill.min';
+import './styles/bootstrap.min.css';
+import './styles/animate.css';
+import './styles/main.css';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/alert';
-import './datalist-polyfill.min';
-import './styles/main.css';
 import Picker from 'vanilla-picker';
 import { createTimetable } from './timetable';
 import {
@@ -22,7 +24,7 @@ window.addEventListener('beforeinstallprompt', e => {
 
 document.addEventListener(
   'DOMContentLoaded',
-  () => {
+  async () => {
     const $loader = document.getElementById('loader');
     const $timetableWindow = document.getElementById('timetable-window');
     const $selectWindow = document.getElementById('select-window');
@@ -96,7 +98,7 @@ document.addEventListener(
 
         if (selectedOption !== null) {
           $confirmationModal.querySelector('#content').innerHTML = selectedOption.value;
-          document.getElementById('btnOpenModal').click();
+          document.getElementById('btnHidden').click();
         }
       }
     });
@@ -141,7 +143,6 @@ document.addEventListener(
 
       displayElement($loader, true);
       createTimetable(courseCode, collegeIndex, semester || '');
-      document.querySelector('.brand-container').classList.remove('tracking-out-expand-fwd-top');
     };
 
     const BackButtonClick = () => {
@@ -222,7 +223,7 @@ document.addEventListener(
     document.getElementById('confirmationSearchBtn').addEventListener(
       'click',
       () => {
-        document.getElementById('btnOpenModal').click();
+        document.getElementById('btnHidden').click();
         searchButtonClick();
       },
       false

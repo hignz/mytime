@@ -26,15 +26,15 @@ module.exports = {
     fetch(`https://itsligo-utils.herokuapp.com/api/courses?college=${index}`)
       .then(response => response.json())
       .then(json => {
-        // console.time('getCourses()');
         document.getElementById('loader').style.display = 'none';
         const dataList = document.getElementById('courses-datalist');
         dataList.innerHTML = '';
         const frag = document.createDocumentFragment();
         const opt = document.createElement('option');
+
         for (let i = 0; i < json.length; i += 1) {
           const cloneOpt = opt.cloneNode(true);
-          // cloneOpt.text = decodeURIComponent(json[i].course);
+          cloneOpt.text = decodeURIComponent(json[i].course);
           cloneOpt.value = json[i].title || json[i].course;
           cloneOpt.setAttribute('data-value', json[i].course);
           frag.append(cloneOpt);
@@ -42,7 +42,6 @@ module.exports = {
         dataList.append(frag);
 
         if (typeof callback === 'function') callback();
-        // console.timeEnd('getCourses()');
       })
       .catch(error => {
         console.error(error);
@@ -125,9 +124,7 @@ module.exports = {
   },
 
   clearCourseInfoModal: () => {
-    document.getElementById('courseinfo-college').innerHTML = '';
     document.getElementById('courseinfo-semester').innerHTML = '';
     document.getElementById('courseinfo-direct-link').innerHTML = '';
-    document.querySelector('.ct-chart').innerHTML = '';
   }
 };
