@@ -1,3 +1,5 @@
+const path = require('path');
+const glob = require('glob');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
@@ -5,6 +7,9 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+
+// process.traceDeprecation = true
 
 module.exports = {
   optimization: {
@@ -61,6 +66,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`, { nodir: true }),
+      keyframes: true,
+      fontFace: true
     }),
     new InjectManifest({
       swSrc: './src/src-sw.js',
